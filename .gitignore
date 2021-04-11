@@ -4,3 +4,5 @@ bin
 obj
 *.db
 Logs
+appsettings.json
+**/appsettings.json
