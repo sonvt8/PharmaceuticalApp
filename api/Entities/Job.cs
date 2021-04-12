@@ -10,7 +10,7 @@ namespace api.Entities
         public int Id { get; set; }
         public string JobName { get; set; }
         public string Location { get; set; }
-        public string MyProperty { get; set; }
+        public string Description { get; set; }
         public int Salary { get; set; }
         public DateTime Deadline { get; set; }
         public int Quantity { get; set; }

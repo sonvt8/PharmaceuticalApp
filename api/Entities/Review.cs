@@ -15,7 +15,7 @@ namespace api.Entities
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Decription { get; set; }
+        public string Description { get; set; }
         public int Rating { get; set; }
         public bool IsApproved { get; set; }
 
