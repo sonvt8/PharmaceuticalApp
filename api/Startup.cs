@@ -33,6 +33,7 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddCors();
             services.AddControllers();
             services.AddDbContext<DataContext>(options =>
