@@ -1,4 +1,5 @@
 ﻿using api.Data;
+using api.Extensions;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -30,5 +31,10 @@ namespace api.Entities
         public ICollection<Photo> Photos { get; set; }
         public ICollection<CandidateJob> CandidateJobs { get; set; }
         public ICollection<AppUserRole> UserRoles { get; set; }
+
+        public int GetAge()
+        {
+            return DateOfBirth.CalculateAge();
+        }
     }
 }
