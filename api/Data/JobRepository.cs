@@ -1,6 +1,7 @@
 ﻿using api.Entities;
 using api.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,9 +23,9 @@ namespace api.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<Job>> GetJobsAsync()
+        public async Task<IEnumerable<Job>> GetJobsAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.Jobs.ToListAsync();
         }
 
         public void Update(Job job)
