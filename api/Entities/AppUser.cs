@@ -11,21 +11,13 @@ namespace api.Entities
 {
     public class AppUser : IdentityUser<int>
     {
-        [Required]
         public string FullName { get; set; }
-        [Required]
         public string Gender { get; set; }
-        [Required]
         public DateTime DateOfBirth { get; set; }
-        [Required]
         public string Address { get; set; }
-        [Required]
         public string City { get; set; }
-        [Required]
         public string State { get; set; }
-        [Required]
         public string PostalCode { get; set; }
-        [Required]
         public string Country { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
