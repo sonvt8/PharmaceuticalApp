@@ -15,5 +15,7 @@ namespace api.Entities
         public DateTime Deadline { get; set; }
         public int Quantity { get; set; }
         public bool IsAvailable { get; set; }
+
+        public ICollection<CandidateJob> CandidateJobs { get; set; }
     }
 }

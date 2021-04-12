@@ -23,5 +23,26 @@ namespace api.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<CandidateJob>()
+                        .HasKey(cj => new { cj.AppUserId, cj.JobId });
+            builder.Entity<AppUser>()
+                .HasMany(cj => cj.CandidateJobs)
+                .WithOne(u => u.AppUser)
+                .HasForeignKey(ur => ur.AppUserId)
+                .IsRequired();
+
+            builder.Entity<Job>()
+                .HasMany(cj => cj.CandidateJobs)
+                .WithOne(u => u.Job)
+                .HasForeignKey(j => j.JobId)
+                .IsRequired();
+
+            
+        }
+
     }
 }
