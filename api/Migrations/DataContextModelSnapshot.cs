@@ -142,19 +142,9 @@ namespace api.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles");
                 });
@@ -522,25 +512,17 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Data.AppUserRole", b =>
                 {
-                    b.HasOne("api.Data.AppRole", null)
-                        .WithMany()
+                    b.HasOne("api.Data.AppRole", "Role")
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("api.Data.AppRole", "Role")
+                    b.HasOne("api.Entities.AppUser", "User")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId1");
-
-                    b.HasOne("api.Entities.AppUser", null)
-                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("api.Entities.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("Role");
 
@@ -606,6 +588,8 @@ namespace api.Migrations
                     b.Navigation("CandidateJobs");
 
                     b.Navigation("Photos");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("api.Entities.Job", b =>

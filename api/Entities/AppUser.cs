@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using api.Data;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,5 +29,6 @@ namespace api.Entities
 
         public ICollection<Photo> Photos { get; set; }
         public ICollection<CandidateJob> CandidateJobs { get; set; }
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 }
