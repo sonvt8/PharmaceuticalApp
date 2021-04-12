@@ -16,6 +16,7 @@ namespace api.Data
         public DataContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<CandidateJob> CandidateJobs { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Contact> Contacts { get; set; }

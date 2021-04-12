@@ -262,6 +262,24 @@ namespace api.Migrations
                     b.ToTable("CandidateJobs");
                 });
 
+            modelBuilder.Entity("api.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CategoryDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("api.Entities.Contact", b =>
                 {
                     b.Property<int>("Id")
@@ -304,6 +322,9 @@ namespace api.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -326,6 +347,8 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("FeedBacks");
                 });
@@ -404,6 +427,9 @@ namespace api.Migrations
                     b.Property<string>("CapsuleSize")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Dies")
                         .HasColumnType("int");
 
@@ -438,6 +464,8 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -551,6 +579,17 @@ namespace api.Migrations
                     b.Navigation("Job");
                 });
 
+            modelBuilder.Entity("api.Entities.FeedBack", b =>
+                {
+                    b.HasOne("api.Entities.AppUser", "AppUser")
+                        .WithMany("FeedBacks")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("api.Entities.Photo", b =>
                 {
                     b.HasOne("api.Entities.AppUser", "AppUser")
@@ -568,6 +607,17 @@ namespace api.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("api.Entities.Product", b =>
+                {
+                    b.HasOne("api.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("api.Entities.Review", b =>
@@ -590,9 +640,16 @@ namespace api.Migrations
                 {
                     b.Navigation("CandidateJobs");
 
+                    b.Navigation("FeedBacks");
+
                     b.Navigation("Photos");
 
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("api.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("api.Entities.Job", b =>

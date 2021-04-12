@@ -22,5 +22,8 @@ namespace api.Entities
 
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Review> Reviews { get; set; }
+
+        public Category Category { get; set; }
+        public int CategoryId { get; set; }
     }
 }

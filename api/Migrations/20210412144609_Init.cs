@@ -57,6 +57,20 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Contacts",
                 columns: table => new
                 {
@@ -71,26 +85,6 @@ namespace api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contacts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FeedBacks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Company = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FeedBacks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,30 +104,6 @@ namespace api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Jobs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OutPut = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CapsuleSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MachineDimension = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShippingWeight = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModelNumber = table.Column<int>(type: "int", nullable: false),
-                    Dies = table.Column<int>(type: "int", nullable: false),
-                    MaxPressure = table.Column<int>(type: "int", nullable: false),
-                    MaxDiameter = table.Column<int>(type: "int", nullable: false),
-                    MaxDepth = table.Column<int>(type: "int", nullable: false),
-                    ProductionCapacity = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MachineSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NetWeight = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -238,6 +208,64 @@ namespace api.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FeedBacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Company = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AppUserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FeedBacks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FeedBacks_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OutPut = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CapsuleSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MachineDimension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShippingWeight = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModelNumber = table.Column<int>(type: "int", nullable: false),
+                    Dies = table.Column<int>(type: "int", nullable: false),
+                    MaxPressure = table.Column<int>(type: "int", nullable: false),
+                    MaxDiameter = table.Column<int>(type: "int", nullable: false),
+                    MaxDepth = table.Column<int>(type: "int", nullable: false),
+                    ProductionCapacity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MachineSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NetWeight = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -364,6 +392,11 @@ namespace api.Migrations
                 column: "JobId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FeedBacks_AppUserId",
+                table: "FeedBacks",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Photos_AppUserId",
                 table: "Photos",
                 column: "AppUserId");
@@ -372,6 +405,11 @@ namespace api.Migrations
                 name: "IX_Photos_ProductId",
                 table: "Photos",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ProductId",
@@ -422,6 +460,9 @@ namespace api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }
