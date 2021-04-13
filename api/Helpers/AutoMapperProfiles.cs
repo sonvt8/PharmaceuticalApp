@@ -14,6 +14,8 @@ namespace api.Helpers
         {
             CreateMap<Category, CategoryDto>();
             CreateMap<CategoryDto, Category>();
+            CreateMap<Review, ReviewDto>();
+            CreateMap<ReviewDto, Review>();
         }
     }
 }
