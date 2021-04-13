@@ -1,6 +1,7 @@
 ﻿using api.Entities;
 using api.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,19 +18,34 @@ namespace api.Data
             _mapper = mapper;
         }
 
-        public Task<FeedBack> GetFeedBackByIdAsync(int id)
+        public void AddContact(Contact contact)
         {
-            throw new System.NotImplementedException();
+            _context.Contacts.Add(contact);
         }
 
-        public Task<IEnumerable<FeedBack>> GetFeedBacksAsync()
+        public async Task<bool> ContactExists(int contactId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Contacts.AnyAsync(c => c.Id == contactId);
         }
 
-        public void Update(FeedBack feedBack)
+        public void DeleteContact(Contact contact)
         {
-            throw new System.NotImplementedException();
+            _context.Contacts.Remove(contact);
+        }
+
+        public async Task<Contact> GetContactByIdAsync(int id)
+        {
+            return await _context.Contacts.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Contact>> GetContactsAsync()
+        {
+            return await _context.Contacts.ToListAsync();
+        }
+
+        public void UpdateContact(Contact contact)
+        {
+            _context.Entry(contact).State = EntityState.Modified;
         }
     }
 }

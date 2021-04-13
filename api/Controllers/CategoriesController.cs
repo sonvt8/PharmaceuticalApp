@@ -40,9 +40,6 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCategory(CategoryDto categoryDto)
         {
-            if (categoryDto == null)
-                return BadRequest("data cannot be empty");
-
             var categories = await _unitOfWork.CategoryRepository.GetCategoriesAsync();
 
             foreach (var category in categories)
@@ -52,32 +49,45 @@ namespace api.Controllers
                     return BadRequest("Category Name already exists");
                 }
             }
-
-            Category categoryCreate = new Category();
-
-            _mapper.Map(categoryDto, categoryCreate);
+            var categoryCreate = _mapper.Map<Category>(categoryDto);
 
             _unitOfWork.CategoryRepository.AddCategory(categoryCreate);
 
-            if (await _unitOfWork.Complete()) return CreatedAtAction("GetCategorById", new { categoryId = categoryDto.Id }, categoryDto);
+            await _unitOfWork.Complete();
 
+            var categoryRead = _mapper.Map<CategoryDto>(categoryCreate);
 
-            return BadRequest("Failed to update user");
+            return CreatedAtAction("GetCategorById", new { categoryId = categoryRead.Id }, categoryRead);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateCategory(int id, CategoryDto categoryDto)
+        public async Task<ActionResult> UpdateCategory(int id, Category category)
         {
-
-            var category = await _unitOfWork.CategoryRepository.GetCategoryByIdAsync(id);
-
-            if (category == null) return NotFound();
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
+            if (!await _unitOfWork.CategoryRepository.CategoryExists(id)) return NotFound();
 
             _unitOfWork.CategoryRepository.UpdateCategory(category);
 
             if (await _unitOfWork.Complete()) return NoContent();
 
             return BadRequest("Failed to update category");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCategory(int id)
+        {
+            var category = await _unitOfWork.CategoryRepository.GetCategoryByIdAsync(id);
+
+            if (category == null) return NotFound();
+
+            _unitOfWork.CategoryRepository.DeleteCategory(category);
+
+            if (await _unitOfWork.Complete()) return NoContent();
+
+            return BadRequest("Failed to delete category");
         }
     }
 }

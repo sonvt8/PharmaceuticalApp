@@ -6,8 +6,11 @@ namespace api.Interfaces
 {
     public interface IContactRepository
     {
-        void Update(FeedBack feedBack);
-        Task<IEnumerable<FeedBack>> GetFeedBacksAsync();
-        Task<FeedBack> GetFeedBackByIdAsync(int id);
+        void DeleteContact(Contact contact);
+        void AddContact(Contact contact);
+        void UpdateContact(Contact contact);
+        Task<IEnumerable<Contact>> GetContactsAsync();
+        Task<Contact> GetContactByIdAsync(int id);
+        Task<bool> ContactExists(int contactId);
     }
 }
