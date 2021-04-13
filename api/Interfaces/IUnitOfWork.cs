@@ -13,6 +13,7 @@ namespace api.Interfaces
         IProductRepository ProductRepository { get; }
         IContactRepository ContactRepository { get; }
         IFeedBackRepository FeedBackRepository { get; }
+        ICategoryRepository CategoryRepository { get; }
         Task<bool> Complete();
     }
 }

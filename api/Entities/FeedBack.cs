@@ -16,6 +16,7 @@ namespace api.Entities
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Comments { get; set; }
+        public bool IsApprove { get; set; }
 
         public AppUser AppUser { get; set; }
         public int AppUserId { get; set; }

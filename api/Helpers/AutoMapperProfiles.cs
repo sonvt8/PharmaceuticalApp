@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using api.DTOs;
+using api.Entities;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,8 @@ namespace api.Helpers
     {
         public AutoMapperProfiles()
         {
-            
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CategoryDto, Category>();
         }
     }
 }

@@ -29,6 +29,8 @@ namespace api.Data
 
         public IFeedBackRepository FeedBackRepository => new FeedBackRepository(_context, _mapper);
 
+        public ICategoryRepository CategoryRepository => new CategoryRepository(_context, _mapper);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
