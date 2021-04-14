@@ -1,7 +1,11 @@
-﻿using api.Entities;
+﻿using api.DTOs;
+using api.Entities;
 using api.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace api.Data
@@ -17,24 +21,44 @@ namespace api.Data
            _mapper = mapper;
         }
 
-        public Task<AppUser> GetUserByIdAsync(int id)
+        public void DeleteUser(AppUser user)
         {
-            throw new System.NotImplementedException();
+            _context.Users.Remove(user);
         }
 
-        public Task<AppUser> GetUserByUsernameAsync(string username)
+        public async Task<MemberDto> GetMemberAsync(string username)
         {
-            throw new System.NotImplementedException();
+            return await _context.Users
+                .Where(x => x.UserName == username)
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
         }
 
-        public Task<IEnumerable<AppUser>> GetUsersAsync()
+        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.Users
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
-        public void Update(AppUser user)
+        public async Task<AppUser> GetUserByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Users.FindAsync(id);
+        }
+
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users.FindAsync(username);
+        }
+
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        public void UpdateUser(AppUser user)
+        {
+            _context.Entry(user).State = EntityState.Modified;
         }
     }
 }

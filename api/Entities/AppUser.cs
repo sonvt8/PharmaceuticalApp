@@ -19,6 +19,7 @@ namespace api.Entities
         public string State { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
+        public bool IsEmployee { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
         public ICollection<FeedBack> FeedBacks { get; set; }
