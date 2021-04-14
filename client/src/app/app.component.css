@@ -51,6 +51,7 @@ h2.categories__title {
 
 .categories {
     margin-top: 6rem;
+    margin-bottom: 5rem;
 }
 
 .category img {
@@ -66,4 +67,19 @@ h2.categories__title {
     justify-content: center;
     text-align: center;
     padding: 60px 20px;
+}
+
+.clients hr.divider {
+    margin-bottom: 2rem;
+}
+
+.client img {
+    width: 200px;
+    height: 200px;
+    filter: grayscale(100%);
+    transition: 0.5s;
+}
+
+.client img:hover {
+    filter: grayscale(0);
 }
