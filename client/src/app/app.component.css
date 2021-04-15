@@ -83,3 +83,52 @@ h2.categories__title {
 .client img:hover {
     filter: grayscale(0);
 }
+
+@media (min-width: 992px) {
+    .locations.container {
+        max-width: 1250px;
+    }
+}
+
+.locations {
+    margin-bottom: 4rem;
+}
+
+.location img {
+    width: 80px;
+    height: 80px;
+}
+
+.location {
+    padding: 0 0.5rem;
+}
+
+.location h5 {
+    margin-top: 0.5rem;
+}
+
+.location p {
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.location p.tel {
+    color: #0043ca;
+}
+
+footer {
+    background-color: #343c4d;
+    color: white;
+}
+
+footer .container-fluid {
+    padding: 50px 20px;
+}
+
+footer img {
+    width: 40px;
+}
+
+footer .social-icons a {
+    padding-right: 1.2rem;
+}
