@@ -14,6 +14,6 @@ namespace api.Entities
         public int Quantity { get; set; }
         public bool IsAvailable { get; set; }
 
-        public ICollection<Candidate> Candidates { get; set; }
+        public ICollection<AppUser> AppUsers { get; set; }
     }
 }

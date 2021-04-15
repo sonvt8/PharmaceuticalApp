@@ -9,17 +9,22 @@ namespace api.Interfaces
 {
     public interface ICandidateRepository
     {
-        void AddCandidate(Candidate candidate);
-        void UpdateBook(Candidate candidate);
-        void DeleteBook(Candidate candidate);
+        void AddCandidate(AppUser user);
+        void UpdateBook(AppUser user);
+        void DeleteBook(AppUser user);
 
         Task<IEnumerable<CandidateDto>> GetCandidatesDtoAsync();
-        Task<CandidateDto> GetCandidateDtoByIdAsync(int candidateId);
-        Task<IEnumerable<CandidateDto>> GetCandidatesDtoByJobAsync(string jobName);
+        Task<CandidateDto> GetCandidateDtoByIdAsync(int userId);
 
-        Task<IEnumerable<Candidate>> GetCandidatesAsync();
-        Task<Candidate> GetCandidateByIdAsync(int candidateId);
+        Task<IEnumerable<CandidateDto>> GetCandidatesDtoIsApprovedAsync();
+        Task<CandidateDto> GetCandidateDtoByIdIsApprovedAsync(int userId);
+
+        Task<IEnumerable<CandidateDto>> GetCandidatesDtoByJobAsync(int jobId);
+
         Task<bool> CandidateExists(int candidateId);
-        Task<IEnumerable<Candidate>> GetCandidatesByJobAsync(string jobName);
+
+        //Task<IEnumerable<Candidate>> GetCandidatesAsync();
+        //Task<Candidate> GetCandidateByIdAsync(int candidateId);
+        //Task<IEnumerable<Candidate>> GetCandidatesByJobAsync(int jobId);
     }
 }

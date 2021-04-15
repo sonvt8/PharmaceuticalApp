@@ -22,78 +22,73 @@ namespace api.Data
             _mapper = mapper;
         }
 
-        public void AddCandidate(Candidate candidate)
+        public void AddCandidate(AppUser user)
         {
-            _context.Candidates.Add(candidate);
+            _context.Users.Add(user);
         }
 
         public async Task<bool> CandidateExists(int candidateId)
         {
-            return await _context.Candidates.AnyAsync(c => c.Id == candidateId);
+            return await _context.Users.AnyAsync(c => c.Id == candidateId);
         }
 
-        public void DeleteBook(Candidate candidate)
+        public void DeleteBook(AppUser user)
         {
-            _context.Candidates.Remove(candidate);
+            _context.Users.Remove(user);
         }
 
-        public async Task<Candidate> GetCandidateByIdAsync(int candidateId)
+        public async Task<CandidateDto> GetCandidateDtoByIdAsync(int userId)
         {
-            return await _context.Candidates
+            return await _context.Users
                 .Include(p => p.Photos)
                 .Include(j => j.Job)
-                .SingleOrDefaultAsync(c => c.Id == candidateId);
-        }
-
-        public async Task<CandidateDto> GetCandidateDtoByIdAsync(int candidateId)
-        {
-            return await _context.Candidates
-                .Include(p => p.Photos)
-                .Include(j => j.Job)
-                .Where(x => x.Id == candidateId)
+                .Where(x => x.Id == userId)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Candidate>> GetCandidatesAsync()
+        public async Task<CandidateDto> GetCandidateDtoByIdIsApprovedAsync(int userId)
         {
-            return await _context.Candidates
+            return await _context.Users
                 .Include(p => p.Photos)
                 .Include(j => j.Job)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Candidate>> GetCandidatesByJobAsync(string jobName)
-        {
-            return await _context.Candidates
-                .Include(p => p.Photos)
-                .Include(j => j.Job)
-                .Where(j => j.Job.JobName.ToLower() == jobName)
-                .ToListAsync();
+                .Where(x => x.Id == userId && x.IsApproved == true)
+                .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<CandidateDto>> GetCandidatesDtoAsync()
         {
-            return await _context.Candidates
+            return await _context.Users
                 .Include(p => p.Photos)
                 .Include(j => j.Job)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<CandidateDto>> GetCandidatesDtoByJobAsync(string jobName)
+        public async Task<IEnumerable<CandidateDto>> GetCandidatesDtoByJobAsync(int jobId)
         {
-            return await _context.Candidates
+            return await _context.Users
                .Include(p => p.Photos)
                .Include(j => j.Job)
-               .Where(j => j.Job.JobName.ToLower() == jobName)
+               .Where(j => j.Job.Id == jobId)
                .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                .ToListAsync();
         }
 
-        public void UpdateBook(Candidate candidate)
+        public async Task<IEnumerable<CandidateDto>> GetCandidatesDtoIsApprovedAsync()
         {
-            _context.Entry(candidate).State = EntityState.Modified;
+            return await _context.Users
+                .Include(p => p.Photos)
+                .Include(j => j.Job)
+                .Where(u=>u.IsApproved==true)
+                .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public void UpdateBook(AppUser user)
+        {
+            _context.Entry(user).State = EntityState.Modified;
         }
     }
 }

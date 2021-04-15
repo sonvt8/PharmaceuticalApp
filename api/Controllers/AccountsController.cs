@@ -4,6 +4,7 @@ using api.Extensions;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,20 +20,25 @@ namespace api.Controllers
     {
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly IPhotoService _photoService;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
 
-        public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
+        public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, IPhotoService photoService, IUnitOfWork unitOfWork)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _tokenService = tokenService;
             _mapper = mapper;
+            _photoService = photoService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<AccountDto>> Register(RegisterDto registerDto)
         {
+
             if (await UserExist(registerDto.Email)) return BadRequest("Email is taken");
 
             var user = _mapper.Map<AppUser>(registerDto);
@@ -81,7 +87,7 @@ namespace api.Controllers
         }
 
         [Authorize]
-        public async Task<ActionResult> UpdateUser(UserUpdateDto userUpdateDto )
+        public async Task<ActionResult> UpdateUser(UserUpdateDto userUpdateDto)
         {
             var currentUser = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == User.GetUserId());
 
@@ -92,6 +98,44 @@ namespace api.Controllers
             if (result.Succeeded) return NoContent();
 
             return BadRequest("Failed to update user");
+        }
+
+        [HttpGet("{id}", Name = "GetUser")]
+        public async Task<ActionResult<UserDto>>GetUser(int id)
+        {
+            var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == id);
+            return _mapper.Map<UserDto>(user);
+        }
+
+        [Authorize]
+        [HttpPost("add-photo")]
+        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+        {
+
+            var user = await _unitOfWork.UserRepository.GetUserByIdAsync(User.GetUserId());
+
+            var result = await _photoService.AddPhotoAsync(file);
+
+            if (result.Error != null) return BadRequest(result.Error.Message);
+
+            var photo = new Photo
+            {
+                PhotoUrl = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+
+            if (user.Photos.Count == 0)
+            {
+                photo.IsMain = true;
+            }
+
+            user.Photos.Add(photo);
+
+            if (await _unitOfWork.Complete())
+            {
+                return CreatedAtRoute("GetUser", new { id = user.Id }, _mapper.Map<PhotoDto>(photo));
+            }
+            return BadRequest("Problem addding photo");
         }
     }
 }

@@ -22,11 +22,12 @@ namespace api.Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
-        public DbSet<Candidate> Candidates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+        
 
             builder.Entity<AppUser>()
                 .HasMany(ur => ur.UserRoles)

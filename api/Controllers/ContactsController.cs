@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace api.Controllers
 {
-    public class ContactController : BaseApiController
+    public class ContactsController : BaseApiController
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public ContactController(IUnitOfWork unitOfWork, IMapper mapper)
+        public ContactsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

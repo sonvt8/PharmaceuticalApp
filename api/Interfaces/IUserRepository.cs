@@ -8,8 +8,8 @@ namespace api.Interfaces
     public interface IUserRepository
     {
         //void DeleteUser(AppUser user);
-        //void UpdateUser(AppUser user);
-
+        void UpdateUser(AppUser user);
+        //Task<bool> SaveAllAsync();
         //Task<IEnumerable<AppUser>> GetUsersAsync();
         Task<AppUser> GetUserByIdAsync(int id);
         //Task<AppUser> GetUserByUsernameAsync(string username);

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace api.Controllers
 {
-    [Authorize(Policy = "RequireAdminRole")]
+    //[Authorize(Policy = "RequireAdminRole")]
     public class JobsController : BaseApiController
     {
         private readonly IMapper _mapper;

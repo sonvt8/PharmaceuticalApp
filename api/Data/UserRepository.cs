@@ -23,8 +23,20 @@ namespace api.Data
 
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users
+                .Include(p => p.Photos)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
+
+        public void UpdateUser(AppUser user)
+        {
+            _context.Entry(user).State = EntityState.Modified;
+        }
+
+        //public async Task<bool> SaveAllAsync()
+        //{
+        //    return await _context.SaveChangesAsync() > 0;
+        //}
 
     }
 }

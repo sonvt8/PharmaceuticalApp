@@ -169,6 +169,12 @@ namespace api.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Degree")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -176,8 +182,23 @@ namespace api.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Experience")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsApplied")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("JobId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -220,6 +241,8 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("JobId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -229,34 +252,6 @@ namespace api.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("api.Entities.Candidate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("JobId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("JobId");
-
-                    b.ToTable("Candidates");
                 });
 
             modelBuilder.Entity("api.Entities.Category", b =>
@@ -387,7 +382,7 @@ namespace api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CandidateId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsMain")
@@ -404,7 +399,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CandidateId");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("ProductId");
 
@@ -554,21 +549,11 @@ namespace api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("api.Entities.Candidate", b =>
+            modelBuilder.Entity("api.Entities.AppUser", b =>
                 {
-                    b.HasOne("api.Entities.AppUser", "AppUser")
-                        .WithMany("Candidates")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("api.Entities.Job", "Job")
-                        .WithMany("Candidates")
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
+                        .WithMany("AppUsers")
+                        .HasForeignKey("JobId");
 
                     b.Navigation("Job");
                 });
@@ -586,9 +571,9 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Photo", b =>
                 {
-                    b.HasOne("api.Entities.Candidate", "Candidate")
+                    b.HasOne("api.Entities.AppUser", "AppUser")
                         .WithMany("Photos")
-                        .HasForeignKey("CandidateId")
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -598,7 +583,7 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Candidate");
+                    b.Navigation("AppUser");
 
                     b.Navigation("Product");
                 });
@@ -632,16 +617,11 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.AppUser", b =>
                 {
-                    b.Navigation("Candidates");
-
                     b.Navigation("FeedBacks");
 
-                    b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("api.Entities.Candidate", b =>
-                {
                     b.Navigation("Photos");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("api.Entities.Category", b =>
@@ -651,7 +631,7 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Job", b =>
                 {
-                    b.Navigation("Candidates");
+                    b.Navigation("AppUsers");
                 });
 
             modelBuilder.Entity("api.Entities.Product", b =>
