@@ -391,17 +391,12 @@ namespace api.Migrations
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PublicId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Photos");
                 });
@@ -577,15 +572,7 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("api.Entities.Product", "Product")
-                        .WithMany("Photos")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AppUser");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("api.Entities.Product", b =>
@@ -636,8 +623,6 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Product", b =>
                 {
-                    b.Navigation("Photos");
-
                     b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
