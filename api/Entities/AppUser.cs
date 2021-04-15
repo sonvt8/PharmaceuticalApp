@@ -12,23 +12,12 @@ namespace api.Entities
     public class AppUser : IdentityUser<int>
     {
         public string FullName { get; set; }
-        public string Gender { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
+        public string StreetAddress { get; set; }
         public string State { get; set; }
-        public string PostalCode { get; set; }
+        public string City { get; set; }
         public string Country { get; set; }
-        public bool IsEmployee { get; set; }
-
-        public ICollection<Photo> Photos { get; set; }
         public ICollection<FeedBack> FeedBacks { get; set; }
-        public ICollection<CandidateJob> CandidateJobs { get; set; }
-        public ICollection<AppUserRole> UserRoles { get; set; }
-
-        public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        }
+        public ICollection<Candidate> Candidates { get; set; }
+        public ICollection<AppUserRole> UserRoles { get; set; }      
     }
 }

@@ -1,13 +1,16 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Extensions;
 using api.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace api.Controllers
@@ -28,13 +31,13 @@ namespace api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<AccountDto>> Register(RegisterDto registerDto)
         {
-            if (await UserExist(registerDto.UserName)) return BadRequest("Username is taken");
+            if (await UserExist(registerDto.Email)) return BadRequest("Email is taken");
 
             var user = _mapper.Map<AppUser>(registerDto);
 
-            user.UserName = registerDto.UserName.ToLower();
+            user.UserName = registerDto.Email.ToLower();
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -44,39 +47,51 @@ namespace api.Controllers
 
             if (!roleResult.Succeeded) return BadRequest(result.Errors);
 
-            return new UserDto
+            return new AccountDto
             {
-                UserName = user.UserName,
+                FullName = user.FullName,
                 Token = await _tokenService.CreateToken(user),
                 Email = user.Email
             };
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<AccountDto>> Login(LoginDto loginDto)
         {
             var user = await _userManager.Users
-                 .Include(p => p.Photos)
-                 .SingleOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
-            if (user == null) return Unauthorized("Invalid Username");
+                 .SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
+            if (user == null) return Unauthorized("Invalid Email");
 
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, loginDto.Password, false);
 
             if (!result.Succeeded) return Unauthorized();
 
-            return new UserDto
+            return new AccountDto
             {
-                UserName = user.UserName,
+                FullName = user.FullName,
                 Token = await _tokenService.CreateToken(user),
-                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.PhotoUrl,
                 Email = user.Email
             };
         }
 
-        private async Task<bool> UserExist(string username)
+        private async Task<bool> UserExist(string email)
         {
-            return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
+            return await _userManager.Users.AnyAsync(x => x.Email == email.ToLower());
+        }
+
+        [Authorize]
+        public async Task<ActionResult> UpdateUser(UserUpdateDto userUpdateDto )
+        {
+            var currentUser = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+
+            _mapper.Map(userUpdateDto, currentUser);
+
+            var result = await _userManager.UpdateAsync(currentUser);
+
+            if (result.Succeeded) return NoContent();
+
+            return BadRequest("Failed to update user");
         }
     }
 }

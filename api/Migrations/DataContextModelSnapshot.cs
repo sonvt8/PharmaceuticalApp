@@ -159,9 +159,6 @@ namespace api.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -172,9 +169,6 @@ namespace api.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -184,12 +178,6 @@ namespace api.Migrations
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsEmployee")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -214,13 +202,13 @@ namespace api.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -243,19 +231,32 @@ namespace api.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("api.Entities.CandidateJob", b =>
+            modelBuilder.Entity("api.Entities.Candidate", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
-                    b.HasKey("AppUserId", "JobId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("CandidateJobs");
+                    b.ToTable("Candidate");
                 });
 
             modelBuilder.Entity("api.Entities.Category", b =>
@@ -359,9 +360,6 @@ namespace api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -369,9 +367,6 @@ namespace api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("JobName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
@@ -392,7 +387,7 @@ namespace api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AppUserId")
+                    b.Property<int>("CandidateId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsMain")
@@ -409,7 +404,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("CandidateId");
 
                     b.HasIndex("ProductId");
 
@@ -559,16 +554,16 @@ namespace api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("api.Entities.CandidateJob", b =>
+            modelBuilder.Entity("api.Entities.Candidate", b =>
                 {
                     b.HasOne("api.Entities.AppUser", "AppUser")
-                        .WithMany("CandidateJobs")
+                        .WithMany("Candidates")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("api.Entities.Job", "Job")
-                        .WithMany("CandidateJobs")
+                        .WithMany("Candidates")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -591,9 +586,9 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Photo", b =>
                 {
-                    b.HasOne("api.Entities.AppUser", "AppUser")
+                    b.HasOne("api.Entities.Candidate", "Candidate")
                         .WithMany("Photos")
-                        .HasForeignKey("AppUserId")
+                        .HasForeignKey("CandidateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -603,7 +598,7 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUser");
+                    b.Navigation("Candidate");
 
                     b.Navigation("Product");
                 });
@@ -637,13 +632,16 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.AppUser", b =>
                 {
-                    b.Navigation("CandidateJobs");
+                    b.Navigation("Candidates");
 
                     b.Navigation("FeedBacks");
 
-                    b.Navigation("Photos");
-
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("api.Entities.Candidate", b =>
+                {
+                    b.Navigation("Photos");
                 });
 
             modelBuilder.Entity("api.Entities.Category", b =>
@@ -653,7 +651,7 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Job", b =>
                 {
-                    b.Navigation("CandidateJobs");
+                    b.Navigation("Candidates");
                 });
 
             modelBuilder.Entity("api.Entities.Product", b =>

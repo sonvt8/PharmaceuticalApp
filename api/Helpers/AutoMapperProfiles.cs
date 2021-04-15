@@ -19,11 +19,12 @@ namespace api.Helpers
             CreateMap<ReviewDto, Review>();
             CreateMap<RegisterDto, AppUser>();
             CreateMap<Photo, PhotoDto>();
-            CreateMap<AppUser, MemberDto>()
-                .ForMember(des => des.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).PhotoUrl))
-                .ForMember(des => des.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
-            CreateMap<MemberUpdateDtoByMember, AppUser>();
-            CreateMap<MemberUpdateByAdmin, AppUser>();
+            //CreateMap<AppUser, UserDto>()
+            //    .ForMember(des => des.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).PhotoUrl));
+            //    .ForMember(des => des.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
+            CreateMap<UserUpdateDto, AppUser>();
+            CreateMap<Job, JobDto>();
+            CreateMap<JobDto, Job>();
         }
     }
 }

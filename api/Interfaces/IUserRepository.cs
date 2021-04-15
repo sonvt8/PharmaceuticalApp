@@ -7,13 +7,13 @@ namespace api.Interfaces
 {
     public interface IUserRepository
     {
-        void DeleteUser(AppUser user);
-        void UpdateUser(AppUser user);
+        //void DeleteUser(AppUser user);
+        //void UpdateUser(AppUser user);
 
-        Task<IEnumerable<AppUser>> GetUsersAsync();
-        Task<AppUser> GetUserByIdAsync(int id);
-        Task<AppUser> GetUserByUsernameAsync(string username);
-        Task<IEnumerable<MemberDto>> GetMembersAsync();
-        Task<MemberDto> GetMemberAsync(string username);
+        //Task<IEnumerable<AppUser>> GetUsersAsync();
+        //Task<AppUser> GetUserByIdAsync(int id);
+        //Task<AppUser> GetUserByUsernameAsync(string username);
+        //Task<IEnumerable<MemberDto>> GetMembersAsync();
+        //Task<MemberDto> GetMemberAsync(string username);
     }
 }

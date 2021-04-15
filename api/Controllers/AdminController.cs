@@ -25,11 +25,12 @@ namespace api.Controllers
             var users = await _userManager.Users
                 .Include(r => r.UserRoles)
                 .ThenInclude(r => r.Role)
-                .OrderBy(u => u.UserName)
+                .OrderBy(u => u.FullName)
                 .Select(u => new
                 {
                     u.Id,
-                    Username = u.UserName,
+                    Email = u.Email,
+                    FullName = u.FullName,
                     Roles = u.UserRoles.Select(r => r.Role.Name).ToList()
                 })
                 .ToListAsync();

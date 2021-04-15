@@ -7,8 +7,8 @@
         public string PublicId { get; set; }
         public bool IsMain { get; set; }
 
-        public int AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        public int CandidateId { get; set; }
+        public Candidate Candidate { get; set; }
 
         public int ProductId { get; set; }
         public Product Product { get; set; }

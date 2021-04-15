@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Entities
+namespace api.DTOs
 {
-    public class Job
+    public class JobDto
     {
         public int Id { get; set; }
         public string JobName { get; set; }
@@ -13,7 +13,5 @@ namespace api.Entities
         public int Salary { get; set; }
         public int Quantity { get; set; }
         public bool IsAvailable { get; set; }
-
-        public ICollection<Candidate> Candidates { get; set; }
     }
 }

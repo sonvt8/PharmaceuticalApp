@@ -17,7 +17,6 @@ namespace api.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CandidateJob> CandidateJobs { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Photo> Photos { get; set; }
@@ -27,20 +26,6 @@ namespace api.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<CandidateJob>()
-                        .HasKey(cj => new { cj.AppUserId, cj.JobId });
-            builder.Entity<AppUser>()
-                .HasMany(cj => cj.CandidateJobs)
-                .WithOne(u => u.AppUser)
-                .HasForeignKey(ur => ur.AppUserId)
-                .IsRequired();
-
-            builder.Entity<Job>()
-                .HasMany(cj => cj.CandidateJobs)
-                .WithOne(u => u.Job)
-                .HasForeignKey(j => j.JobId)
-                .IsRequired();
 
             builder.Entity<AppUser>()
                 .HasMany(ur => ur.UserRoles)

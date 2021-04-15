@@ -1,4 +1,5 @@
-﻿using api.Entities;
+﻿using api.DTOs;
+using api.Entities;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -12,19 +13,80 @@ namespace api.Controllers
     public class JobsController : BaseApiController
     {
         private readonly IMapper _mapper;
-        private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
-        public JobsController(IUnitOfWork unitOfWork, IMapper mapper,
-            IPhotoService photoService)
+        public JobsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-            _photoService = photoService;
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
+        public async Task<ActionResult<IEnumerable<JobDto>>> GetJobs()
         {
-            return Ok(await _unitOfWork.JobRepository.GetJobsAsync());
+            var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
+
+            return Ok(jobs);
+        }
+
+        [HttpGet("{jobId}", Name = "GetJobById")]
+        public async Task<ActionResult<JobDto>> GetJobById(int jobId)
+        {
+            if (!await _unitOfWork.JobRepository.JobExists(jobId))
+                return NotFound();
+
+            return await _unitOfWork.JobRepository.GetJobDtoByIdAsync(jobId);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddJob(JobDto jobDto)
+        {
+            var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
+
+            foreach (var job in jobs)
+            {
+                if (job.JobName.ToLower() == jobDto.JobName.Trim().ToLower())
+                {
+                    return BadRequest("Job Name already exists");
+                }
+            }
+            var jobCreate = _mapper.Map<Job>(jobDto);
+
+            _unitOfWork.JobRepository.AddJob(jobCreate);
+
+            await _unitOfWork.Complete();
+
+            var jobRead = _mapper.Map<JobDto>(jobCreate);
+
+            return CreatedAtAction("GetJobById", new { jobId = jobRead.Id }, jobRead);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateJoby(int id, Job job)
+        {
+            if (id != job.Id)
+            {
+                return BadRequest();
+            }
+            if (!await _unitOfWork.JobRepository.JobExists(id)) return NotFound();
+
+            _unitOfWork.JobRepository.UpdateJob(job);
+
+            if (await _unitOfWork.Complete()) return NoContent();
+
+            return BadRequest("Failed to update job");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteJob(int id)
+        {
+            var job = await _unitOfWork.JobRepository.GetJobByIdAsync(id);
+
+            if (job == null) return NotFound();
+
+            _unitOfWork.JobRepository.DeleteJob(job);
+
+            if (await _unitOfWork.Complete()) return NoContent();
+
+            return BadRequest("Failed to delete job");
         }
     }
 }

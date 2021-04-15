@@ -25,7 +25,8 @@ namespace api.Data
             var roles = new List<AppRole>
             {
                 new AppRole {Name="Member"},
-                new AppRole {Name="Admin"}
+                new AppRole {Name="Admin"},
+                new AppRole{Name = "Moderator"}
             };
 
             foreach (var role in roles)
@@ -41,7 +42,8 @@ namespace api.Data
             //}
             var admin = new AppUser
             {
-                UserName = "admin"
+                Email = "admin@gmail.com",
+                UserName = "Admin"
             };
 
             await userManager.CreateAsync(admin, "123Admin!@#");

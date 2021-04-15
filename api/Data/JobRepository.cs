@@ -1,8 +1,11 @@
-﻿using api.Entities;
+﻿using api.DTOs;
+using api.Entities;
 using api.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace api.Data
@@ -18,19 +21,44 @@ namespace api.Data
             _mapper = mapper;
         }
 
-        public Task<Job> GetJobByIdAsync(int id)
+        public void AddJob(Job job)
         {
-            throw new System.NotImplementedException();
+            _context.Jobs.Add(job);
         }
 
-        public async Task<IEnumerable<Job>> GetJobsAsync()
+        public void DeleteJob(Job job)
         {
-            return await _context.Jobs.ToListAsync();
+            _context.Jobs.Remove(job);
         }
 
-        public void Update(Job job)
+        public async Task<Job> GetJobByIdAsync(int jobId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Jobs.FindAsync(jobId);
+        }
+
+        public async Task<JobDto> GetJobDtoByIdAsync(int jobId)
+        {
+            return await _context.Jobs
+                .Where(x => x.Id == jobId)
+                .ProjectTo<JobDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<JobDto>> GetJobsAsync()
+        {
+            return await _context.Jobs
+                .ProjectTo<JobDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<bool> JobExists(int jobId)
+        {
+            return await _context.Jobs.AnyAsync(j => j.Id == jobId);
+        }
+
+        public void UpdateJob(Job job)
+        {
+            _context.Entry(job).State = EntityState.Modified;
         }
     }
 }
