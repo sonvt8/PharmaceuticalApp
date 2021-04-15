@@ -31,6 +31,8 @@ namespace api.Data
 
         public ICategoryRepository CategoryRepository => new CategoryRepository(_context, _mapper);
 
+        public ICandidateRepository CandidateRepository => new CandidateRepository(_context, _mapper);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;

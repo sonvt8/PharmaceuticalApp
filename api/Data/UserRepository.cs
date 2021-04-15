@@ -21,9 +21,10 @@ namespace api.Data
            _mapper = mapper;
         }
 
-        public void UpdateUser(AppUser user)
+        public async Task<AppUser> GetUserByIdAsync(int id)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            return await _context.Users.FindAsync(id);
         }
+
     }
 }
