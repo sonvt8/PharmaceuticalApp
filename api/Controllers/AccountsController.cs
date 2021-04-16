@@ -100,12 +100,17 @@ namespace api.Controllers
             return BadRequest("Failed to update user");
         }
 
+        [Authorize]
         [HttpGet("{id}", Name = "GetUser")]
         public async Task<ActionResult<UserDto>>GetUser(int id)
         {
-            var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == id);
+            var user = await _userManager.Users
+                .Include(p => p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Id == id);
             return _mapper.Map<UserDto>(user);
         }
+
+        
 
         [Authorize]
         [HttpPost("add-photo")]
@@ -140,6 +145,35 @@ namespace api.Controllers
                 return CreatedAtRoute("GetUser", new { id = currentUser.Id }, _mapper.Map<PhotoUserDto>(photo));
             }
             return BadRequest("Problem addding photo");
+        }
+
+        [Authorize]
+        [HttpDelete("delete-photo/{photoId}")]
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            var user = await _userManager.Users
+                .Include(p => p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+
+            var photo = user.PhotoUsers.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null) return NotFound();
+
+            if (photo.IsMain) return BadRequest("You cannot delete your main photo");
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            }
+
+            user.PhotoUsers.Remove(photo);
+
+            var resultUser = await _userManager.UpdateAsync(user);
+
+            if (resultUser.Succeeded) return Ok();
+
+            return BadRequest("Failed to delete the photo");
         }
     }
 }
