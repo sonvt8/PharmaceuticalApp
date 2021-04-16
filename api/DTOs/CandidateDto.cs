@@ -22,6 +22,6 @@ namespace api.DTOs
         public string Experience { get; set; }
         public string Status { get; set; }
   
-        public ICollection<PhotoDto> Photos { get; set; }
+        public ICollection<PhotoUserDto> PhotoUsers { get; set; }
     }
 }

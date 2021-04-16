@@ -40,7 +40,7 @@ namespace api.Data
         public async Task<CandidateDto> GetCandidateDtoByIdAsync(int userId)
         {
             return await _context.Users
-                .Include(p => p.Photos)
+                .Include(p => p.PhotoUsers)
                 .Include(j => j.Job)
                 .Where(x => x.Id == userId)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
@@ -50,7 +50,7 @@ namespace api.Data
         public async Task<CandidateDto> GetCandidateDtoByIdIsApprovedAsync(int userId)
         {
             return await _context.Users
-                .Include(p => p.Photos)
+                .Include(p => p.PhotoUsers)
                 .Include(j => j.Job)
                 .Where(x => x.Id == userId && x.IsApproved == true)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
@@ -60,7 +60,7 @@ namespace api.Data
         public async Task<IEnumerable<CandidateDto>> GetCandidatesDtoAsync()
         {
             return await _context.Users
-                .Include(p => p.Photos)
+                .Include(p => p.PhotoUsers)
                 .Include(j => j.Job)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
@@ -69,7 +69,7 @@ namespace api.Data
         public async Task<IEnumerable<CandidateDto>> GetCandidatesDtoByJobAsync(int jobId)
         {
             return await _context.Users
-               .Include(p => p.Photos)
+               .Include(p => p.PhotoUsers)
                .Include(j => j.Job)
                .Where(j => j.Job.Id == jobId)
                .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
@@ -79,7 +79,7 @@ namespace api.Data
         public async Task<IEnumerable<CandidateDto>> GetCandidatesDtoIsApprovedAsync()
         {
             return await _context.Users
-                .Include(p => p.Photos)
+                .Include(p => p.PhotoUsers)
                 .Include(j => j.Job)
                 .Where(u=>u.IsApproved==true)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)

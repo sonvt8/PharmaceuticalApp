@@ -375,7 +375,33 @@ namespace api.Migrations
                     b.ToTable("Jobs");
                 });
 
-            modelBuilder.Entity("api.Entities.Photo", b =>
+            modelBuilder.Entity("api.Entities.PhotoProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhotoProductUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("PhotoProducts");
+                });
+
+            modelBuilder.Entity("api.Entities.PhotoUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -388,7 +414,7 @@ namespace api.Migrations
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PhotoUrl")
+                    b.Property<string>("PhotoUserUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PublicId")
@@ -398,7 +424,7 @@ namespace api.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("PhotoUsers");
                 });
 
             modelBuilder.Entity("api.Entities.Product", b =>
@@ -564,10 +590,21 @@ namespace api.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("api.Entities.Photo", b =>
+            modelBuilder.Entity("api.Entities.PhotoProduct", b =>
+                {
+                    b.HasOne("api.Entities.Product", "Product")
+                        .WithMany("PhotoProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("api.Entities.PhotoUser", b =>
                 {
                     b.HasOne("api.Entities.AppUser", "AppUser")
-                        .WithMany("Photos")
+                        .WithMany("PhotoUsers")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -606,7 +643,7 @@ namespace api.Migrations
                 {
                     b.Navigation("FeedBacks");
 
-                    b.Navigation("Photos");
+                    b.Navigation("PhotoUsers");
 
                     b.Navigation("UserRoles");
                 });
@@ -623,6 +660,8 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Product", b =>
                 {
+                    b.Navigation("PhotoProducts");
+
                     b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618

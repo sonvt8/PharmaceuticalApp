@@ -19,7 +19,8 @@ namespace api.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Photo> Photos { get; set; }
+        public DbSet<PhotoUser> PhotoUsers { get; set; }
+        public DbSet<PhotoProduct> PhotoProducts { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
 

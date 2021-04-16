@@ -10,12 +10,12 @@ namespace api.DTOs
         public int Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string PhotoUrl { get; set; }
+        public string PhotoUserUrl { get; set; }
         public string StreetAddress { get; set; }
         public string State { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
 
-        public ICollection<PhotoDto> Photos { get; set; }
+        public ICollection<PhotoUserDto> PhotoUsers { get; set; }
     }
 }

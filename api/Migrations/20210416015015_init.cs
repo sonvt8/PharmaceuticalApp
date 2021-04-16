@@ -167,6 +167,28 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PhotoProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PhotoProductUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsMain = table.Column<bool>(type: "bit", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhotoProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PhotoProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
@@ -304,21 +326,21 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Photos",
+                name: "PhotoUsers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhotoUserUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsMain = table.Column<bool>(type: "bit", nullable: false),
                     AppUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Photos", x => x.Id);
+                    table.PrimaryKey("PK_PhotoUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Photos_AspNetUsers_AppUserId",
+                        name: "FK_PhotoUsers_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -375,8 +397,13 @@ namespace api.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Photos_AppUserId",
-                table: "Photos",
+                name: "IX_PhotoProducts_ProductId",
+                table: "PhotoProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PhotoUsers_AppUserId",
+                table: "PhotoUsers",
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
@@ -414,7 +441,10 @@ namespace api.Migrations
                 name: "FeedBacks");
 
             migrationBuilder.DropTable(
-                name: "Photos");
+                name: "PhotoProducts");
+
+            migrationBuilder.DropTable(
+                name: "PhotoUsers");
 
             migrationBuilder.DropTable(
                 name: "Reviews");

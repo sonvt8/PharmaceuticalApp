@@ -109,31 +109,35 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser(IFormFile file)
         {
 
-            var user = await _unitOfWork.UserRepository.GetUserByIdAsync(User.GetUserId());
+            var currentUser = await _userManager.Users
+                .Include(p=>p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
 
             var result = await _photoService.AddPhotoAsync(file);
 
             if (result.Error != null) return BadRequest(result.Error.Message);
 
-            var photo = new Photo
+            var photo = new PhotoUser
             {
-                PhotoUrl = result.SecureUrl.AbsoluteUri,
+                PhotoUserUrl = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
             };
 
-            if (user.Photos.Count == 0)
+            if (currentUser.PhotoUsers.Count == 0)
             {
                 photo.IsMain = true;
             }
 
-            user.Photos.Add(photo);
+            currentUser.PhotoUsers.Add(photo);
 
-            if (await _unitOfWork.Complete())
+            var resultUser = await _userManager.UpdateAsync(currentUser);
+
+            if (resultUser.Succeeded)
             {
-                return CreatedAtRoute("GetUser", new { id = user.Id }, _mapper.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUser", new { id = currentUser.Id }, _mapper.Map<PhotoUserDto>(photo));
             }
             return BadRequest("Problem addding photo");
         }

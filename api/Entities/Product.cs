@@ -20,7 +20,7 @@ namespace api.Entities
         public string MachineSize { get; set; }
         public int NetWeight { get; set; }
 
-        //public ICollection<Photo> Photos { get; set; }
+        public ICollection<PhotoProduct> PhotoProducts { get; set; }
         public ICollection<Review> Reviews { get; set; }
 
         public Category Category { get; set; }
