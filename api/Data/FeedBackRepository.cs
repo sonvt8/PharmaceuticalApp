@@ -1,7 +1,11 @@
-﻿using api.Entities;
+﻿using api.DTOs;
+using api.Entities;
 using api.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace api.Data
@@ -17,19 +21,61 @@ namespace api.Data
             _mapper = mapper;
         }
 
-        public Task<FeedBack> GetFeedBackByIdAsync(int id)
+        public void AddFeedBack(FeedBack feedBack)
         {
-            throw new System.NotImplementedException();
+            _context.FeedBacks.Add(feedBack);
         }
 
-        public Task<IEnumerable<FeedBack>> GetFeedBacksAsync()
+        public void DeleteFeedBack(FeedBack feedBack)
         {
-            throw new System.NotImplementedException();
+            _context.FeedBacks.Remove(feedBack);
         }
 
-        public void Update(FeedBack feedBack)
+        public async Task<bool> FeedBackExists(int feedBackId)
         {
-            throw new System.NotImplementedException();
+            return await _context.FeedBacks.AnyAsync(f => f.Id == feedBackId);
+        }
+
+        public async Task<FeedBack> GetFeedBackByIdAsync(int feedBackId)
+        {
+            return await _context.FeedBacks.FindAsync(feedBackId);
+        }
+
+        public async Task<IEnumerable<FeedBackDto>> GetFeedBacks()
+        {
+            return await _context.FeedBacks
+                .ProjectTo<FeedBackDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<FeedBackDto>> GetFeedBacksOfUserApproveAsync(int userId)
+        {
+            return await _context.FeedBacks
+                .Where(f => f.AppUser.Id == userId && f.IsApproved == true)
+                .ProjectTo<FeedBackDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<FeedBackDto>> GetFeedBacksOfUserAsync(int userId)
+        {
+            return await _context.FeedBacks
+                .Where(f => f.AppUser.Id == userId)
+                .ProjectTo<FeedBackDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<UserDto> GetUserOfAFeedBackAsync(int feedBackId)
+        {
+            var userId = await _context.FeedBacks.Where(f => f.Id == feedBackId).Select(f => f.AppUser.Id).FirstOrDefaultAsync();
+            return await _context.Users
+                .Where(u => u.Id == userId)
+                .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+        }
+
+        public void UpdateFeedBack(FeedBack feedBack)
+        {
+            _context.Entry(feedBack).State = EntityState.Modified;
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿using api.Extensions;
+﻿using api.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Entities
+namespace api.DTOs
 {
-    public class FeedBack
+    public class FeedBackCreateDto
     {
         public int Id { get; set; }
         public string FullName { get; set; }
@@ -17,14 +17,7 @@ namespace api.Entities
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Comments { get; set; }
-        public bool? IsApproved { get; set; }
-
+        public bool? IsApproved { get; set; } 
         public AppUser AppUser { get; set; }
-        public int AppUserId { get; set; }
-
-        public string GetStatus()
-        {
-            return IsApproved.GetStatus();
-        }
     }
 }

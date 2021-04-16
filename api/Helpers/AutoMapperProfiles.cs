@@ -28,6 +28,9 @@ namespace api.Helpers
                 .ForMember(des => des.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()))
                 .ForMember(des => des.Status, opt => opt.MapFrom(src => src.IsApproved.GetStatus()));
             CreateMap<CandidateCreateDto, AppUser>();
+            CreateMap<FeedBack, FeedBackDto>()
+                .ForMember(des => des.Status, opt => opt.MapFrom(src => src.IsApproved.GetStatus()));
+            CreateMap<FeedBackCreateDto, FeedBack>();
         }
     }
 }

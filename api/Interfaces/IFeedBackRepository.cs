@@ -1,4 +1,5 @@
-﻿using api.Entities;
+﻿using api.DTOs;
+using api.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,8 +7,15 @@ namespace api.Interfaces
 {
     public interface IFeedBackRepository
     {
-        void Update(FeedBack feedBack);
-        Task<IEnumerable<FeedBack>> GetFeedBacksAsync();
-        Task<FeedBack> GetFeedBackByIdAsync(int id);
+        void AddFeedBack(FeedBack feedBack);
+        void UpdateFeedBack(FeedBack feedBack);
+        void DeleteFeedBack(FeedBack feedBack);
+
+        Task<IEnumerable<FeedBackDto>> GetFeedBacks();
+        Task<IEnumerable<FeedBackDto>> GetFeedBacksOfUserAsync(int userId);
+        Task<IEnumerable<FeedBackDto>> GetFeedBacksOfUserApproveAsync(int userId);
+        Task<FeedBack> GetFeedBackByIdAsync(int feedBackId);
+        Task<UserDto> GetUserOfAFeedBackAsync(int feedBackId);
+        Task<bool> FeedBackExists(int feedBackId);
     }
 }
