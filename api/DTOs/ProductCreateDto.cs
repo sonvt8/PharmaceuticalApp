@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using api.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace api.Entities
+namespace api.DTOs
 {
-    public class Product
+    public class ProductCreateDto
     {
-        [Key]
-        public int Id { get; set; }
-        public string ProductName { get; set; }      
         public string OutPut { get; set; }
         public string CapsuleSize { get; set; }
         public string MachineDimension { get; set; }
@@ -20,11 +20,7 @@ namespace api.Entities
         public string ProductionCapacity { get; set; }
         public string MachineSize { get; set; }
         public int NetWeight { get; set; }
-
-        public ICollection<PhotoProduct> PhotoProducts { get; set; }
-        public ICollection<Review> Reviews { get; set; }
-
+        public string ProductName { get; set; }
         public Category Category { get; set; }
-        public int CategoryId { get; set; }
     }
 }

@@ -32,10 +32,17 @@ namespace api.Controllers
             return Ok(feedBacks);
         }
 
-        [HttpGet("users/{userId}")]
-        public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetFeedBacksOfAUserApprove(int userId)
+        [HttpGet("users/isapproved/{userId}")]
+        public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetFeedBacksOfAUserApproved(int userId)
         {
             var feedBacks = await _unitOfWork.FeedBackRepository.GetFeedBacksOfUserApproveAsync(userId);
+
+            return Ok(feedBacks);
+        }
+        [HttpGet("users/{userId}")]
+        public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetFeedBacksOfAUser(int userId)
+        {
+            var feedBacks = await _unitOfWork.FeedBackRepository.GetFeedBacksOfUserAsync(userId);
 
             return Ok(feedBacks);
         }

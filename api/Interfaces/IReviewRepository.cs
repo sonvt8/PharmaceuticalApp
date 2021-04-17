@@ -15,7 +15,7 @@ namespace api.Interfaces
         Task<IEnumerable<ReviewDto>> GetReviewsOfAProductAsync(int productId);
         Task<IEnumerable<ReviewDto>> GetReviewsOfAProductApproveAsync(int productId);
         Task<Review> GetReviewByIdAsync(int reviewId);
-        Task<Product> GetProductOfAReviewAsync(int reviewId);
+        Task<ProductDto> GetProductOfAReviewAsync(int reviewId);
         Task<bool> ReviewExists(int reviewId);
     }
 }

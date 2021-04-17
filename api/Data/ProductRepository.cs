@@ -1,7 +1,11 @@
-﻿using api.Entities;
+﻿using api.DTOs;
+using api.Entities;
 using api.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace api.Data
@@ -17,19 +21,71 @@ namespace api.Data
             _mapper = mapper;
         }
 
-        public Task<Product> GetProductByIdAsync(int id)
+        public void AddProduct(Product product)
         {
-            throw new System.NotImplementedException();
+            _context.Products.Add(product);
         }
 
-        public Task<IEnumerable<Product>> GetProductsAsync()
+        public void DeleteProduct(Product product)
         {
-            throw new System.NotImplementedException();
+            _context.Products.Remove(product);
         }
 
-        public void Update(Product product)
+        public async Task<CategoryDto> GetCategoryOfAProductAsync(int productId)
         {
-            throw new System.NotImplementedException();
+            var categoryId = await _context.Products.Where(p => p.Id == productId).Select(p => p.Category.Id).FirstOrDefaultAsync();
+            return await _context.Categories
+                .Where(c => c.Id == categoryId)
+                .ProjectTo<CategoryDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<Product> GetProductByIdAsync(int productId)
+        {
+            return await _context.Products
+                .Include(p => p.PhotoProducts)
+                .Include(p => p.Category)
+                .Where(p => p.Id == productId)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<ProductDto> GetProductDtoByIdAsync(int productId)
+        {
+            return await _context.Products
+                .Include(p=>p.PhotoProducts)
+                .Include(p => p.Category)
+                .Where(p => p.Id == productId)
+                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetProducts()
+        {
+            return await _context.Products
+                .Include(p => p.PhotoProducts)
+                .Include(p => p.Category)
+                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetProductsOfCategoryAsync(int categoryId)
+        {
+            return await _context.Products
+                .Include(p => p.PhotoProducts)
+                .Include(p => p.Category)
+                .Where(p => p.Category.Id == categoryId)
+                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<bool> ProductExists(int productId)
+        {
+            return await _context.Products.AnyAsync(p => p.Id == productId);
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            _context.Entry(product).State = EntityState.Modified;
         }
     }
 }

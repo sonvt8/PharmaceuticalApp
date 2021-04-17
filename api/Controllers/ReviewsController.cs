@@ -28,6 +28,14 @@ namespace api.Controllers
         }
 
         [HttpGet("products/{productId}")]
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviewsOfAProduct(int productId)
+        {
+            var review = await _unitOfWork.ReviewRepository.GetReviewsOfAProductAsync(productId);
+
+            return Ok(review);
+        }
+
+        [HttpGet("products/isapproved/{productId}")]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviewsOfAProductApprove(int productId)
         {
             var review = await _unitOfWork.ReviewRepository.GetReviewsOfAProductApproveAsync(productId);
@@ -49,10 +57,11 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddReview(ReviewDto reviewDto)
+        public async Task<ActionResult> AddReview(ReviewCreateDto reviewCreateDto)
         {
-            //reviewToCreate.Product = await _unitOfWork.ProductRepository.GetProductByIdAsync(reviewToCreate.Product.Id);
-            var reviewToCreate = _mapper.Map<Review>(reviewDto);
+            reviewCreateDto.Product = await _unitOfWork.ProductRepository.GetProductByIdAsync(reviewCreateDto.Product.Id);
+
+            var reviewToCreate = _mapper.Map<Review>(reviewCreateDto);
 
             _unitOfWork.ReviewRepository.AddReview(reviewToCreate);
 

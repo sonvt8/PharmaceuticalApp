@@ -42,7 +42,7 @@ namespace api.Data
             return await _context.Users
                 .Include(p => p.PhotoUsers)
                 .Include(j => j.Job)
-                .Where(x => x.Id == userId)
+                .Where(x => x.Id == userId && x.IsApplied == true)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
@@ -52,7 +52,7 @@ namespace api.Data
             return await _context.Users
                 .Include(p => p.PhotoUsers)
                 .Include(j => j.Job)
-                .Where(x => x.Id == userId && x.IsApproved == true)
+                .Where(x => x.Id == userId && x.IsApproved == true && x.IsApplied == true)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
@@ -62,6 +62,7 @@ namespace api.Data
             return await _context.Users
                 .Include(p => p.PhotoUsers)
                 .Include(j => j.Job)
+                .Where(x => x.IsApplied == true)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -71,7 +72,7 @@ namespace api.Data
             return await _context.Users
                .Include(p => p.PhotoUsers)
                .Include(j => j.Job)
-               .Where(j => j.Job.Id == jobId)
+               .Where(u => u.Job.Id == jobId && u.IsApplied == true)
                .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                .ToListAsync();
         }
@@ -81,7 +82,7 @@ namespace api.Data
             return await _context.Users
                 .Include(p => p.PhotoUsers)
                 .Include(j => j.Job)
-                .Where(u=>u.IsApproved==true)
+                .Where(u=>u.IsApproved==true && u.IsApplied == true)
                 .ProjectTo<CandidateDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }

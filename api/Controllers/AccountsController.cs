@@ -148,6 +148,29 @@ namespace api.Controllers
         }
 
         [Authorize]
+        [HttpPut("set-main-photo/{photoId}")]
+        public async Task<ActionResult> SetMainPhoto(int photoId)
+        {
+            var currentUser = await _userManager.Users
+                .Include(p => p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+
+            var photo = currentUser.PhotoUsers.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo.IsMain) return BadRequest("This is already your main photo");
+
+            var currentMain = currentUser.PhotoUsers.FirstOrDefault(x => x.IsMain);
+            if (currentMain != null) currentMain.IsMain = false;
+            photo.IsMain = true;
+
+            var resultUser = await _userManager.UpdateAsync(currentUser);
+
+            if (resultUser.Succeeded) return NoContent();
+
+            return BadRequest("Failed to set main photo");
+        }
+
+        [Authorize]
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {

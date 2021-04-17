@@ -31,10 +31,13 @@ namespace api.Data
             _context.Reviews.Remove(review);
         }
 
-        public async Task<Product> GetProductOfAReviewAsync(int reviewId)
+        public async Task<ProductDto> GetProductOfAReviewAsync(int reviewId)
         {
             var productId = await _context.Reviews.Where(r => r.Id == reviewId).Select(r => r.Product.Id).FirstOrDefaultAsync();
-            return await _context.Products.Where(p => p.Id == productId).FirstOrDefaultAsync();
+            return await _context.Products
+                .Where(p => p.Id == productId)
+                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Review> GetReviewByIdAsync(int reviewId)

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Extensions
 {
-    public static class CheckStatusCandidate
+    public static class CheckStatusCandidateFeedBackReview
     {
         public static string GetStatus(this bool? approved)
         {

@@ -15,7 +15,8 @@ namespace api.Helpers
         {
             CreateMap<Category, CategoryDto>();
             CreateMap<CategoryDto, Category>();
-            CreateMap<Review, ReviewDto>();
+            CreateMap<Review, ReviewDto>()
+                .ForMember(des => des.ProductName, opt => opt.MapFrom(src => src.Product.ProductName));
             CreateMap<ReviewDto, Review>();
             CreateMap<RegisterDto, AppUser>();
             CreateMap<PhotoUser, PhotoUserDto>();
@@ -31,6 +32,9 @@ namespace api.Helpers
             CreateMap<FeedBack, FeedBackDto>()
                 .ForMember(des => des.Status, opt => opt.MapFrom(src => src.IsApproved.GetStatus()));
             CreateMap<FeedBackCreateDto, FeedBack>();
+            CreateMap<Product, ProductDto>()
+                .ForMember(des => des.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
+                .ForMember(des => des.PhotoProductUrl, opt => opt.MapFrom(src => src.PhotoProducts.FirstOrDefault(x => x.IsMain).PhotoProductUrl));
         }
     }
 }
