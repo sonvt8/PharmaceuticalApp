@@ -21,11 +21,24 @@ namespace api.Data
            _mapper = mapper;
         }
 
+        public void DeleteUser(AppUser user)
+        {
+            _context.Users.Remove(user);
+        }
+
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users
                 .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<IEnumerable<UserDto>> GetUsersAsync()
+        {
+            return await _context.Users
+                .Include(p => p.PhotoUsers)
+                .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         public void UpdateUser(AppUser user)
