@@ -1,0 +1,18 @@
+.login-container .block-title {
+    border-bottom: 1px solid #006400;
+    padding-bottom: 1rem;
+}
+
+.login-container .customer-login-block {
+    padding-right: 1.5rem;
+}
+
+.login-container .new-customer-block {
+    padding-left: 1.5rem;
+}
+
+#login-form label::after {
+    content: '*';
+    color: red;
+    margin-left: 0.3rem;
+}

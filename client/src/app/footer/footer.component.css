@@ -1,0 +1,16 @@
+footer {
+    background-color: #343c4d;
+    color: white;
+}
+
+footer .container-fluid {
+    padding: 50px 20px;
+}
+
+footer img {
+    width: 40px;
+}
+
+footer .social-icons a {
+    padding-right: 1.2rem;
+}
