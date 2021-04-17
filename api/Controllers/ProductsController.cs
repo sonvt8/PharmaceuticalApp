@@ -2,6 +2,7 @@
 using api.Entities;
 using api.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace api.Controllers
     public class ProductsController : BaseApiController
     {
         private readonly IMapper _mapper;
+        private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductsController(IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductsController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _photoService = photoService;
         }
 
         [HttpGet]
@@ -86,11 +89,105 @@ namespace api.Controllers
 
             if (product == null) return NotFound();
 
+            var photos = product.PhotoProducts.ToList();
+
+            foreach (var photo in photos)
+            {
+                if (photo.PublicId != null)
+                {
+                    var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                    if (result.Error != null) return BadRequest(result.Error.Message);
+                }
+                product.PhotoProducts.Remove(photo);
+            }
+
+            var reviews = product.Reviews.ToList();
+
+            foreach (var review in reviews)
+            {
+                product.Reviews.Remove(review);
+            }
+
             _unitOfWork.ProductRepository.DeleteProduct(product);
 
             if (await _unitOfWork.Complete()) return NoContent();
 
             return BadRequest("Failed to delete product");
+        }
+
+        [HttpPost("add-photo/{productId}")]
+        public async Task<ActionResult<PhotoProductDto>> AddPhoto(IFormFile file, int productId)
+        {
+            var product = await _unitOfWork.ProductRepository.GetProductByIdAsync(productId);
+            if (product == null) return NotFound();
+
+            var result = await _photoService.AddPhotoAsync(file);
+            if (result.Error != null)
+            {
+                return BadRequest(result.Error.Message);
+            }
+
+            var photo = new PhotoProduct
+            {
+                PhotoProductUrl = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+
+            if (product.PhotoProducts.Count == 0)
+            {
+                photo.IsMain = true;
+            }
+
+            product.PhotoProducts.Add(photo);
+
+            if (await _unitOfWork.Complete())
+            {
+                return _mapper.Map<PhotoProductDto>(photo);
+            }
+
+            return BadRequest("Problem addding photo");
+        }
+
+        [HttpPut("set-main-photo/{photoId}")]
+        public async Task<ActionResult> SetMainPhoto(int photoId, [FromQuery] int productId)
+        {
+            var product = await _unitOfWork.ProductRepository.GetProductByIdAsync(productId);
+
+            var photo = product.PhotoProducts.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo.IsMain) return BadRequest("This is already your main photo");
+
+            var currentMain = product.PhotoProducts.FirstOrDefault(x => x.IsMain);
+            if (currentMain != null) currentMain.IsMain = false;
+            photo.IsMain = true;
+
+            if (await _unitOfWork.Complete()) return NoContent();
+
+            return BadRequest("Failed to set main photo");
+        }
+
+        [HttpDelete("delete-photo/{photoId}")]
+        public async Task<ActionResult> DeletePhoto(int photoId, [FromQuery] int productId)
+        {
+            var product = await _unitOfWork.ProductRepository.GetProductByIdAsync(productId);
+
+            var photo = product.PhotoProducts.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null) return NotFound();
+
+            if (photo.IsMain) return BadRequest("You cannot delete your main photo");
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            }
+
+            product.PhotoProducts.Remove(photo);
+
+            if (await _unitOfWork.Complete()) return NoContent();
+
+            return BadRequest("Failed to delete the photo");
         }
     }
 }

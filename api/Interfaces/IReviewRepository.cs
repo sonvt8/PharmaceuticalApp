@@ -12,7 +12,8 @@ namespace api.Interfaces
         void DeleteReview(Review review);
 
         Task<IEnumerable<ReviewDto>> GetReviews();
-        Task<IEnumerable<ReviewDto>> GetReviewsOfAProductAsync(int productId);
+        Task<IEnumerable<ReviewDto>> GetReviewsDtoOfAProductAsync(int productId);
+        Task<IEnumerable<Review>> GetReviewsOfAProductAsync(int productId);
         Task<IEnumerable<ReviewDto>> GetReviewsOfAProductApproveAsync(int productId);
         Task<Review> GetReviewByIdAsync(int reviewId);
         Task<ProductDto> GetProductOfAReviewAsync(int reviewId);

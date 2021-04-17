@@ -23,5 +23,7 @@ namespace api.DTOs
         public string ProductName { get; set; }
         public string CategoryName { get; set; }
         public string PhotoProductUrl { get; set; }
+
+        public ICollection<PhotoProductDto> PhotoProducts { get; set; }
     }
 }

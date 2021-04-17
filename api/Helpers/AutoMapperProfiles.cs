@@ -35,6 +35,8 @@ namespace api.Helpers
             CreateMap<Product, ProductDto>()
                 .ForMember(des => des.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
                 .ForMember(des => des.PhotoProductUrl, opt => opt.MapFrom(src => src.PhotoProducts.FirstOrDefault(x => x.IsMain).PhotoProductUrl));
+            CreateMap<ProductCreateDto, Product>();
+            CreateMap<PhotoProduct, PhotoProductDto>();
         }
     }
 }

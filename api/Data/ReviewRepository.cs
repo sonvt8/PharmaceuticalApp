@@ -60,7 +60,7 @@ namespace api.Data
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ReviewDto>> GetReviewsOfAProductAsync(int productId)
+        public async Task<IEnumerable<ReviewDto>> GetReviewsDtoOfAProductAsync(int productId)
         {
             return await _context.Reviews
                 .Where(r => r.Product.Id == productId)
@@ -76,6 +76,13 @@ namespace api.Data
         public void UpdateReview(Review review)
         {
             _context.Entry(review).State = EntityState.Modified;
+        }
+
+        public async Task<IEnumerable<Review>> GetReviewsOfAProductAsync(int productId)
+        {
+            return await _context.Reviews
+                .Where(r => r.Product.Id == productId)
+                .ToListAsync();
         }
     }
 }
