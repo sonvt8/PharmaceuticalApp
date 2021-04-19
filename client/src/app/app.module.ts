@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AccountComponent } from './account/account.component';
 import { RegisterComponent } from './account/register/register.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +19,14 @@ import { RegisterComponent } from './account/register/register.component';
     HeaderComponent,
     FooterComponent,
     AccountComponent,
-    RegisterComponent
+    RegisterComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     Title
