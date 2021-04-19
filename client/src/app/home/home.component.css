@@ -90,6 +90,41 @@ h2.categories__title {
     }
 }
 
+/* CAREERS CSS */
+
+.careers {
+    background-image: url('../../assets/img/career-banner.jpg');
+    background-position: center;
+    background-size: cover;
+    height: 500px;
+    position: relative;
+    margin: 2rem 0 4rem;
+}
+
+.careers-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #1e3142;
+    opacity: 0.76;
+    width: 100%;
+    height: 100%;
+}
+
+.careers-caption {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.careers-caption h1, .careers-caption h4 {
+    font-weight: 200;
+}
+
+/* END: CAREERS CSS */
+
 .locations {
     margin-bottom: 4rem;
 }
