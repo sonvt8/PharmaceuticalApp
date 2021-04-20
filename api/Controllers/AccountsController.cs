@@ -24,8 +24,9 @@ namespace api.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IMailService _mailService;
 
-        public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, IPhotoService photoService, IUnitOfWork unitOfWork)
+        public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, IPhotoService photoService, IUnitOfWork unitOfWork, IMailService mailService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -33,9 +34,11 @@ namespace api.Controllers
             _mapper = mapper;
             _photoService = photoService;
             _unitOfWork = unitOfWork;
+            _mailService = mailService;
         }
 
         [HttpPost("register")]
+        [Obsolete]
         public async Task<ActionResult<AccountDto>> Register(RegisterDto registerDto)
         {
 
@@ -48,6 +51,12 @@ namespace api.Controllers
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
             if (!result.Succeeded) return BadRequest(result.Errors);
+
+            // Send Token Email
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            Console.WriteLine(token);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Accounts", new { token, email = user.Email }, Request.Scheme);
+            await _mailService.SendWelcomeEmailAsync(user.FullName, user.Email, confirmationLink);
 
             var roleResult = await _userManager.AddToRoleAsync(user, "Member");
 
@@ -67,6 +76,12 @@ namespace api.Controllers
             var user = await _userManager.Users
                  .SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
             if (user == null) return Unauthorized("Invalid Email");
+
+            var isConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            if (!isConfirmed)
+            {
+                return Unauthorized("Oopss! Make sure you clicked registration link in your mailbox");
+            }
 
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, loginDto.Password, false);
@@ -109,8 +124,6 @@ namespace api.Controllers
                 .SingleOrDefaultAsync(u => u.Id == id);
             return _mapper.Map<UserDto>(user);
         }
-
-        
 
         [Authorize]
         [HttpPost("add-photo")]
@@ -197,6 +210,21 @@ namespace api.Controllers
             if (resultUser.Succeeded) return Ok();
 
             return BadRequest("Failed to delete the photo");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return BadRequest("Error");
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                return Ok("Hello");
+            }
+            return BadRequest("Error");
         }
     }
 }

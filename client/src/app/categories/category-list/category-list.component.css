@@ -1,0 +1,23 @@
+h2.categories__title {
+    margin-bottom: 1rem;
+}
+
+.categories {
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+}
+
+.category img {
+    width: 100%;
+    height: 100%;
+}
+
+.category__content {
+    background-color: #e3f2fd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+}

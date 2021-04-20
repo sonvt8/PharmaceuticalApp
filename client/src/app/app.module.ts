@@ -9,6 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AccountComponent } from './account/account.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { RegisterComponent } from './account/register/register.component';
 
 @NgModule({
@@ -17,8 +21,13 @@ import { RegisterComponent } from './account/register/register.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    AccountComponent,
     RegisterComponent
+    AccountComponent,
+    CategoriesComponent,
+    CategoryListComponent,
+    ProductsComponent,
+    ProductDetailComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
