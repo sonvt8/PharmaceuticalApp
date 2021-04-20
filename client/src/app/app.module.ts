@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AccountComponent } from './account/account.component';
 import { RegisterComponent } from './account/register/register.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxUsefulSwiperModule
   ],
   providers: [
     Title
