@@ -80,8 +80,6 @@ namespace api.Controllers
             var isConfirmed = await _userManager.IsEmailConfirmedAsync(user);
             if (!isConfirmed)
             {
-                //ModelState.AddModelError("", "Invalid Login Attempt");
-                
                 return Unauthorized("Oopss! Make sure you clicked registration link in your mailbox");
             }
 
