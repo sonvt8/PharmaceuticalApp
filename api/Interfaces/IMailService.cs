@@ -9,6 +9,6 @@ namespace api.Interfaces
     public interface IMailService
     {
         Task SendEmailAsync(MailRequest mailRequest);
-        Task SendWelcomeEmailAsync(WelcomeRequest request);
+        Task SendWelcomeEmailAsync(string fullName, string confirmedEmail, string confirmedUrl);
     }
 }

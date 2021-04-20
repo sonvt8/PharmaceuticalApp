@@ -49,17 +49,18 @@ namespace api.Services
             smtp.Disconnect(true);
         }
 
-        public async Task SendWelcomeEmailAsync(WelcomeRequest request)
+        public async Task SendWelcomeEmailAsync(string fullName, string confirmedEmail, string confirmedUrl)
         {
             string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\WelcomeTemplate.html";
             StreamReader str = new StreamReader(FilePath);
             string MailText = str.ReadToEnd();
             str.Close();
-            MailText = MailText.Replace("[username]", request.UserName).Replace("[email]", request.ToEmail);
+            MailText = MailText.Replace("[fullname]", fullName).Replace("[url]", confirmedUrl).Replace("[email]", confirmedEmail);
+
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
-            email.To.Add(MailboxAddress.Parse(request.ToEmail));
-            email.Subject = $"Welcome {request.UserName}";
+            email.To.Add(MailboxAddress.Parse(confirmedEmail));
+            email.Subject = $"Welcome {fullName}";
             var builder = new BodyBuilder();
             builder.HtmlBody = MailText;
             email.Body = builder.ToMessageBody();
