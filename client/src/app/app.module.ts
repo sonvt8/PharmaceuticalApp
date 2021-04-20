@@ -21,7 +21,7 @@ import { RegisterComponent } from './account/register/register.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    RegisterComponent
+    RegisterComponent,
     AccountComponent,
     CategoriesComponent,
     CategoryListComponent,
