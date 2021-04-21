@@ -1,0 +1,9 @@
+<div class="container categories">
+    <h2 class="text-center categories__title">OUR PRODUCTS</h2>
+    <hr class="divider">
+    <app-category-list
+    *ngFor="let categoryEl of categories; let i = index" 
+    [category]="categoryEl"
+    [cateIndex] = "i"
+    ></app-category-list>
+</div>

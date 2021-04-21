@@ -9,6 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AccountComponent } from './account/account.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { RegisterComponent } from './account/register/register.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
@@ -19,9 +23,15 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
+    RegisterComponent,
     AccountComponent,
     RegisterComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    CategoriesComponent,
+    CategoryListComponent,
+    ProductsComponent,
+    ProductDetailComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,

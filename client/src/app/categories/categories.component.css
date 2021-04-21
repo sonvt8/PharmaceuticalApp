@@ -1,0 +1,14 @@
+hr.divider {
+    border-top: 3px solid rgb(101, 247, 133);
+    width: 100px;
+    margin-bottom: 3rem;
+}
+
+h2.categories__title {
+    margin-bottom: 1rem;
+}
+
+.categories {
+    margin-top: 4rem;
+    margin-bottom: 5rem;
+}
