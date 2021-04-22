@@ -38,7 +38,7 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
-            services.Configure<MailSettings>(_config.GetSection("MailSettings"));
+            //services.Configure<MailSettings>(_config.GetSection("MailSettings"));
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddTransient<IMailService, MailService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

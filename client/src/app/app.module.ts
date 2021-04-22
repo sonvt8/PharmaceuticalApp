@@ -1,6 +1,8 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AdminRoutingModule } from './admin/admin-routing.module'
+import { AdminRoutingModule } from './admin/admin-routing.module';
+import { CategoryService } from './_services/category.service';
+import { DataTablesModule } from "angular-datatables";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,10 +37,11 @@ import { RegisterComponent } from './account/register/register.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    DataTablesModule
   ],
   providers: [
-    Title
+    Title,CategoryService
   ],
   bootstrap: [AppComponent]
 })
