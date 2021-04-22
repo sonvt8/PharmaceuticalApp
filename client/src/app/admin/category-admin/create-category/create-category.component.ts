@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/_model/category.model';
@@ -10,43 +10,45 @@ import { CategoryService } from 'src/app/_services/category.service';
   styleUrls: ['./create-category.component.css']
 })
 export class CreateCategoryComponent implements OnInit {
-
-  constructor(public categoryService: CategoryService, private router: Router) { }
+  @Input() cate: any;
+  ModalTitle:string
+  CategoryId: number;
+  CategoryName: string;
+  CategoryDescription: string;
+  
+  constructor(private categoryService: CategoryService, private router: Router) { }
 
   ngOnInit(): void {
+    this.CategoryId = this.cate.id;
+    this.CategoryName = this.cate.categoryName;
+    this.CategoryDescription = this.cate.categoryDescription;
   }
 
-  onSubmit(form:NgForm){
-    if(this.categoryService.formData.id==0){
-      this.insertRecord(form);
-    }
-    else{
-      this.updateRecord(form);
-    }
+  addCategory() {
+    var val = {
+      id: this.CategoryId,
+      categoryName: this.CategoryName,
+      categoryDescription: this.CategoryDescription
+    };
+    
+    this.categoryService.addCategory(val).subscribe(res => {
+      this.router.navigateByUrl('/category-admin');
+    }, error => {
+      console.log(error);
+    });
   }
 
-  insertRecord(form:NgForm){
-    this.categoryService.postCategory().subscribe(
-      res=>{
-        //this.resetForm(form);
-        this.categoryService.resetList();
-        this.router.navigateByUrl('/category-admin');
-        //this.toastr.success('Submitted successfully','Payment Detail Register');
-      },
-      err=>{console.log(err); }
-    )
-  }
-
-  updateRecord(form:NgForm){
-    this.categoryService.putCategory().subscribe(
-      res=>{
-        //this.resetForm(form);
-        this.categoryService.resetList();
-        this.router.navigateByUrl('/category-admin');
-        //this.toastr.info('Updated successfully','Payment Detail Register');
-      },
-      err=>{console.log(err); }
-    )
+  updateCategory() {
+    var val = {
+      id: this.CategoryId,
+      categoryName: this.CategoryName,
+      categoryDescription: this.CategoryDescription
+    };
+    this.categoryService.updateCategory(val).subscribe(res => {
+      this.router.navigateByUrl('/category-admin');
+    }, error => {
+      console.log(error);
+    });
   }
 
   // resetForm(form:NgForm){

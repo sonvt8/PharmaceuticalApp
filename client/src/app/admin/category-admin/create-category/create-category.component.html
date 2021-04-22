@@ -1,23 +1,29 @@
-<h1>Create Category</h1>
+<!-- <h1>Create Category</h1>
 <hr>
 <div class="row">
     <div class="col-md-12">
-        <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
-            <input type="hidden" name="categoryId" [value]="categoryService.formData.id"/>
+        <form novalidate autocomplete="off" #form="ngForm">
+            <input type="hidden" name="CategoryId" [value]="CategoryId"/>
             <div class="form-group">
                 <label>CATEGORY NAME</label>
                 <input type="text" class="form-control form-control-lg" placeholder="Category name" 
-                name="categoryName" #categoryName="ngModel"  [(ngModel)]="categoryService.formData.categoryName" 
+                name="categoryName" #categoryName="ngModel"  [(ngModel)]="categoryName" 
                 required [class.invalid] = "categoryName.invalid && categoryName.touched"/>
             </div>
             <div class="form-group">
                 <label>CATEGORY DESCRIPTION</label>
                 <input type="text" class="form-control form-control-lg" placeholder="Category Description" 
-                name="categoryDescription" #categoryDescription="ngModel"  [(ngModel)]="categoryService.formData.categoryDescription" 
+                name="categoryDescription" #categoryDescription="ngModel"  [(ngModel)]="categoryName" 
                 required [class.invalid] = "categoryDescription.invalid && categoryDescription.touched"/>
             </div>
             <div class="form-group">
-                <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SUBMIT</button>
+                <button (click)="addDepartment()" *ngIf="cate.DepartmentId==0" class="btn btn-primary" [disabled]="form.invalid">
+                    Add
+                </button>
+                
+                <button (click)="updateDepartment()" *ngIf="cate.DepartmentId!=0" class="btn btn-primary" [disabled]="form.invalid">
+                    Update
+                </button>
             </div>
             
         </form>
@@ -27,4 +33,23 @@
     <div class="col-md-12">
         <a routerLink="/category-admin" class="btn btn-outline-secondary btn-block">Back to List</a>
     </div>
+</div> -->
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label">Category Name</label>
+    <div class="col-sm-8">
+        <input type="text" class="form-control" [(ngModel)]="CategoryName" placeholder="Enter Category Name">
+    </div>
 </div>
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label">Category Description</label>
+    <div class="col-sm-8">
+        <textarea class="form-control"[(ngModel)]="CategoryDescription" placeholder="Enter Category Description"></textarea>
+    </div>
+</div>
+<button (click)="addCategory()" *ngIf="cate.Id==0" class="btn btn-primary">
+    Add
+</button>
+
+<button (click)="updateCategory()" *ngIf="cate.Id!=0" class="btn btn-primary">
+    Update
+</button>

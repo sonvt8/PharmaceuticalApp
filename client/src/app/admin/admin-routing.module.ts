@@ -19,10 +19,8 @@ const routes: Routes = [
       },
       {
         path: "category-admin", component: CategoryAdminComponent,
-      },
-      {
-        path: "create-category", component: CreateCategoryComponent,
-      },
+      }
+      
     ]
   },
 ];

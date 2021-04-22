@@ -9,26 +9,22 @@ import { Category } from '../_model/category.model';
 export class CategoryService {
   constructor(private http: HttpClient) { }
 
-  readonly baseURL = 'http://localhost:22566/api/categories';
+  readonly APIUrl = 'http://localhost:22566/api';
 
-  formData: Category = new Category();
-
-  list : Category[];
-
-  postCategory(){
-    return this.http.post(this.baseURL,this.formData);
+  getCateList():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl+'/categories');
   }
 
-  putCategory(){
-    return this.http.put(`${this.baseURL}/${this.formData.id}`,this.formData);
+  addCategory(val:any){
+    return this.http.post(this.APIUrl+'/categories',val);
   }
 
-  deleteCategory(id:number){
-    return this.http.delete(`${this.baseURL}/${id}`);
+  updateCategory(val:any){
+    return this.http.put(this.APIUrl+'/categories/' + val.id, val);
   }
 
-  resetList(){
-    return this.http.get(this.baseURL);
+  deleteCategory(val:any){
+    return this.http.delete(this.APIUrl+'/categories/'+ val.id);
   }
 
 }
