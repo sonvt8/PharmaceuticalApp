@@ -93,7 +93,7 @@ h2.categories__title {
 /* CAREERS CSS */
 
 .careers {
-    background-image: url('../../assets/img/career-banner.jpg');
+    background-image: url("../../assets/img/career-banner.jpg");
     background-position: center;
     background-size: cover;
     height: 500px;
@@ -119,7 +119,8 @@ h2.categories__title {
     height: 100%;
 }
 
-.careers-caption h1, .careers-caption h4 {
+.careers-caption h1,
+.careers-caption h4 {
     font-weight: 200;
 }
 
@@ -149,4 +150,39 @@ h2.categories__title {
 
 .location p.tel {
     color: #0043ca;
+}
+
+/* CUSTOMER FEEDBACK */
+
+.customer-feedback {
+    margin-bottom: 2rem;
+}
+
+.customer-feedback hr.divider {
+    margin-bottom: 2rem;
+}
+
+swiper {
+    height: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.swiper-wrapper {
+    margin-bottom: 2rem;
+}
+
+.swiper-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 14rem;
+    position: relative;
+}
+
+.swiper-slide img {
+    width: 200px;
+    border-radius: 100%;
+    border: 1px solid darkgreen;
+    margin-bottom: 2rem;
 }
