@@ -63,6 +63,7 @@
                 advantages that distinguish it from comparable machines.</p>
         </tab>
         <tab heading="Data Sheet">
+            <h3 class="mb-4">Product Specification</h3>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -111,6 +112,37 @@
             </table>
         </tab>
         <tab heading="Review">
-            Long Labeled Justified content</tab>
+            <button type="button" class="btn btn-warning" (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed" aria-controls="collapseForm">Review this product
+            </button>
+            <div id="collapseForm" [collapse]="isCollapsed" [isAnimated]="true" class="row">
+                <form class="col-lg-6">
+                    <legend>
+                        <p class="mb-0">You're reviewing:</p>
+                        <h4>TDP 5 Desktop Tablet Press</h4>
+                    </legend>
+                    <div class="form-group">
+                        <label for="" class="mb-0">Your rating</label>
+                        <div>
+                            <ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" aria-required="true">
+                            </ngb-rating>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nickname</label>
+                        <input type="text" class="form-control" id="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Summary</label>
+                        <input type="text" class="form-control" id="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Review</label>
+                        <textarea class="form-control" id="" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </tab>
     </tabset>
 </div>

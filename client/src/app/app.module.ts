@@ -17,6 +17,9 @@ import { RegisterComponent } from './account/register/register.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -35,11 +38,14 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NgxUsefulSwiperModule,
-    TabsModule
+    TabsModule,
+    CollapseModule,
+    NgbModule
   ],
   providers: [
     Title
