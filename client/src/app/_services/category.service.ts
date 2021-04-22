@@ -30,4 +30,5 @@ export class CategoryService {
   resetList(){
     return this.http.get(this.baseURL);
   }
+
 }

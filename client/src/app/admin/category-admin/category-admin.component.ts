@@ -58,7 +58,9 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
       this.categoryService.deleteCategory(id)
       .subscribe(
         res=>{
-          this.showCateList();
+          this.categoryService.resetList().subscribe(res=>{
+            this.categories = res as Category[]
+          })
           //this.toastr.error('Deleted successfully','Payment Detail Register');
         },
         err=>{console.log(err); }
