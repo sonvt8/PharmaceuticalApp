@@ -16,6 +16,7 @@ import { CategoryListComponent } from './categories/category-list/category-list.
 import { RegisterComponent } from './account/register/register.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,6 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     CategoriesComponent,
     CategoryListComponent,
     ProductsComponent,
-    ProductDetailComponent,
     ProductDetailComponent
   ],
   imports: [
@@ -38,7 +38,8 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgxUsefulSwiperModule
+    NgxUsefulSwiperModule,
+    TabsModule
   ],
   providers: [
     Title

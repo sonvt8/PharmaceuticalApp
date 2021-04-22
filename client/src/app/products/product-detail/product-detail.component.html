@@ -1,1 +1,50 @@
-<p>product-detail works!</p>
+<div class="container">
+    <div class="row no-gutters product-hero">
+        <!-- CAROUSEL -->
+        <div class="col-lg-6 product-carousel">
+            <swiper [config]="config">
+                <div class="swiper-wrapper">
+                    <img class="swiper-slide" *ngFor="let img of Images" [src]="img.src" [alt]="img.alt" />
+                </div>
+
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </swiper>
+        </div>
+        <!-- END: CAROUSEL -->
+
+        <div class="col-lg-6 product-hero-right">
+            <h1 class="product-title">TDP 5 Desktop Tablet Press</h1>
+            <div class="share">
+                <span>SHARE THIS: </span>
+                <ul>
+                    <li><a href="#"><img src="../../../assets/img/facebook-logo.svg" alt=""></a>
+                    </li>
+                    <li><a href="#"><img src="../../../assets/img/twitter-logo.svg" alt=""></a>
+                    </li>
+                    <li><a href="#"><img src="../../../assets/img/linkedin-logo.svg" alt=""></a>
+                    </li>
+                </ul>
+            </div>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/UUeTtetpo3w"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<div class="product-detail-body container">
+    <tabset [justified]="true">
+        <tab heading="Description">
+            Justified content</tab>
+        <tab heading="Data Sheet">
+            Short Labeled Justified content</tab>
+        <tab heading="Review">
+            Long Labeled Justified content</tab>
+    </tabset>
+</div>

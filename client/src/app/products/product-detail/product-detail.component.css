@@ -1,0 +1,33 @@
+.container {
+    margin: 4rem auto;
+}
+
+.product-hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 1rem;
+}
+
+.product-hero-right .share ul {
+    list-style-type: none;
+    display: flex;
+    padding-inline-start: 0;
+    margin-top: 1rem;
+}
+
+.product-hero-right .share span {
+    font-weight: 600;
+}
+
+.product-hero-right .share ul li {
+    padding-right: 0.5rem;
+}
+
+.product-hero-right .share ul li img {
+    width: 30px;
+}
+
+.product-hero-right .product-title {
+    font-weight: 200;
+}
