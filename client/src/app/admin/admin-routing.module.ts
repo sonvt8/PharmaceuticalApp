@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { AdminComponent } from './admin.component';
 import { CategoryAdminComponent } from './category-admin/category-admin.component';
+import { CreateCategoryComponent } from './category-admin/create-category/create-category.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
 
 const routes: Routes = [
@@ -17,7 +18,10 @@ const routes: Routes = [
         path: "home-admin", component: HomeAdminComponent
       },
       {
-        path: "category-admin", component: CategoryAdminComponent
+        path: "category-admin", component: CategoryAdminComponent,
+      },
+      {
+        path: "create-category", component: CreateCategoryComponent,
       },
     ]
   },
