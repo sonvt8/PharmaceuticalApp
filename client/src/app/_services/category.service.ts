@@ -15,6 +15,10 @@ export class CategoryService {
     return this.http.get<any>(this.APIUrl+'/categories');
   }
 
+  getCate(val:any){
+    return this.http.get<any>(this.APIUrl+'/categories/' + val.id);
+  }
+
   addCategory(val:any){
     return this.http.post(this.APIUrl+'/categories',val);
   }
