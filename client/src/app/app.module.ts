@@ -17,6 +17,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     HttpClientModule,
     BrowserAnimationsModule,
     NgxUsefulSwiperModule,
-    TabsModule
+    TabsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title
