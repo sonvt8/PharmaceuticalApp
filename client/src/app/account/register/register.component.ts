@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from 'src/app/_services/account.service';
 
 import { MustMatch } from '../../_helpers/must-match.validator';
 
@@ -11,8 +13,11 @@ import { MustMatch } from '../../_helpers/must-match.validator';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
+  model: any = {}
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private accountService: AccountService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -36,8 +41,14 @@ export class RegisterComponent implements OnInit {
       if (this.registerForm.invalid) {
           return;
       }
-      // display form values on success
       alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
+
+      this.accountService.register(this.model).subscribe(response => {
+        console.log(response);
+      },error => {
+        console.log(error);
+        this.toastr.error(error.error)
+      })
   }
 
   onReset() {

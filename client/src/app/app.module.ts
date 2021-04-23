@@ -1,5 +1,6 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,7 +44,10 @@ import { CategoryService } from './_services/category.service';
     NgxUsefulSwiperModule,
     TabsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    }),
   ],
   providers: [
     CategoryService
