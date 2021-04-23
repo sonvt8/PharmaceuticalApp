@@ -4,6 +4,7 @@ import { HomeComponent } from '../home/home.component';
 import { AdminComponent } from './admin.component';
 import { CategoryAdminComponent } from './category-admin/category-admin.component';
 import { CreateCategoryComponent } from './category-admin/create-category/create-category.component';
+import { ContactAdminComponent } from './contact-admin/contact-admin.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { ProductAdminComponent } from './product-admin/product-admin.component';
 
@@ -23,6 +24,9 @@ const routes: Routes = [
       },
       {
         path: "product-admin", component: ProductAdminComponent,
+      },
+      {
+        path: "contact-admin", component: ContactAdminComponent,
       }
       
     ]

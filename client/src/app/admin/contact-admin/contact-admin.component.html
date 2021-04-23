@@ -1,8 +1,8 @@
-<h1>Category</h1>
+<h1>Contact</h1>
 
 <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal"
     (click)="addClick()" data-backdrop="static" data-keyboard="false">
-    Add Category
+    Add Contact
 </button>
 
 <!-- Modal -->
@@ -16,8 +16,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-create-category [cate]="cate" *ngIf="ActivateAddEditCateComp">
-                </app-create-category>
+                <app-add-edit-contact [contact]="contact" *ngIf="ActivateAddEditContactComp">
+                </app-add-edit-contact>
             </div>
         </div>
     </div>
@@ -29,6 +29,15 @@
                 Name
             </th>
             <th>
+                Email
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
                 Description
             </th>
             <th>Options</th>
@@ -36,16 +45,25 @@
     </thead>
     <tbody>
 
-        <tr *ngFor="let cate of categories">
+        <tr *ngFor="let contact of contacts">
             <td>
-                {{cate.categoryName}}
+                {{contact.name}}
             </td>
             <td>
-                {{cate.categoryDescription}}
+                {{contact.email}}
+            </td>
+            <td>
+                {{contact.phone}}
+            </td>
+            <td>
+                {{contact.country}}
+            </td>
+            <td>
+                {{contact.description}}
             </td>
             <td>
                 <button type="button" class="btn btn-outline-success mr-1" data-toggle="modal"
-                    data-target="#exampleModal" (click)="editClick(cate)" data-backdrop="static" data-keyboard="false">
+                    data-target="#exampleModal" (click)="editClick(contact)" data-backdrop="static" data-keyboard="false">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -54,7 +72,7 @@
                             d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                     </svg>
                 </button>
-                <button type="button" class="btn btn-outline-danger mr-1" (click)="deleteClick(cate)">
+                <button type="button" class="btn btn-outline-danger mr-1" (click)="deleteClick(contact)">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -66,3 +84,4 @@
 
     </tbody>
 </table>
+

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AdminRoutingModule } from './admin/admin-routing.module';
 import { CategoryService } from './_services/category.service';
 import { ProductService } from './_services/product.service';
+import { ContactService } from './_services/contact.service';
 import { DataTablesModule } from "angular-datatables";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -42,7 +43,7 @@ import { RegisterComponent } from './account/register/register.component';
     DataTablesModule
   ],
   providers: [
-    Title,CategoryService,ProductService
+    Title,CategoryService,ProductService,ContactService
   ],
   bootstrap: [AppComponent]
 })

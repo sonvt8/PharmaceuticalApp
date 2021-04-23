@@ -32,7 +32,7 @@ export class CreateCategoryComponent implements OnInit {
     };
     
     this.categoryService.addCategory(val).subscribe(res => {
-      this.router.navigateByUrl('/category-admin');
+      //this.router.navigateByUrl('/category-admin');
     }, error => {
       console.log(error);
     });
@@ -45,7 +45,7 @@ export class CreateCategoryComponent implements OnInit {
       categoryDescription: this.CategoryDescription
     };
     this.categoryService.updateCategory(val).subscribe(res => {
-      this.router.navigateByUrl('/category-admin');
+      //this.router.navigateByUrl('/category-admin');
     }, error => {
       console.log(error);
     });
