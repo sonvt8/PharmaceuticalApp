@@ -18,6 +18,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { CategoryService } from './_services/category.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   providers: [
-    Title
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })
