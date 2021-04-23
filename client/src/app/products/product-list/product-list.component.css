@@ -18,7 +18,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    background: rgba(0,0,0,.4);
+    background: rgba(0,0,0,.2);
     min-height: 300px;
     transition: ease-out 0.6s;
     opacity: 0;
@@ -30,7 +30,7 @@
 }
 
 .product-card:hover .product-card-info {
-    background: #343c4d;
+    background: #28a745;
     color: #fff;
     border-radius: 0 0 10px 10px;
 }
@@ -41,7 +41,7 @@
 }
 
 .product-card:hover .product-card-info::before {
-    border-bottom: 18px solid #343c4d;
+    border-bottom: 18px solid #28a745;
 }
 
 .product-card:hover .product-card-img {
