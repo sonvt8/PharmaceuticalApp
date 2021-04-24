@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/_model/category.model';
 import { CategoryService } from 'src/app/_services/category.service';
 
@@ -16,7 +17,7 @@ export class CreateCategoryComponent implements OnInit {
   CategoryName: string;
   CategoryDescription: string;
   
-  constructor(private categoryService: CategoryService, private router: Router) { }
+  constructor(private categoryService: CategoryService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.CategoryId = this.cate.id;
@@ -32,9 +33,9 @@ export class CreateCategoryComponent implements OnInit {
     };
     
     this.categoryService.addCategory(val).subscribe(res => {
-      //this.router.navigateByUrl('/category-admin');
+      this.toastr.success("Added successfully");
     }, error => {
-      console.log(error);
+      this.toastr.error("Added unsuccessfully");
     });
   }
 
@@ -45,9 +46,9 @@ export class CreateCategoryComponent implements OnInit {
       categoryDescription: this.CategoryDescription
     };
     this.categoryService.updateCategory(val).subscribe(res => {
-      //this.router.navigateByUrl('/category-admin');
+      this.toastr.success("Updated successfully");
     }, error => {
-      console.log(error);
+      this.toastr.error("Updated unsuccessfully");
     });
   }
 

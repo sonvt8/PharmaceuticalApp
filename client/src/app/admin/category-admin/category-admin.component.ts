@@ -3,6 +3,7 @@ import { CategoryService } from 'src/app/_services/category.service';
 import { Subject } from 'rxjs';
 import { Category } from 'src/app/_model/category.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category',
@@ -19,7 +20,7 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(public categoryService: CategoryService, private router: Router) { }
+  constructor(public categoryService: CategoryService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -64,13 +65,12 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
   deleteClick(item){
     if(confirm('Are you sure')){
       this.categoryService.deleteCategory(item).subscribe(res=>{
-        //this.toastr.error("Deleted successfully");
+        this.toastr.success("Deleted successfully");
         this.categoryService.getCateList().subscribe(res=>{
           this.categories = res;
         })
       },error=>{
-        //this.toastr.error("Deleted unsuccessfully");
-        console.log(error);
+        this.toastr.error("Deleted unsuccessfully");
       });
       
     }

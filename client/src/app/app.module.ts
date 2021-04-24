@@ -5,7 +5,7 @@ import { CategoryService } from './_services/category.service';
 import { ProductService } from './_services/product.service';
 import { ContactService } from './_services/contact.service';
 import { DataTablesModule } from "angular-datatables";
-
+import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -19,6 +19,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { RegisterComponent } from './account/register/register.component';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +41,10 @@ import { RegisterComponent } from './account/register/register.component';
     HttpClientModule,
     BrowserAnimationsModule,
     AdminRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    }),
   ],
   providers: [
     Title,CategoryService,ProductService,ContactService
