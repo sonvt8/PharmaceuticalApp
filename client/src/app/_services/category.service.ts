@@ -1,6 +1,6 @@
 import { Injectable,EventEmitter } from '@angular/core';
 import { Product } from '../products/product.model';
-import { Category } from './category.model';
+import { Category } from '../_models/category.model';
 
 @Injectable({
   providedIn: 'root'
