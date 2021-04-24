@@ -1,0 +1,94 @@
+<div class="container my-4">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="mb-4">Create New Account</h1>
+            <form id="register" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <fieldset class="my-4">
+                    <legend class="mb-4">Personal Information</legend>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label class="required">Title</label>
+                            <select formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                                <option value=""></option>
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Ms">Ms</option>
+                            </select>
+                            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                                <div *ngIf="f.title.errors.required">Title is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-5">
+                            <label class="required">First Name</label>
+                            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-5">
+                            <label class="required">Last Name</label>
+                            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
+                            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                                <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4">
+                            <label for="">Gender:</label>
+                        </div>
+                        <div class="form-inline col-lg-4 align-items-center">
+                            <input type="radio" id="male" value='male' class="form-check-input" formControlName="gender">
+                            <label for="male" class="form-check-label">Male</label>
+                        </div>
+                        <div class="form-inline col-lg-4 align-items-center">
+                            <input type="radio" id="female" value='female' class="form-check-input" formControlName="gender">
+                            <label for="female" class="form-check-label">Female</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="mb-4">Sign-in Information</legend>
+                    <div class="form-group">
+                        <label for="" class="required">Email address</label>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="required">Password</label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Confirm Password</label>
+                        <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+                        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                            <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                            <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <button [disabled]="loading" class="btn btn-success">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Register
+                    </button>
+                    <a routerLink="../login" class="btn btn-link">Cancel</a>
+                </div>
+                <!-- <button class="btn btn-success">Register</button>
+                <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button> -->
+                <small class="text-danger d-block mt-4">* Required Fields</small>
+            </form>
+        </div>
+    </div>
+</div>

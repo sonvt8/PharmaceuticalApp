@@ -38,7 +38,6 @@ namespace api.Controllers
         }
 
         [HttpPost("register")]
-        [Obsolete]
         public async Task<ActionResult<AccountDto>> Register(RegisterDto registerDto)
         {
 
@@ -52,9 +51,9 @@ namespace api.Controllers
 
             if (!result.Succeeded) return BadRequest(result.Errors);
 
-            // Send Token Email
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            Console.WriteLine(token);
+            //Send Token Email
+           var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
             var confirmationLink = Url.Action(nameof(ConfirmEmail), "Accounts", new { token, email = user.Email }, Request.Scheme);
             await _mailService.SendWelcomeEmailAsync(user.FullName, user.Email, confirmationLink);
 
@@ -66,7 +65,8 @@ namespace api.Controllers
             {
                 FullName = user.FullName,
                 Token = await _tokenService.CreateToken(user),
-                Email = user.Email
+                Email = user.Email,
+                Gender = user.Gender
             };
         }
 
