@@ -42,6 +42,7 @@ namespace api
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddTransient<IMailService, MailService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -52,7 +53,6 @@ namespace api
                     ValidateAudience = false
                 };
             });
-            services.AddCors();
             services.AddControllers();
             services.AddDbContext<DataContext>(options =>
             {
@@ -104,6 +104,7 @@ namespace api
 
             app.UseCors(x => x.AllowAnyHeader()
                               .AllowAnyMethod()
+                              .AllowCredentials()
                               .WithOrigins("https://localhost:4200"));
 
             app.UseAuthentication();

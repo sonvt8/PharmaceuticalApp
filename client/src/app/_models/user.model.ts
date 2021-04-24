@@ -1,15 +1,15 @@
-export interface User{
-    username: string;
-    token: string;
-}
 export class User {
-    public username: string;
+    public fullname: string;
+    public email: string;
     public token: string;
     public gender: string;
+    public password: string;
 
-    constructor(username: string, token: string, gender: string){
-        this.username = username;
+    constructor(fullname: string, email: string, token: string, gender: string, password: string){
+        this.fullname = fullname;
         this.token = token;
+        this.email = email;
         this.gender = gender;
+        this.password = password;
     }
 }

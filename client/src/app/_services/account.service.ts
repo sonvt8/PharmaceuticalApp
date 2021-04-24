@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { FormGroup} from '@angular/forms';
+
 import { User } from '../_models/user.model';
 import { environment } from 'src/environments/environment';
 
@@ -9,22 +12,43 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = environment.apiUrl;
-  private currentUserSource = new ReplaySubject<User>(1); //retrieve the last user
-  currentUser$ = this.currentUserSource.asObservable();
+  private userSubject: BehaviorSubject<User>;
+  public user: Observable<User>;
 
-  constructor(private http: HttpClient) { }
-
-  setCurrentUser(user: User){
-    this.currentUserSource.next(user)
+  constructor(
+    private router: Router,
+    private http: HttpClient
+  ) {
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+    this.user = this.userSubject.asObservable();
   }
 
-  register(model: any){
-    return this.http.post(this.baseUrl + 'accounts/register', model).pipe(
+  public get userValue(): User {
+    return this.userSubject.value;
+  }
+
+  login(email, password) {
+    return this.http.post<User>(`${environment.apiUrl}/accounts/login`, { email, password })
+      .pipe(map(user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+        return user;
+      }));
+  }
+
+  logout() {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('user');
+    this.userSubject.next(null);
+    this.router.navigate(['/accounts/login']);
+  }
+
+  register(user: User) {
+    return this.http.post(`${environment.apiUrl}/accounts/register`, user).pipe(
       map((response: User) => {
-        if(response) {
-          console.log(response);
-          this.currentUserSource.next(response);
+        if (response) {
+          this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify(response));
         }
         return response;

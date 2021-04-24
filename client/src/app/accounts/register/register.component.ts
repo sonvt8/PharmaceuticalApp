@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
+import { AlertService  } from 'src/app/_services/alert.service';
 
 import { MustMatch } from '../../_helpers/must-match.validator';
+import { first } from 'rxjs/operators';
+import { User } from 'src/app/_models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -12,11 +16,14 @@ import { MustMatch } from '../../_helpers/must-match.validator';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  loading = false;
   submitted = false;
-  model: any = {}
 
   constructor(private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private router: Router,
               private accountService: AccountService,
+              private alertService: AlertService,
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -24,6 +31,7 @@ export class RegisterComponent implements OnInit {
       title: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      gender: ['male', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
@@ -37,18 +45,34 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
       this.submitted = true;
+
+      // reset alerts on submit
+      this.alertService.clear();
+
       // stop here if form is invalid
       if (this.registerForm.invalid) {
           return;
       }
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
 
-      this.accountService.register(this.model).subscribe(response => {
-        console.log(response);
-      },error => {
-        console.log(error);
-        this.toastr.error(error.error)
-      })
+      this.loading = true;
+      var user: User = {
+        fullname: this.registerForm.get('lastName').value + " " + this.registerForm.get('firstName').value,
+        email: this.registerForm.get('email').value,
+        gender:this.registerForm.get('gender').value,
+        password:this.registerForm.get('password').value,
+        token: ''
+      };
+      this.accountService.register(user)
+          .pipe(first())
+          .subscribe(
+            data => {
+                this.alertService.success('Registration successful', { keepAfterRouteChange: true });
+                this.router.navigate(['../login'], { relativeTo: this.route });
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
   }
 
   onReset() {
