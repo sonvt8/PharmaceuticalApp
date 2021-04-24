@@ -20,6 +20,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CategoriesComponent,
     CategoryListComponent,
     ProductsComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
