@@ -12,10 +12,12 @@ import { CategoryAdminComponent } from './category-admin/category-admin.componen
 import { CreateCategoryComponent } from './category-admin/create-category/create-category.component';
 import { ContactAdminComponent } from './contact-admin/contact-admin.component';
 import { AddEditContactComponent } from './contact-admin/add-edit-contact/add-edit-contact.component';
+import { ProductAdminComponent } from './product-admin/product-admin.component';
+import { AddEditProductComponent } from './product-admin/add-edit-product/add-edit-product.component';
 
 
 @NgModule({
-  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent],
+  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

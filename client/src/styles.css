@@ -4,3 +4,10 @@
     padding-left: 0;
     padding-right: 0;
 }
+
+@media (min-width: 768px) {
+    .modal-xl {
+      width: 90%;
+     max-width:1200px;
+    }
+  }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +12,8 @@ import { CategoryService } from 'src/app/_services/category.service';
 })
 export class CreateCategoryComponent implements OnInit {
   @Input() cate: any;
+  @Input()
+  public myCallback: Function; 
   ModalTitle:string
   CategoryId: number;
   CategoryName: string;
@@ -34,6 +36,7 @@ export class CreateCategoryComponent implements OnInit {
     
     this.categoryService.addCategory(val).subscribe(res => {
       this.toastr.success("Added successfully");
+      this.myCallback();
     }, error => {
       this.toastr.error("Added unsuccessfully");
     });
@@ -47,14 +50,11 @@ export class CreateCategoryComponent implements OnInit {
     };
     this.categoryService.updateCategory(val).subscribe(res => {
       this.toastr.success("Updated successfully");
+      this.myCallback();
     }, error => {
       this.toastr.error("Updated unsuccessfully");
     });
   }
 
-  // resetForm(form:NgForm){
-  //   form.form.reset();
-  //   this.categoryService.formData = new Category();
-  // }
 
 }

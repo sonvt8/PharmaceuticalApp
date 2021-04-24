@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/_services/category.service';
 import { Subject } from 'rxjs';
 import { Category } from 'src/app/_model/category.model';
@@ -16,6 +16,9 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
   cate: any
   ModalTitle:string
   ActivateAddEditCateComp=false;
+  public CloseClickCallback: Function;
+  @ViewChild('closebutton') closebutton;
+
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
@@ -28,6 +31,7 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
       pageLength: 5
     };
     this.showCateList();
+    this.CloseClickCallback = this.closeClick.bind(this);
   }
 
   showCateList(){
@@ -49,7 +53,7 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
     this.ActivateAddEditCateComp=true;
   }
 
-  editClick(item){
+  editClick(item: any){
     this.cate=item;
     this.ModalTitle="Edit Category";
     this.ActivateAddEditCateComp=true;
@@ -57,12 +61,13 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
 
   closeClick(){
     this.ActivateAddEditCateComp=false;
+    this.closebutton.nativeElement.click();
     this.categoryService.getCateList().subscribe(res=>{
       this.categories = res;
     })
   }
 
-  deleteClick(item){
+  deleteClick(item: any){
     if(confirm('Are you sure')){
       this.categoryService.deleteCategory(item).subscribe(res=>{
         this.toastr.success("Deleted successfully");
@@ -75,6 +80,8 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
       
     }
   }
+
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
