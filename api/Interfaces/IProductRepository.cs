@@ -1,5 +1,6 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace api.Interfaces
         void DeleteProduct(Product product);
 
         Task<IEnumerable<ProductDto>> GetProducts();
+        Task<PagedList<ProductDto>> GetProductsPagination(ProductParams productParams);
         Task<IEnumerable<ProductDto>> GetProductsOfCategoryAsync(int categoryId);
         Task<CategoryDto> GetCategoryOfAProductAsync(int productId);
         Task<ProductDto> GetProductDtoByIdAsync(int productId);
