@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataTablesModule } from "angular-datatables";
 import { FormsModule } from '@angular/forms';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 import { AdminRoutingModule } from './admin-routing.module';
@@ -22,8 +22,8 @@ import { AddEditProductComponent } from './product-admin/add-edit-product/add-ed
     CommonModule,
     AdminRoutingModule,
     DataTablesModule,
-    FormsModule
-    
+    FormsModule,
+    PaginationModule.forRoot()
   ]
 })
 export class AdminModule { }

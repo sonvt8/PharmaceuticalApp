@@ -1,5 +1,6 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AdminRoutingModule } from './admin/admin-routing.module';
 import { CategoryService } from './_services/category.service';
 import { ProductService } from './_services/product.service';
@@ -45,6 +46,7 @@ import { RegisterComponent } from './account/register/register.component';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
+    PaginationModule.forRoot()
   ],
   providers: [
     Title,CategoryService,ProductService,ContactService
