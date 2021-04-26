@@ -1,0 +1,15 @@
+hr.divider {
+    border-top: 3px solid rgb(101, 247, 133);
+    width: 100px;
+    margin-left: 0;
+    margin-bottom: 2rem;
+}
+
+#map {
+    overflow: hidden;
+    margin: 4rem auto;
+}
+
+.about-us-section {
+    margin: 2rem auto;
+}
