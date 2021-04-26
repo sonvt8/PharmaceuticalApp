@@ -39,25 +39,56 @@ export class ProductAdminComponent implements OnInit {
   }
 
   onSearch() {
-    this.search = this.searchTerm.nativeElement.value;
-    this.pageNumber = 1;
-    this.loadProductList();
+    if(this.products.count!=0){
+      this.search = this.searchTerm.nativeElement.value;
+      this.pageNumber = 1;
+      this.loadProductList();
+    }
+    this.pagination=null;
   }
 
   addClick(){
-
+    this.prod = {
+      Id : 0,
+      ProductName: "",
+      OutPut: "",
+      CapsuleSize: "",
+      MachineDimension: "",
+      ModelNumber: 0,
+      Dies: 0,
+      MaxPressure: 0,
+      MaxDiameter: 0,
+      MaxDepth: 0,
+      ProductionCapacity:"",
+      MachineSize:"",
+      NetWeight:0,
+      Category:""
+    };
+    this.ModalTitle="Add Product";
+    this.ActivateAddEditProComp=true;
   }
 
   editClick(item: any){
-
+    this.prod = item;
+    this.ModalTitle="Update Product";
+    this.ActivateAddEditProComp=true;
   }
 
   deleteClick(item: any){
-    
+    if(confirm('Are you sure')){
+      this.productService.deleteProduct(item).subscribe(res=>{
+        this.toastr.success("Deleted successfully");
+        this.loadProductList();
+      },error=>{
+        this.toastr.error("Deleted unsuccessfully");
+      });
+      
+    }
   }
 
-  // closeClick(){
-  //   this.ActivateAddEditProComp=false;
-  // }
+  closeClick(){
+    this.ActivateAddEditProComp=false;
+    this.loadProductList();
+  }
 
 }

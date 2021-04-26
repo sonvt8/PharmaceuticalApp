@@ -115,12 +115,17 @@ namespace api.Controllers
                 product.PhotoProducts.Remove(photo);
             }
 
-            var reviews = product.Reviews.ToList();
+            var reviews = product.Reviews;
 
-            foreach (var review in reviews)
+            if (reviews != null)
             {
-                product.Reviews.Remove(review);
+                foreach (var review in reviews.ToList())
+                {
+                    product.Reviews.Remove(review);
+                }
             }
+
+
 
             _unitOfWork.ProductRepository.DeleteProduct(product);
 
@@ -128,6 +133,7 @@ namespace api.Controllers
 
             return BadRequest("Failed to delete product");
         }
+
 
         [HttpPost("add-photo/{productId}")]
         public async Task<ActionResult<PhotoProductDto>> AddPhoto(IFormFile file, int productId)
