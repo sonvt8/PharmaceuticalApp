@@ -25,7 +25,7 @@ export class AddEditProductComponent implements OnInit {
   ProductionCapacity: string
   MachineSize: string
   NetWeight: number
-  category: any
+  Category: any
 
   CategoryList: any = []
 
@@ -52,7 +52,7 @@ export class AddEditProductComponent implements OnInit {
       this.ProductionCapacity = this.pro.ProductionCapacity;
       this.MachineSize = this.pro.MachineSize;
       this.NetWeight = this.pro.NetWeight;
-      this.category = this.pro.category
+      this.Category = this.pro.Category
     });
   }
 
@@ -71,7 +71,7 @@ export class AddEditProductComponent implements OnInit {
       ProductionCapacity : this.pro.ProductionCapacity,
       MachineSize : this.pro.MachineSize,
       NetWeight : this.pro.NetWeight,
-      category : this.pro.category
+      Category : this.pro.Category
     };
 
     this.productService.addProduct(val).subscribe(res=>{
@@ -96,7 +96,7 @@ export class AddEditProductComponent implements OnInit {
       ProductionCapacity : this.pro.ProductionCapacity,
       MachineSize : this.pro.MachineSize,
       NetWeight : this.pro.NetWeight,
-      category : this.pro.category
+      Category : this.pro.Category
     };
 
     this.productService.updateProduct(val).subscribe(res=>{
