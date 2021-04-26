@@ -52,8 +52,9 @@ import { CategoryService } from './_services/category.service';
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({
+      progressBar: true,
       positionClass: 'toast-bottom-right'
-    }),
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

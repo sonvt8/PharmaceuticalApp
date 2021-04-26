@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { FormGroup} from '@angular/forms';
 
 import { User } from '../_models/user.model';
 import { environment } from 'src/environments/environment';
@@ -27,8 +26,8 @@ export class AccountService {
     return this.userSubject.value;
   }
 
-  login(email, password) {
-    return this.http.post<User>(`${environment.apiUrl}/accounts/login`, { email, password })
+  login(user: User) {
+    return this.http.post<User>(`${environment.apiUrl}/accounts/login`, user)
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user));

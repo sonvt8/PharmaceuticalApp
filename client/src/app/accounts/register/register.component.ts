@@ -3,10 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
-import { AlertService  } from 'src/app/_services/alert.service';
 
 import { MustMatch } from '../../_helpers/must-match.validator';
-import { first } from 'rxjs/operators';
 import { User } from 'src/app/_models/user.model';
 
 @Component({
@@ -23,7 +21,6 @@ export class RegisterComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,
-              private alertService: AlertService,
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -44,39 +41,27 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
-      this.submitted = true;
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+        return;
+    }
+    this.loading = true;
 
-      // reset alerts on submit
-      this.alertService.clear();
+    var user: User = {
+      fullname: this.registerForm.get('lastName').value + " " + this.registerForm.get('firstName').value,
+      email: this.registerForm.get('email').value,
+      gender:this.registerForm.get('gender').value,
+      password:this.registerForm.get('password').value,
+      token: ''
+    };
 
-      // stop here if form is invalid
-      if (this.registerForm.invalid) {
-          return;
-      }
-
-      this.loading = true;
-      var user: User = {
-        fullname: this.registerForm.get('lastName').value + " " + this.registerForm.get('firstName').value,
-        email: this.registerForm.get('email').value,
-        gender:this.registerForm.get('gender').value,
-        password:this.registerForm.get('password').value,
-        token: ''
-      };
-      this.accountService.register(user)
-          .pipe(first())
-          .subscribe(
-            data => {
-                this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-                this.router.navigate(['../login'], { relativeTo: this.route });
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });
-  }
-
-  onReset() {
-    this.submitted = false;
-    this.registerForm.reset();
+    this.accountService.register(user).subscribe(response => {
+      this.toastr.success('You have registered successfully');
+      this.router.navigate(['../login'], { relativeTo: this.route });
+    },error => {
+      this.toastr.error(error.error)
+      this.loading = false;
+    })
   }
 }

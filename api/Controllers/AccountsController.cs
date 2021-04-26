@@ -75,18 +75,18 @@ namespace api.Controllers
         {
             var user = await _userManager.Users
                  .SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
-            if (user == null) return Unauthorized("Invalid Email");
+            if (user == null) return Unauthorized("Email or Password is incorrect!");
+
+            var result = await _signInManager
+                .CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+            if (!result.Succeeded) return Unauthorized("Email or Password is incorrect!");
 
             var isConfirmed = await _userManager.IsEmailConfirmedAsync(user);
             if (!isConfirmed)
             {
                 return Unauthorized("Oopss! Make sure you clicked registration link in your mailbox");
             }
-
-            var result = await _signInManager
-                .CheckPasswordSignInAsync(user, loginDto.Password, false);
-
-            if (!result.Succeeded) return Unauthorized();
 
             return new AccountDto
             {
