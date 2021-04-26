@@ -14,7 +14,9 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  
+  getProducts():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl+'/products');
+  }
 
   getProductList(page?: number, itemPerPage?: number, search?: string){
     let params = new HttpParams();

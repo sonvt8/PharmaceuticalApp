@@ -14,10 +14,12 @@ import { ContactAdminComponent } from './contact-admin/contact-admin.component';
 import { AddEditContactComponent } from './contact-admin/add-edit-contact/add-edit-contact.component';
 import { ProductAdminComponent } from './product-admin/product-admin.component';
 import { AddEditProductComponent } from './product-admin/add-edit-product/add-edit-product.component';
+import { ProductAdminTestComponent } from './product-admin-test/product-admin-test.component';
+import { AddEditProductTestComponent } from './product-admin-test/add-edit-product-test/add-edit-product-test.component';
 
 
 @NgModule({
-  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent],
+  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent, ProductAdminTestComponent, AddEditProductTestComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

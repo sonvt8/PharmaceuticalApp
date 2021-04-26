@@ -17,6 +17,7 @@ export class AddEditProductComponent implements OnInit {
   OutPut: string
   CapsuleSize: string
   MachineDimension: string
+  ShippingWeight: string
   ModelNumber: number
   Dies: number
   MaxPressure: number
@@ -26,6 +27,7 @@ export class AddEditProductComponent implements OnInit {
   MachineSize: string
   NetWeight: number
   CategoryName: string
+  PhotoProductUrl: string
 
   CategoryList: any = []
 
@@ -36,17 +38,19 @@ export class AddEditProductComponent implements OnInit {
     this.ProductId = this.pro.id;
     this.ProductName = this.pro.productName;
     this.OutPut = this.pro.outPut;
-    // this.CapsuleSize = this.pro.capsuleSize;
-    // this.MachineDimension = this.pro.machineDimension;
-    // this.ModelNumber = this.pro.modelNumber;
-    // this.Dies = this.pro.dies;
-    // this.MaxPressure = this.pro.maxPressure;
-    // this.MaxDiameter = this.pro.maxDiameter;
-    // this.MaxDepth = this.pro.maxDepth;
-    // this.ProductionCapacity = this.pro.productionCapacity;
-    // this.MachineSize = this.pro.machineSize;
-    // this.NetWeight = this.pro.netWeight;
-    // this.CategoryName = this.pro.categoryName
+    this.CapsuleSize = this.pro.capsuleSize;
+    this.MachineDimension = this.pro.machineDimension;
+    this.ShippingWeight = this.pro.shippingWeight;
+    this.ModelNumber = this.pro.modelNumber;
+    this.Dies = this.pro.dies;
+    this.MaxPressure = this.pro.maxPressure;
+    this.MaxDiameter = this.pro.maxDiameter;
+    this.MaxDepth = this.pro.maxDepth;
+    this.ProductionCapacity = this.pro.productionCapacity;
+    this.MachineSize = this.pro.machineSize;
+    this.NetWeight = this.pro.netWeight;
+    this.CategoryName = this.pro.categoryName;
+    this.PhotoProductUrl = this.pro.photoProductUrl
 
   }
 
@@ -65,6 +69,7 @@ export class AddEditProductComponent implements OnInit {
       outPut: this.OutPut,
       capsuleSize: this.CapsuleSize,
       machineDimension: this.MachineDimension,
+      shippingWeight : this.ShippingWeight,
       modelNumber: this.ModelNumber,
       dies: this.Dies,
       maxPressure: this.MaxPressure,
@@ -73,7 +78,8 @@ export class AddEditProductComponent implements OnInit {
       productionCapacity: this.ProductionCapacity,
       machineSize: this.MachineSize,
       netWeight: this.NetWeight,
-      categoryName: this.CategoryName
+      categoryName: this.CategoryName,
+      photoProductUrl : this.PhotoProductUrl
     };
 
     this.productService.addProduct(val).subscribe(res => {
@@ -90,6 +96,7 @@ export class AddEditProductComponent implements OnInit {
       outPut: this.OutPut,
       capsuleSize: this.CapsuleSize,
       machineDimension: this.MachineDimension,
+      shippingWeight : this.ShippingWeight,
       modelNumber: this.ModelNumber,
       dies: this.Dies,
       maxPressure: this.MaxPressure,
@@ -98,7 +105,8 @@ export class AddEditProductComponent implements OnInit {
       productionCapacity: this.ProductionCapacity,
       machineSize: this.MachineSize,
       netWeight: this.NetWeight,
-      categoryName: this.CategoryName
+      categoryName: this.CategoryName,
+      photoProductUrl : this.PhotoProductUrl
     };
 
     this.productService.updateProduct(val).subscribe(res => {

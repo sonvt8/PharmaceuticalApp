@@ -49,20 +49,22 @@ export class ProductAdminComponent implements OnInit {
 
   addClick(){
     this.prod = {
-      id : 0,
-      productName: "",
-      outPut: "",
-      capsuleSize: "",
-      machineDimension: "",
-      modelNumber: 0,
-      dies: 0,
-      maxPressure: 0,
-      maxDiameter: 0,
-      maxDepth: 0,
-      productionCapacity:"",
-      machineSize:"",
-      netWeight:0,
-      categoryName:""
+      Id : 0,
+      ProductName: "",
+      OutPut: "",
+      CapsuleSize: "",
+      MachineDimension: "",
+      ShippingWeight: "",
+      ModelNumber: 0,
+      Dies: 0,
+      MaxPressure: 0,
+      MaxDiameter: 0,
+      MaxDepth: 0,
+      ProductionCapacity:"",
+      MachineSize:"",
+      NetWeight:0,
+      CategoryName:"",
+      PhotoProductUrl:""
     };
     this.ModalTitle="Add Product";
     this.ActivateAddEditProComp=true;
