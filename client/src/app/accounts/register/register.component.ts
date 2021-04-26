@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 
 import { MustMatch } from '../../_helpers/must-match.validator';
-import { first } from 'rxjs/operators';
 import { User } from 'src/app/_models/user.model';
 
 @Component({
@@ -42,33 +41,27 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
-      this.submitted = true;
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+        return;
+    }
+    this.loading = true;
 
-      // stop here if form is invalid
-      if (this.registerForm.invalid) {
-          return;
-      }
+    var user: User = {
+      fullname: this.registerForm.get('lastName').value + " " + this.registerForm.get('firstName').value,
+      email: this.registerForm.get('email').value,
+      gender:this.registerForm.get('gender').value,
+      password:this.registerForm.get('password').value,
+      token: ''
+    };
 
-      this.loading = true;
-      var user: User = {
-        fullname: this.registerForm.get('lastName').value + " " + this.registerForm.get('firstName').value,
-        email: this.registerForm.get('email').value,
-        gender:this.registerForm.get('gender').value,
-        password:this.registerForm.get('password').value,
-        token: ''
-      };
-
-      this.accountService.register(user).subscribe(response => {
-        this.toastr.success('You have registered successfully');
-        this.router.navigate(['../login'], { relativeTo: this.route });
-      },error => {
-        this.toastr.error(error.error)
-        this.loading = false;
-      })
-  }
-
-  onReset() {
-    this.submitted = false;
-    this.registerForm.reset();
+    this.accountService.register(user).subscribe(response => {
+      this.toastr.success('You have registered successfully');
+      this.router.navigate(['../login'], { relativeTo: this.route });
+    },error => {
+      this.toastr.error(error.error)
+      this.loading = false;
+    })
   }
 }
