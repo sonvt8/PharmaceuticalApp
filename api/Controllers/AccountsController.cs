@@ -222,7 +222,8 @@ namespace api.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
             {
-                return Ok("Hello");
+                return Redirect("https://localhost:4200/");
+                //return Ok("Hello");
             }
             return BadRequest("Error");
         }
