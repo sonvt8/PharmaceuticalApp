@@ -16,12 +16,16 @@ export class ProductService {
 
   
 
-  getProductList(page?: number, itemPerPage?: number){
+  getProductList(page?: number, itemPerPage?: number, search?: string){
     let params = new HttpParams();
 
     if(page!==null && itemPerPage !== null){
       params = params.append('pageNumber', page.toString());
       params = params.append('pageSize', itemPerPage.toString());
+    }
+
+    if(search!==""){
+      params = params.append('search', search);
     }
 
     return this.http.get<any>(this.APIUrl+'/products/pagination', {observe: 'response', params}).pipe(

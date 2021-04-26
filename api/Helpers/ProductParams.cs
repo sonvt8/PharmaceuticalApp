@@ -7,6 +7,11 @@ namespace api.Helpers
 {
     public class ProductParams : PaginationParams
     {
-        //public int CurrentProductId { get; set; }
+        private string _search;
+        public string Search
+        {
+            get => _search;
+            set => _search = value.ToLower();
+        }
     }
 }
