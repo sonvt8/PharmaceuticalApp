@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map} from 'rxjs/operators';
 import { PaginatedResult } from '../_model/pagination';
+import { Product } from '../_model/product';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,29 @@ import { PaginatedResult } from '../_model/pagination';
 export class ProductService {
 
   readonly APIUrl = 'http://localhost:22566/api';
+  readonly baseUrl = 'http://localhost:22566/api/products';
   paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
 
   constructor(private http: HttpClient) { }
+  formData: Product = new Product();
 
+  list : Product[];
+
+  postProduct(){
+    return this.http.post(this.baseUrl,this.formData);
+  }
+
+  putProduct(){
+    return this.http.put(`${this.baseUrl}/${this.formData.id}`,this.formData);
+  }
+
+  deleteProduct(id:number){
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+  resetList(){
+    return this.http.get(this.baseUrl);
+  }
   getProducts():Observable<any[]>{
     return this.http.get<any>(this.APIUrl+'/products');
   }
@@ -49,7 +69,7 @@ export class ProductService {
     return this.http.put(this.APIUrl+'/products/' + val.id, val);
   }
 
-  deleteProduct(val:any){
+  deleteProductModel(val:any){
     return this.http.delete(this.APIUrl+'/products/'+ val.id);
   }
 

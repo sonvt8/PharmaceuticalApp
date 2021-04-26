@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { Product } from 'src/app/_model/product';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { ProductService } from 'src/app/_services/product.service';
 export class ProductAdminTestComponent implements OnInit,OnDestroy {
 
   dtOptions: DataTables.Settings = {}
-  products: any[] = []
+  products: Product[] = []
   prod: any
   ModalTitle:string
   ActivateAddEditProComp=false;
@@ -33,33 +34,16 @@ export class ProductAdminTestComponent implements OnInit,OnDestroy {
   }
 
   showProductList(){
-    this.productService.getProducts().subscribe(res=>{
-      this.products = res,
-      this.dtTrigger.next();
+    this.productService.resetList().subscribe(res=>{
+        this.products = res as Product[];
+        this.dtTrigger.next();  
     })
-    
+     
   }
 
   
   addClick(){
-    this.prod = {
-      Id : 0,
-      ProductName: "",
-      OutPut: "",
-      CapsuleSize: "",
-      MachineDimension: "",
-      ShippingWeight: "",
-      ModelNumber: 0,
-      Dies: 0,
-      MaxPressure: 0,
-      MaxDiameter: 0,
-      MaxDepth: 0,
-      ProductionCapacity:"",
-      MachineSize:"",
-      NetWeight:0,
-      CategoryName:"",
-      PhotoProductUrl:""
-    };
+    this.prod = new Product();
     this.ModalTitle="Add Product";
     this.ActivateAddEditProComp=true;
   }
@@ -73,23 +57,19 @@ export class ProductAdminTestComponent implements OnInit,OnDestroy {
   closeClick(){
     this.ActivateAddEditProComp=false;
     this.closebutton.nativeElement.click();
-    this.productService.getProducts().subscribe(res=>{   
-      this.products = res;
-    })
+    this.productService.resetList();
   }
 
-  deleteClick(item: any){
-    if(confirm('Are you sure')){
-      this.productService.deleteProduct(item).subscribe(res=>{
-        this.toastr.error("Deleted successfully");
-        this.productService.getProducts().subscribe(res=>{
-          this.products = res;
-        })
-      },error=>{
-        //this.toastr.error("Deleted unsuccessfully");
-        console.log(error);
-      });
-      
+  deleteClick(id:number){
+    if(confirm("Are you sure to delete this record?")){
+      this.productService.deleteProduct(id)
+      .subscribe(
+        res=>{
+          this.productService.resetList();
+          this.toastr.error('Deleted successfully');
+        },
+        err=>{console.log(err); }
+      )
     }
   }
   ngOnDestroy(): void {

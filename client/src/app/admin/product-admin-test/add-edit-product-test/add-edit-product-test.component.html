@@ -1,1 +1,33 @@
-<p>add-edit-product-test works!</p>
+<form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
+    <input type="hidden" name="id" [value]="productService.formData.id"/>
+    <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Product Name" 
+        name="productName" #productName="ngModel"  [(ngModel)]="productService.formData.productName" 
+        required [class.invalid] = "productName.invalid && productName.touched"/>
+    </div>
+    <div class="form-group">
+        <label>Out Put</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Out Put" 
+        name="outPut" #outPut="ngModel"  [(ngModel)]="productService.formData.outPut" 
+        required [class.invalid] = "outPut.invalid && outPut.touched"/>
+    </div>
+    <!-- <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>SECUTIRY CODE</label>
+            <input type="password" class="form-control form-control-lg" placeholder="Secutiry Code" 
+            name="securityCode" #securityCode="ngModel"  [(ngModel)]="service.formData.securityCode" 
+            required maxlength="3" minlength="3" [class.invalid] = "securityCode.invalid && securityCode.touched"/>
+        </div>
+        <div class="form-group col-md-6">
+            <label>VALID THROUGH</label>
+            <input type="text" class="form-control form-control-lg" placeholder="MM/YY" 
+            name="expirationDate" #expirationDate="ngModel"  [(ngModel)]="service.formData.expirationDate" 
+            required maxlength="5" minlength="5" [class.invalid] = "expirationDate.invalid && expirationDate.touched"/>
+        </div>
+    </div> -->
+    <div class="form-group">
+        <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SUBMIT</button>
+    </div>
+    
+</form>

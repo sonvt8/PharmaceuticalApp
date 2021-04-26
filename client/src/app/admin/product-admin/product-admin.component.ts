@@ -78,7 +78,7 @@ export class ProductAdminComponent implements OnInit {
 
   deleteClick(item: any){
     if(confirm('Are you sure')){
-      this.productService.deleteProduct(item).subscribe(res=>{
+      this.productService.deleteProductModel(item).subscribe(res=>{
         this.toastr.success("Deleted successfully");
         this.loadProductList();
       },error=>{
