@@ -8,6 +8,10 @@
     margin-left: 0.3rem;
 }
 
-.btn{
-    margin: 5px;
+.btn-submit {
+    margin-right: 1rem;
+}
+
+.btn-outline-dark {
+    box-shadow: none;
 }
