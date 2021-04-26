@@ -12,7 +12,7 @@ import { ProductService } from 'src/app/_services/product.service';
 export class AddEditProductComponent implements OnInit {
   @Input() pro: any;
 
-  Id: number
+  ProductId: number
   ProductName: string
   OutPut: string
   CapsuleSize: string
@@ -25,83 +25,85 @@ export class AddEditProductComponent implements OnInit {
   ProductionCapacity: string
   MachineSize: string
   NetWeight: number
-  Category: any
+  CategoryName: string
 
   CategoryList: any = []
 
   constructor(private productService: ProductService, private categoryService: CategoryService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.loadCategoryList();
+    //this.loadCategoryList();
+    this.ProductId = this.pro.id;
+    this.ProductName = this.pro.productName;
+    this.OutPut = this.pro.outPut;
+    // this.CapsuleSize = this.pro.capsuleSize;
+    // this.MachineDimension = this.pro.machineDimension;
+    // this.ModelNumber = this.pro.modelNumber;
+    // this.Dies = this.pro.dies;
+    // this.MaxPressure = this.pro.maxPressure;
+    // this.MaxDiameter = this.pro.maxDiameter;
+    // this.MaxDepth = this.pro.maxDepth;
+    // this.ProductionCapacity = this.pro.productionCapacity;
+    // this.MachineSize = this.pro.machineSize;
+    // this.NetWeight = this.pro.netWeight;
+    // this.CategoryName = this.pro.categoryName
+
   }
 
   loadCategoryList() {
     this.categoryService.getCateList().subscribe((data: any) => {
       this.CategoryList = data;
 
-      this.Id = this.pro.Id;
-      this.ProductName = this.pro.ProductName;
-      this.OutPut = this.pro.OutPut;
-      this.CapsuleSize = this.pro.CapsuleSize;
-      this.MachineDimension = this.pro.MachineDimension;
-      this.ModelNumber = this.pro.ModelNumber;
-      this.Dies = this.pro.Dies;
-      this.MaxPressure = this.pro.MaxPressure;
-      this.MaxDiameter = this.pro.MaxDiameter;
-      this.MaxDepth = this.pro.MaxDepth;
-      this.ProductionCapacity = this.pro.ProductionCapacity;
-      this.MachineSize = this.pro.MachineSize;
-      this.NetWeight = this.pro.NetWeight;
-      this.Category = this.pro.Category
+
     });
   }
 
   addProduct() {
     var val = {
-      Id : this.pro.Id,
-      ProductName : this.pro.ProductName,
-      OutPut : this.pro.OutPut,
-      CapsuleSize : this.pro.CapsuleSize,
-      MachineDimension : this.pro.MachineDimension,
-      ModelNumber : this.pro.ModelNumber,
-      Dies : this.pro.Dies,
-      MaxPressure : this.pro.MaxPressure,
-      MaxDiameter : this.pro.MaxDiameter,
-      MaxDepth : this.pro.MaxDepth,
-      ProductionCapacity : this.pro.ProductionCapacity,
-      MachineSize : this.pro.MachineSize,
-      NetWeight : this.pro.NetWeight,
-      Category : this.pro.Category
+      id: this.ProductId,
+      productName: this.ProductName,
+      outPut: this.OutPut,
+      capsuleSize: this.CapsuleSize,
+      machineDimension: this.MachineDimension,
+      modelNumber: this.ModelNumber,
+      dies: this.Dies,
+      maxPressure: this.MaxPressure,
+      maxDiameter: this.MaxDiameter,
+      maxDepth: this.MaxDepth,
+      productionCapacity: this.ProductionCapacity,
+      machineSize: this.MachineSize,
+      netWeight: this.NetWeight,
+      categoryName: this.CategoryName
     };
 
-    this.productService.addProduct(val).subscribe(res=>{
+    this.productService.addProduct(val).subscribe(res => {
       this.toastr.success("Added successfully");
-    },error=>{
+    }, error => {
       this.toastr.error("Added unsuccessfully");
     });
   }
 
   updateProduct() {
     var val = {
-      Id : this.pro.Id,
-      ProductName : this.pro.ProductName,
-      OutPut : this.pro.OutPut,
-      CapsuleSize : this.pro.CapsuleSize,
-      MachineDimension : this.pro.MachineDimension,
-      ModelNumber : this.pro.ModelNumber,
-      Dies : this.pro.Dies,
-      MaxPressure : this.pro.MaxPressure,
-      MaxDiameter : this.pro.MaxDiameter,
-      MaxDepth : this.pro.MaxDepth,
-      ProductionCapacity : this.pro.ProductionCapacity,
-      MachineSize : this.pro.MachineSize,
-      NetWeight : this.pro.NetWeight,
-      Category : this.pro.Category
+      id: this.ProductId,
+      productName: this.ProductName,
+      outPut: this.OutPut,
+      capsuleSize: this.CapsuleSize,
+      machineDimension: this.MachineDimension,
+      modelNumber: this.ModelNumber,
+      dies: this.Dies,
+      maxPressure: this.MaxPressure,
+      maxDiameter: this.MaxDiameter,
+      maxDepth: this.MaxDepth,
+      productionCapacity: this.ProductionCapacity,
+      machineSize: this.MachineSize,
+      netWeight: this.NetWeight,
+      categoryName: this.CategoryName
     };
 
-    this.productService.updateProduct(val).subscribe(res=>{
+    this.productService.updateProduct(val).subscribe(res => {
       this.toastr.success("Updated successfully");
-    },error=>{
+    }, error => {
       this.toastr.error("Updated unsuccessfully");
     });
   }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ContactService } from 'src/app/_services/contact.service';
 
@@ -14,6 +14,8 @@ export class ContactAdminComponent implements OnInit, OnDestroy {
   contact: any
   ModalTitle:string
   ActivateAddEditContactComp=false;
+  public CloseClickCallback: Function;
+  @ViewChild('closebutton') closebutton;
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
@@ -26,6 +28,7 @@ export class ContactAdminComponent implements OnInit, OnDestroy {
       pageLength: 5
     };
     this.showContactList();
+    this.CloseClickCallback = this.closeClick.bind(this);
   }
 
   showContactList(){
@@ -58,7 +61,8 @@ export class ContactAdminComponent implements OnInit, OnDestroy {
 
   closeClick(){
     this.ActivateAddEditContactComp=false;
-    this.contactService.getContactList().subscribe(res=>{
+    this.closebutton.nativeElement.click();
+    this.contactService.getContactList().subscribe(res=>{   
       this.contacts = res;
     })
   }

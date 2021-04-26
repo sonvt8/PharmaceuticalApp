@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ContactService } from 'src/app/_services/contact.service';
 
 @Component({
@@ -10,6 +11,8 @@ import { ContactService } from 'src/app/_services/contact.service';
 export class AddEditContactComponent implements OnInit {
 
   @Input() contact: any;
+  @Input()
+  public myCallback: Function;
   ModalTitle:string
   ContactId: number;
   ContactName: string;
@@ -18,7 +21,7 @@ export class AddEditContactComponent implements OnInit {
   ContactCountry: string;
   ContactDescription: string;
   
-  constructor(private contactService: ContactService, private router: Router) { }
+  constructor(private contactService: ContactService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.ContactId = this.contact.id;
@@ -40,9 +43,10 @@ export class AddEditContactComponent implements OnInit {
     };
     
     this.contactService.addContact(val).subscribe(res => {
-      this.router.navigateByUrl('/contact-admin');
+      this.toastr.success("Updated successfully");
+      this.myCallback();
     }, error => {
-      console.log(error);
+      this.toastr.error("Added unsuccessfully");
     });
   }
 
@@ -56,9 +60,10 @@ export class AddEditContactComponent implements OnInit {
       description: this.ContactDescription
     };
     this.contactService.updateContact(val).subscribe(res => {
-      this.router.navigateByUrl('/contact-admin');
+      this.toastr.success("Updated successfully");
+      this.myCallback();
     }, error => {
-      console.log(error);
+      this.toastr.error("Updated unsuccessfully");
     });
   }
 
