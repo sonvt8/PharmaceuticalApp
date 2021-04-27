@@ -7,9 +7,9 @@ namespace api.Extensions
 {
     public static class CheckStatusJob
     {
-        public static string GetStatusJob(this bool isAvailable)
+        public static string GetStatusJob(this bool IsAvailable)
         {
-            if (isAvailable == true)
+            if (IsAvailable == true)
                 return "Available";
             else
                 return "Expired";

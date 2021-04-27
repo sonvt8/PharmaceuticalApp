@@ -22,7 +22,7 @@ namespace api.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<JobDto>>> GetJobs()
+        public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
         {
             var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
 
@@ -39,7 +39,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddJob(JobDto jobDto)
+        public async Task<ActionResult> AddJob(JobCreateDto jobDto)
         {
             var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
 

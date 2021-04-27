@@ -6,6 +6,7 @@ import { CategoryAdminComponent } from './category-admin/category-admin.componen
 import { CreateCategoryComponent } from './category-admin/create-category/create-category.component';
 import { ContactAdminComponent } from './contact-admin/contact-admin.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
+import { JobAdminComponent } from './job-admin/job-admin.component';
 import { ProductAdminTestComponent } from './product-admin-test/product-admin-test.component';
 import { ProductAdminComponent } from './product-admin/product-admin.component';
 
@@ -31,6 +32,9 @@ const routes: Routes = [
       },
       {
         path: "contact-admin", component: ContactAdminComponent,
+      },
+      {
+        path: "job-admin", component: JobAdminComponent,
       }
       
     ]

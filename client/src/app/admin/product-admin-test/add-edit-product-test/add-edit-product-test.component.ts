@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Product } from 'src/app/_model/product';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ProductService } from 'src/app/_services/product.service';
 })
 export class AddEditProductTestComponent implements OnInit {
 
-  @Input() pro: any;
+  @Input() pro: Product;
   @Input()
   public myCallback: Function; 
   ModalTitle:string
@@ -35,9 +36,9 @@ export class AddEditProductTestComponent implements OnInit {
   constructor(public productService: ProductService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.ProductId = this.pro.id;
-    this.ProductName = this.pro.productName;
-    this.OutPut = this.pro.outPut;
+    // this.ProductId = this.pro.id;
+    // this.ProductName = this.pro.productName;
+    // this.OutPut = this.pro.outPut;
     // this.CapsuleSize = this.pro.capsuleSize;
     // this.MachineDimension = this.pro.machineDimension;
     // this.ShippingWeight = this.pro.shippingWeight;
@@ -52,32 +53,32 @@ export class AddEditProductTestComponent implements OnInit {
     // this.CategoryName = this.pro.categoryName;
     // this.PhotoProductUrl = this.pro.photoProductUrl
   }
-  onSubmit(form:NgForm){
-    if(this.productService.formData.id==0){
-      this.insertRecord(form);
+  onSubmit(){
+    if(this.pro.id==0){
+      this.insertRecord();
     }
     else{
-      this.updateRecord(form);
+      this.updateRecord();
     }
   }
 
-  insertRecord(form:NgForm){
-    this.productService.postProduct().subscribe(
+  insertRecord(){
+    this.productService.postProduct(this.pro).subscribe(
       res=>{
-        this.productService.resetList();
+        this.myCallback();
         this.toastr.success('Submitted successfully');
       },
-      err=>{console.log(err); }
+      err=>{this.toastr.error('Submitted unsuccessfully');; }
     )
   }
 
-  updateRecord(form:NgForm){
-    this.productService.putProduct().subscribe(
+  updateRecord(){
+    this.productService.putProduct(this.pro).subscribe(
       res=>{
-        this.productService.resetList();
-        this.toastr.info('Updated successfully');
+        this.myCallback();
+        this.toastr.success('Updated successfully');
       },
-      err=>{console.log(err); }
+      err=>{this.toastr.error('Updated unsuccessfully');}
     )
   }
   

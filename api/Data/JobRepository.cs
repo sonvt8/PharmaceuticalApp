@@ -44,11 +44,16 @@ namespace api.Data
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<JobDto>> GetJobsAsync()
+        public async Task<IEnumerable<Job>> GetJobsAsync()
         {
             return await _context.Jobs
-                .ProjectTo<JobDto>(_mapper.ConfigurationProvider)
+                //.ProjectTo<Job>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public Task<IEnumerable<JobDto>> GetJobsDtoAsync()
+        {
+            throw new System.NotImplementedException();
         }
 
         public async Task<bool> JobExists(int jobId)

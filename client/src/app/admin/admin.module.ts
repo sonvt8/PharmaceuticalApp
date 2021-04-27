@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DataTablesModule } from "angular-datatables";
 import { FormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-
+import { IsAvailablePipe } from '../_pipe/is-available.pipe';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -16,10 +16,12 @@ import { ProductAdminComponent } from './product-admin/product-admin.component';
 import { AddEditProductComponent } from './product-admin/add-edit-product/add-edit-product.component';
 import { ProductAdminTestComponent } from './product-admin-test/product-admin-test.component';
 import { AddEditProductTestComponent } from './product-admin-test/add-edit-product-test/add-edit-product-test.component';
+import { JobAdminComponent } from './job-admin/job-admin.component';
+import { AddEditJobComponent } from './job-admin/add-edit-job/add-edit-job.component';
 
 
 @NgModule({
-  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent, ProductAdminTestComponent, AddEditProductTestComponent],
+  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent, ProductAdminTestComponent, AddEditProductTestComponent, JobAdminComponent, AddEditJobComponent, IsAvailablePipe],
   imports: [
     CommonModule,
     AdminRoutingModule,

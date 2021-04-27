@@ -1,33 +1,67 @@
-<form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
-    <input type="hidden" name="id" [value]="productService.formData.id"/>
-    <div class="form-group">
-        <label>Product Name</label>
-        <input type="text" class="form-control form-control-lg" placeholder="Product Name" 
-        name="productName" #productName="ngModel"  [(ngModel)]="productService.formData.productName" 
-        required [class.invalid] = "productName.invalid && productName.touched"/>
-    </div>
-    <div class="form-group">
-        <label>Out Put</label>
-        <input type="text" class="form-control form-control-lg" placeholder="Out Put" 
-        name="outPut" #outPut="ngModel"  [(ngModel)]="productService.formData.outPut" 
-        required [class.invalid] = "outPut.invalid && outPut.touched"/>
-    </div>
-    <!-- <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>SECUTIRY CODE</label>
-            <input type="password" class="form-control form-control-lg" placeholder="Secutiry Code" 
-            name="securityCode" #securityCode="ngModel"  [(ngModel)]="service.formData.securityCode" 
-            required maxlength="3" minlength="3" [class.invalid] = "securityCode.invalid && securityCode.touched"/>
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+           
+
         </div>
-        <div class="form-group col-md-6">
-            <label>VALID THROUGH</label>
-            <input type="text" class="form-control form-control-lg" placeholder="MM/YY" 
-            name="expirationDate" #expirationDate="ngModel"  [(ngModel)]="service.formData.expirationDate" 
-            required maxlength="5" minlength="5" [class.invalid] = "expirationDate.invalid && expirationDate.touched"/>
+        <div class="col-md-6">
+            photo
         </div>
-    </div> -->
-    <div class="form-group">
-        <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SUBMIT</button>
+    </div>
+
+</div> -->
+<form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
+    <input type="hidden" name="id" [value]="pro.id" />
+    <div class="row">
+        <div class="col-md-6">          
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Product Name"
+                    name="productName" #productName="ngModel" [(ngModel)]="pro.productName" required
+                    [class.invalid]="productName.invalid && productName.touched" />
+            </div>
+            <div class="form-group">
+                <label>Out Put</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Out Put" name="outPut"
+                    #outPut="ngModel" [(ngModel)]="pro.outPut" required
+                    [class.invalid]="outPut.invalid && outPut.touched" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>CapsuleSize</label>
+                <input type="text" class="form-control form-control-lg" placeholder="CapsuleSize"
+                    name="capsuleSize" #capsuleSize="ngModel" [(ngModel)]="pro.capsuleSize" required
+                    [class.invalid]="capsuleSize.invalid && capsuleSize.touched" />
+            </div>
+            <div class="form-group">
+                <label>Machine Dimension</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Machine Dimension" name="machineDimension"
+                    #machineDimension="ngModel" [(ngModel)]="pro.machineDimension" required
+                    [class.invalid]="machineDimension.invalid && machineDimension.touched" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>ShippingWeight</label>
+                <input type="text" class="form-control form-control-lg" placeholder="ShippingWeight"
+                    name="shippingWeight" #shippingWeight="ngModel" [(ngModel)]="pro.shippingWeight" required
+                    [class.invalid]="shippingWeight.invalid && shippingWeight.touched" />
+            </div>
+            <div class="form-group">
+                <label>Model Number</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Model Number" name="modelNumber"
+                    #modelNumber="ngModel" [(ngModel)]="pro.modelNumber" required
+                    [class.invalid]="modelNumber.invalid && modelNumber.touched" />
+            </div>
+        </div>
     </div>
     
+    
+    
+    <div class="form-group">
+        <button class="btn btn-info btn-lg btn-block" type="submit"
+            [disabled]="form.invalid">SUBMIT</button>
+    </div>
+
 </form>

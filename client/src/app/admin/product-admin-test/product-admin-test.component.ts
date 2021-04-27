@@ -13,7 +13,7 @@ export class ProductAdminTestComponent implements OnInit,OnDestroy {
 
   dtOptions: DataTables.Settings = {}
   products: Product[] = []
-  prod: any
+  prod: Product
   ModalTitle:string
   ActivateAddEditProComp=false;
   public CloseClickCallback: Function;
@@ -65,7 +65,9 @@ export class ProductAdminTestComponent implements OnInit,OnDestroy {
       this.productService.deleteProduct(id)
       .subscribe(
         res=>{
-          this.productService.resetList();
+          this.productService.resetList().subscribe(res => {
+            this.products = res as Product[];
+          })
           this.toastr.error('Deleted successfully');
         },
         err=>{console.log(err); }

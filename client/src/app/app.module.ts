@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin/admin-routing.module';
 import { CategoryService } from './_services/category.service';
 import { ProductService } from './_services/product.service';
 import { ContactService } from './_services/contact.service';
+import { JobService } from './_services/job.service';
 import { DataTablesModule } from "angular-datatables";
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +35,7 @@ import { RegisterComponent } from './account/register/register.component';
     CategoryListComponent,
     ProductsComponent,
     ProductDetailComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,7 @@ import { RegisterComponent } from './account/register/register.component';
     PaginationModule.forRoot()
   ],
   providers: [
-    Title,CategoryService,ProductService,ContactService
+    Title,CategoryService,ProductService,ContactService,JobService
   ],
   bootstrap: [AppComponent]
 })

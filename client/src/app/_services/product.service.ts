@@ -15,16 +15,16 @@ export class ProductService {
   paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
 
   constructor(private http: HttpClient) { }
-  formData: Product = new Product();
+  //formData: Product = new Product();
 
   list : Product[];
 
-  postProduct(){
-    return this.http.post(this.baseUrl,this.formData);
+  postProduct(val: Product){
+    return this.http.post(this.baseUrl,val);
   }
 
-  putProduct(){
-    return this.http.put(`${this.baseUrl}/${this.formData.id}`,this.formData);
+  putProduct(val: Product){
+    return this.http.put(`${this.baseUrl}/${val.id}`,val);
   }
 
   deleteProduct(id:number){
