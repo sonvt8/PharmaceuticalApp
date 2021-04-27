@@ -28,6 +28,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { CategoryService } from './_services/category.service';
 import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './accounts/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-passw
     ProductDetailComponent,
     AboutUsComponent,
     AlertsComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
