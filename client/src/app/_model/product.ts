@@ -1,3 +1,5 @@
+import { Category } from "./category.model"
+
 export class Product {
     id: number=0
     productName: string=""
@@ -13,6 +15,6 @@ export class Product {
     productionCapacity: string=""
     machineSize: string=""
     netWeight: number=0
-    categoryName: string=""
+    categoryId: number=0
     photoProductUrl: string=""
 }

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from 'src/app/_model/category.model';
 import { Product } from 'src/app/_model/product';
+import { CategoryService } from 'src/app/_services/category.service';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -15,27 +17,31 @@ export class AddEditProductTestComponent implements OnInit {
   @Input()
   public myCallback: Function; 
   ModalTitle:string
+  cateList: Category[] = []
   
-  ProductId: number
-  ProductName: string
-  OutPut: string
-  CapsuleSize: string
-  MachineDimension: string
-  ShippingWeight: string
-  ModelNumber: number
-  Dies: number
-  MaxPressure: number
-  MaxDiameter: number
-  MaxDepth: number
-  ProductionCapacity: string
-  MachineSize: string
-  NetWeight: number
-  CategoryName: string
-  PhotoProductUrl: string
+  // ProductId: number
+  // ProductName: string
+  // OutPut: string
+  // CapsuleSize: string
+  // MachineDimension: string
+  // ShippingWeight: string
+  // ModelNumber: number
+  // Dies: number
+  // MaxPressure: number
+  // MaxDiameter: number
+  // MaxDepth: number
+  // ProductionCapacity: string
+  // MachineSize: string
+  // NetWeight: number
+  // CategoryName: string
+  // PhotoProductUrl: string
   
-  constructor(public productService: ProductService, private toastr: ToastrService) { }
+  constructor(public productService: ProductService, private toastr: ToastrService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.categoryService.getCateList().subscribe(res=>{
+      this.cateList = res;
+    })
     // this.ProductId = this.pro.id;
     // this.ProductName = this.pro.productName;
     // this.OutPut = this.pro.outPut;

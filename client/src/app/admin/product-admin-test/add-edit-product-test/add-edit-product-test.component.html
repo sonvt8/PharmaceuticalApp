@@ -13,11 +13,11 @@
 <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
     <input type="hidden" name="id" [value]="pro.id" />
     <div class="row">
-        <div class="col-md-6">          
+        <div class="col-md-3">
             <div class="form-group">
                 <label>Product Name</label>
-                <input type="text" class="form-control form-control-lg" placeholder="Product Name"
-                    name="productName" #productName="ngModel" [(ngModel)]="pro.productName" required
+                <input type="text" class="form-control form-control-lg" placeholder="Product Name" name="productName"
+                    #productName="ngModel" [(ngModel)]="pro.productName" required
                     [class.invalid]="productName.invalid && productName.touched" />
             </div>
             <div class="form-group">
@@ -27,21 +27,21 @@
                     [class.invalid]="outPut.invalid && outPut.touched" />
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="form-group">
                 <label>CapsuleSize</label>
-                <input type="text" class="form-control form-control-lg" placeholder="CapsuleSize"
-                    name="capsuleSize" #capsuleSize="ngModel" [(ngModel)]="pro.capsuleSize" required
+                <input type="text" class="form-control form-control-lg" placeholder="CapsuleSize" name="capsuleSize"
+                    #capsuleSize="ngModel" [(ngModel)]="pro.capsuleSize" required
                     [class.invalid]="capsuleSize.invalid && capsuleSize.touched" />
             </div>
             <div class="form-group">
                 <label>Machine Dimension</label>
-                <input type="text" class="form-control form-control-lg" placeholder="Machine Dimension" name="machineDimension"
-                    #machineDimension="ngModel" [(ngModel)]="pro.machineDimension" required
+                <input type="text" class="form-control form-control-lg" placeholder="Machine Dimension"
+                    name="machineDimension" #machineDimension="ngModel" [(ngModel)]="pro.machineDimension" required
                     [class.invalid]="machineDimension.invalid && machineDimension.touched" />
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="form-group">
                 <label>ShippingWeight</label>
                 <input type="text" class="form-control form-control-lg" placeholder="ShippingWeight"
@@ -50,18 +50,77 @@
             </div>
             <div class="form-group">
                 <label>Model Number</label>
-                <input type="text" class="form-control form-control-lg" placeholder="Model Number" name="modelNumber"
+                <input type="number" class="form-control form-control-lg" placeholder="Model Number" name="modelNumber"
                     #modelNumber="ngModel" [(ngModel)]="pro.modelNumber" required
                     [class.invalid]="modelNumber.invalid && modelNumber.touched" />
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Dies</label>
+                <input type="number" class="form-control form-control-lg" placeholder="Dies" name="dies" #dies="ngModel"
+                    [(ngModel)]="pro.dies" required [class.invalid]="dies.invalid && dies.touched" />
+            </div>
+            <div class="form-group">
+                <label>Max Pressure</label>
+                <input type="number" class="form-control form-control-lg" placeholder="Max Pressure" name="maxPressure"
+                    #maxPressure="ngModel" [(ngModel)]="pro.maxPressure" required
+                    [class.invalid]="maxPressure.invalid && maxPressure.touched" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Max Diameter</label>
+                <input type="number" class="form-control form-control-lg" placeholder="Max Diameter" name="maxDiameter"
+                    #maxDiameter="ngModel" [(ngModel)]="pro.maxDiameter" required
+                    [class.invalid]="maxDiameter.invalid && maxDiameter.touched" />
+            </div>
+            <div class="form-group">
+                <label>Max Depth</label>
+                <input type="number" class="form-control form-control-lg" placeholder="Max Depth" name="maxDepth"
+                    #maxDepth="ngModel" [(ngModel)]="pro.maxDepth" required
+                    [class.invalid]="maxDepth.invalid && maxDepth.touched" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>ProductionCapacity</label>
+                <input type="text" class="form-control form-control-lg" placeholder="ProductionCapacity"
+                    name="productionCapacity" #productionCapacity="ngModel" [(ngModel)]="pro.productionCapacity"
+                    required [class.invalid]="productionCapacity.invalid && productionCapacity.touched" />
+            </div>
+            <div class="form-group">
+                <label>Machine Size</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Machine Size" name="machineSize"
+                    #machineSize="ngModel" [(ngModel)]="pro.machineSize" required
+                    [class.invalid]="machineSize.invalid && machineSize.touched" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Net Weight</label>
+                <input type="number" class="form-control form-control-lg" placeholder="Net Weight" name="netWeight"
+                    #netWeight="ngModel" [(ngModel)]="pro.netWeight" required
+                    [class.invalid]="netWeight.invalid && netWeight.touched" />
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-form-label">Category</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="categoryId" #categoryId="ngModel"  [(ngModel)]="pro.categoryId" required>
+                        <option value="0">--Select--</option>
+                        <option *ngFor="let cate of cateList" [value] = "cate.id">
+                            {{cate.categoryName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    
-    
+
+
+
     <div class="form-group">
-        <button class="btn btn-info btn-lg btn-block" type="submit"
-            [disabled]="form.invalid">SUBMIT</button>
+        <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SUBMIT</button>
     </div>
 
 </form>

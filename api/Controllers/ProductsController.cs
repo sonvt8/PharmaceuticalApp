@@ -67,7 +67,7 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult> AddProduct(ProductCreateDto productCreateDto)
         {
-            productCreateDto.Category = await _unitOfWork.CategoryRepository.GetCategoryByIdAsync(productCreateDto.Category.Id);
+            //productCreateDto.Category = await _unitOfWork.CategoryRepository.GetCategoryByIdAsync(productCreateDto.Category.Id);
 
             var productToCreate = _mapper.Map<Product>(productCreateDto);
 
@@ -75,9 +75,9 @@ namespace api.Controllers
 
             await _unitOfWork.Complete();
 
-            var productToRead = _mapper.Map<ProductDto>(productToCreate);
+            //var productToRead = _mapper.Map<ProductDto>(productCreateDto);
 
-            return CreatedAtAction("GetProductById", new { productId = productToRead.Id }, productToRead);
+            return CreatedAtAction("GetProductById", new { productId = productToCreate.Id }, productToCreate);
         }
 
         [HttpPut("{id}")]
