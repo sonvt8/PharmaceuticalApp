@@ -223,7 +223,6 @@ namespace api.Controllers
             if (result.Succeeded)
             {
                 return Redirect("https://localhost:4200/");
-                //return Ok("Hello");
             }
             return BadRequest("Error");
         }
