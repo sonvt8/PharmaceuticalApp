@@ -27,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { CategoryService } from './_services/category.service';
+import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CategoryService } from './_services/category.service';
     ProductsComponent,
     ProductDetailComponent,
     AboutUsComponent,
-    AlertsComponent
+    AlertsComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

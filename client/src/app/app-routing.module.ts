@@ -7,12 +7,14 @@ import { RegisterComponent } from './accounts/register/register.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-password.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'account', component: AccountComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'contact', component: ContactUsComponent},
   {path: 'about-us', component: AboutUsComponent},
   {path: 'product-1', component: ProductDetailComponent},
