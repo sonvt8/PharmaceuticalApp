@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CategoryService {
-  categorySelected = new EventEmitter<Category>();
+  // categorySelected = new EventEmitter<Category>();
 
   constructor(private http: HttpClient) { }
 
