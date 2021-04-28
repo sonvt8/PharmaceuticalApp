@@ -70,7 +70,7 @@ export class JobAdminComponent implements OnInit {
             this.jobService.resetList().subscribe(res => {
               this.jobs = res as Job[];
             })
-            this.toastr.error('Deleted successfully');
+            this.toastr.success('Deleted successfully');
           },
           err => { console.log(err); }
         )

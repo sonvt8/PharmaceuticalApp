@@ -26,9 +26,7 @@ export class ProductAdminTestComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(public productService: ProductService, public categoryService: CategoryService, private toastr: ToastrService) {
-    this.categoryService.getCateList().subscribe(res=>{
-      this.cates = res;
-    })
+   
    }
 
   ngOnInit(): void {
@@ -45,6 +43,9 @@ export class ProductAdminTestComponent implements OnInit, OnDestroy {
     this.productService.resetList().subscribe(res => {
       this.products = res as Product[];
       this.dtTrigger.next();
+      this.categoryService.getCateList().subscribe(response=>{
+        this.cates = response;
+      })
     })
 
   }
@@ -76,7 +77,7 @@ export class ProductAdminTestComponent implements OnInit, OnDestroy {
             this.productService.resetList().subscribe(res => {
               this.products = res as Product[];
             })
-            this.toastr.error('Deleted successfully');
+            this.toastr.success('Deleted successfully');
           },
           err => { console.log(err); }
         )
@@ -87,12 +88,12 @@ export class ProductAdminTestComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
   findCachedItemById(value: number) {
-    if (this.cates == null || this.cates.length === 0) { return 'aaa'; }
+    if (this.cates == null || this.cates.length === 0) { return ''; }
     for (const item of this.cates) {
-      if (item.id === value) {
+      if (item.id == value) {
         return item.categoryName;
       }
     }
-    return 'bbb';
+    return '';
   }
 }

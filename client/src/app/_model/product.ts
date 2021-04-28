@@ -1,4 +1,5 @@
-import { Category } from "./category.model"
+
+import { PhotoProduct } from "./photoProduct"
 
 export class Product {
     id: number=0
@@ -17,4 +18,5 @@ export class Product {
     netWeight: number=0
     categoryId: number=0
     photoProductUrl: string=""
+    photos: PhotoProduct[];
 }

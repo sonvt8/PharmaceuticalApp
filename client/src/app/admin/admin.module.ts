@@ -19,15 +19,20 @@ import { ProductAdminTestComponent } from './product-admin-test/product-admin-te
 import { AddEditProductTestComponent } from './product-admin-test/add-edit-product-test/add-edit-product-test.component';
 import { JobAdminComponent } from './job-admin/job-admin.component';
 import { AddEditJobComponent } from './job-admin/add-edit-job/add-edit-job.component';
+import { PhotoEditorComponent } from './product-admin-test/photo-editor/photo-editor.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import {FileUploadModule} from 'ng2-file-upload';
 
 
 @NgModule({
-  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent, ProductAdminTestComponent, AddEditProductTestComponent, JobAdminComponent, AddEditJobComponent, IsAvailablePipe, CategoryIdTocategoryNamePipe],
+  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent, ProductAdminTestComponent, AddEditProductTestComponent, JobAdminComponent, AddEditJobComponent, IsAvailablePipe, CategoryIdTocategoryNamePipe, PhotoEditorComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     DataTablesModule,
     FormsModule,
+    TabsModule,
+    FileUploadModule,
     PaginationModule.forRoot()
   ]
 })
