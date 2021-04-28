@@ -16,6 +16,6 @@ export class ProductService {
   }
 
   getProductsByCategoryId(id: number) {
-    return this.http.get<Product[]>(`${environment.apiUrl}/categories/:id`);
+    return this.http.get<Product[]>(`${environment.apiUrl}/products/categories/${id}`);
   }
 }

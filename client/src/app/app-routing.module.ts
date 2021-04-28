@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'contact', component: ContactUsComponent},
   {path: 'about-us', component: AboutUsComponent},
   {path: 'product-1', component: ProductDetailComponent},
-  {path: 'category-1', component: ProductListComponent},
+  {path: 'products/categories/:id', component: ProductListComponent},
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ]

@@ -7,7 +7,7 @@
         <div *ngFor="let description of descriptions">
             <p>{{description}}</p>
         </div>
-        <button class="btn btn-success">Check all {{category.categoryName}}</button>
+        <button class="btn btn-success" routerLink="products/categories/{{category.id}}">Check all {{category.categoryName}}</button>
     </div>
 </div>
 
@@ -17,7 +17,7 @@
         <div *ngFor="let description of descriptions">
             <p>{{description}}</p>
         </div>
-        <button class="btn btn-success">Check all {{category.categoryName}}</button>
+        <button class="btn btn-success" routerLink="products/categories/{{category.id}}">Check all {{category.categoryName}}</button>
     </div>
     <div class="col-lg-6 px-0">
         <img src="../assets/img/tablet-presses.jpg" alt="">

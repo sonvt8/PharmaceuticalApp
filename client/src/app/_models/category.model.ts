@@ -1,6 +1,7 @@
 import { Product } from "./product.model";
 
 export class Category {
+    public id: number;
     public categoryName: string;
     public categoryDescription: string;
     public products: Product[];
