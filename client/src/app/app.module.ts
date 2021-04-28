@@ -27,6 +27,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { CategoryService } from './_services/category.service';
+import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './accounts/reset-password/reset-password.component';
+import { ProductService } from './_services/product.service';
+import { ProductListComponent } from './products/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -40,9 +44,12 @@ import { CategoryService } from './_services/category.service';
     CategoriesComponent,
     CategoryListComponent,
     ProductsComponent,
+    ProductListComponent,
     ProductDetailComponent,
     AboutUsComponent,
-    AlertsComponent
+    AlertsComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +71,8 @@ import { CategoryService } from './_services/category.service';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    CategoryService
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

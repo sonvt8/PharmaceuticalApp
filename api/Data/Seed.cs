@@ -11,16 +11,28 @@ namespace api.Data
 {
     public class Seed
     {
-        public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+        public static async Task SeedUsers(DataContext _context, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
+            // Seed Categories
+            if (await _context.Categories.AnyAsync())
+                return;
+
+            var categoryData = await System.IO.File.ReadAllTextAsync("Data/CategorySeedData.json");
+
+            var categories = JsonSerializer.Deserialize<List<Category>>(categoryData);
+
+            if (categories == null)
+                return;
+
+            foreach (var category in categories)
+            {
+                _context.Categories.Add(category);
+            }
+            await _context.SaveChangesAsync();
+
             // Seed Users
-            //if (await userManager.Users.AnyAsync())
-            //    return;
-            //var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
-
-            //var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
-
-            //if (users == null) return;
+            if (await userManager.Users.AnyAsync())
+                return;
 
             var roles = new List<AppRole>
             {
@@ -34,12 +46,6 @@ namespace api.Data
                 await roleManager.CreateAsync(role);
             }
 
-            //foreach (var user in users)
-            //{
-            //    user.UserName = user.UserName.ToLower();
-            //    await userManager.CreateAsync(user, "123Admin!@#");
-            //    await userManager.AddToRoleAsync(user, "Member");
-            //}
             var admin = new AppUser
             {
                 Email = "admin@gmail.com",

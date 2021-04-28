@@ -1,0 +1,147 @@
+﻿[
+	{
+		"CategoryName": "Tablets Presses",
+		"CategoryDescription": "LFA Tablet Press supplies, tablet, pill and pellet presses form R&D Hand Held models right up to full production capacity Rotary Tablet Presses.\nSome of our most popular models include the Desk Top Presses which are fantastic for research departments and small batch production.\nLFA Tablet Presses also supplies a small range of excipients that can be used in the tablet presses. This includes Firmapress our all in one tableting excipient that works with almost every API.",
+		"Products": [
+			{
+				"ProductName": "TDP 0 Desktop Tablet Press",
+				"OutPut": "30-50/min",
+				"CapsuleSize": "2-6 mm",
+				"MachineDimension": "30 cm / 11.8 in x 22 cm / 8.6 in x 51 cm / 20 in",
+				"ShippingWeight": "25.4 kg / 56 lbs",
+				"ModelNumber": "",
+				"Dies": 1,
+				"MaxPressure": "3.1 kN",
+				"MaxDiameter": "5-10 mm",
+				"MaxDepth": "2-6 mm",
+				"ProductionCapacity": "",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/8ca834c2aefe5a332c057aa7488b2959/t/d/tdp-6s-tablet-press-main_1.webp",
+						"IsMain": true
+					}
+				],
+				"Reviews": [
+					{
+						"NickName": "sukno",
+						"Title": "four star",
+						"Description": "Looks and works great.",
+						"Rating": 4
+					},
+					{
+						"NickName": "Johnny",
+						"Title": "Simple",
+						"Description": "Pretty simple design. Can't see it going wrong. Delivery was quick.",
+						"Rating": 5
+					}
+				]
+			}
+		]
+	},
+	{
+		"CategoryName": "Capsule Fillers",
+		"CategoryDescription": "LFA Capsule Fillers supplies, capsule fillers from small production runs and research and development models, that can do 100 capsules at a time, through to fully automatic capsule fullers for full-scale production.\nLaunched in 2018 it is the latest addition to the LFA family. Despite this being the case our engineers are fully trained on the machines and able to offer the same support and training that the would with the mixers and tablet presses.\nLFA Capsule Fillers also offers a complete range of capsules for you to use in your machine. From 000 to 5 we stock all of the regular sizes and are able to offer them in a range of colours and materials. We are practically excited about the organic capsule that allows you as a producer to easily produce a fully organic product.",
+		"Products": [
+			{
+				"ProductName": "Automatic High Speed Capsule Filling Machine",
+				"ModelNumber": "AHCFM70",
+				"OutPut": "70,000 Capsules/hour",
+				"MachineDimension": "1500 mm (L) 1400 mm (W) 2500 mm (H)",
+				"NetWeight": "1500 Kgs. Approx.",
+				"ProductionCapacity": "1.5 H.P., 380/440 Volts, 3 Phase, 50 Hertz",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/8ca834c2aefe5a332c057aa7488b2959/t/d/tdp-1.5-main.webp",
+						"IsMain": true
+					}
+
+				],
+				"Reviews": [
+					{
+						"NickName": "sonvt8",
+						"Title": "four star",
+						"Description": "Looks and works great.",
+						"Rating": 4
+					}
+				]
+			},
+			{
+				"ProductName": "Automatic Capsule Filling Machinee",
+				"ModelNumber": "ACFMI",
+				"OutPut": "3000 capsules per hour",
+				"MachineDimension": "700* 800*1200 height",
+				"ProductionCapacity": "4KW/3phase/440V/50Hz",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/8ca834c2aefe5a332c057aa7488b2959/d/t/dtp-tablet-press-range.webp",
+						"IsMain": true
+					}
+				],
+				"Reviews": [
+					{
+						"NickName": "sonvt7",
+						"Title": "four star",
+						"Description": "Looks and works great.",
+						"Rating": 4
+					}
+				]
+			},
+			{
+				"ProductName": "Automatic Capsule Loading Machine",
+				"ModelNumber": "RS9500",
+				"OutPut": "\t36000 Capsules/hour",
+				"MachineDimension": "630 mm",
+				"NetWeight": "75 kgs approx.",
+				"ProductionCapacity": "0.25 H.P, 220 volts, Single phase, 50 Hertz",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/8ca834c2aefe5a332c057aa7488b2959/t/d/tdp-6s-tablet-press-main_1.webp",
+						"IsMain": true
+					}
+				],
+				"Reviews": [
+					{
+						"NickName": "sonvt6",
+						"Title": "four star",
+						"Description": "Looks and works great.",
+						"Rating": 4
+					},
+					{
+						"NickName": "sonvt5",
+						"Title": "five star",
+						"Description": "Best Product.",
+						"Rating": 5
+					}
+				]
+			}
+		]
+	},
+	{
+		"CategoryName": "Mixing Machinery",
+		"CategoryDescription": "LFA Mixers is a fully comprehensive one stop shop for all of your powder mixing needs. With a range of designs that includes V Mixers, Bin Mixers and Ribbon blenders whatever powder mixing challenges you’re facing we are sure to be able to help.\nOriginally included in the LFA Tablet Presses range we decided to separate out LFA Mixers in 2017 as our customer’s requirements became more diverse. Whether you’re mixing, capsule or tablet mixes, protein powders or industrial chemicals we believe that we can supply you with a mixer that can take on the challenge.\nWith over 10 years mixing powders we understand that every mix is different. We are happy to work with you to find the right grade steal, add in agitation bars and validate different mixing methods, essentially customising every mixer for your specific needs.",
+		"Products": [
+			{
+				"ProductName": "Rotary mixer VH",
+				"ModelNumber": "VH8",
+				"OutPut": "500 litres (approximately 140 kg)",
+				"MachineDimension": "1,000mm x 1,700mm x 1,650mm",
+				"NetWeight": "approximately 900kg",
+				"ProductionCapacity": "1.5 H.P., 380/440 Volts, 3 Phase, 50 Hertz",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/8ca834c2aefe5a332c057aa7488b2959/t/d/tdp-6s-tablet-press-main_1.webp",
+						"IsMain": true
+					}
+				],
+				"Reviews": [
+					{
+						"NickName": "sonvt8",
+						"Title": "four star",
+						"Description": "Looks and works great.",
+						"Rating": 4
+					}
+				]
+			}
+		]
+	}
+]

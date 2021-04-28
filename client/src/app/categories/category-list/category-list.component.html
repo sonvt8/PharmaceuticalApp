@@ -1,21 +1,25 @@
 <div class="row category" *ngIf="cateIndex % 2 === 0">
     <div class="col-lg-6 px-0">
-        <img src={{category.products[0].imagePath}} alt="">
+        <img src="../assets/img/tablet-presses.jpg" alt="">
     </div>
     <div class="col-lg-6 category__content">
-        <h5>{{category.name}}</h5>
-        <div [innerHTML]="category.description"></div>
-        <button class="btn btn-success">Check all {{category.name}}</button>
+        <h5>{{category.categoryName}}</h5>
+        <div *ngFor="let description of descriptions">
+            <p>{{description}}</p>
+        </div>
+        <button class="btn btn-success" routerLink="products/categories/{{category.id}}">Check all {{category.categoryName}}</button>
     </div>
 </div>
 
 <div class="row category" *ngIf="cateIndex % 2 !== 0">
     <div class="col-lg-6 category__content">
-        <h5>{{category.name}}</h5>
-        <div [innerHTML]="category.description"></div>
-        <button class="btn btn-success">Check all {{category.name}}</button>
+        <h5>{{category.categoryName}}</h5>
+        <div *ngFor="let description of descriptions">
+            <p>{{description}}</p>
+        </div>
+        <button class="btn btn-success" routerLink="products/categories/{{category.id}}">Check all {{category.categoryName}}</button>
     </div>
     <div class="col-lg-6 px-0">
-        <img src={{category.products[0].imagePath}} alt="">
+        <img src="../assets/img/tablet-presses.jpg" alt="">
     </div>
 </div>

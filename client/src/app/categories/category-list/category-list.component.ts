@@ -9,10 +9,11 @@ import { Category } from '../../_models/category.model';
 export class CategoryListComponent implements OnInit {
   @Input() category: Category;
   @Input() cateIndex: number;
-
+  descriptions: String[];
+  
   constructor() { }
 
   ngOnInit(): void {
+    this.descriptions = this.category.categoryDescription.split("\n");
   }
-
 }
