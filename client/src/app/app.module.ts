@@ -1,11 +1,9 @@
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
@@ -22,9 +20,15 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { RegisterComponent } from './accounts/register/register.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AboutUsComponent } from './about-us/about-us.component';
 import { AlertsComponent } from './alerts/alerts.component';
-
 import { CategoryService } from './_services/category.service';
+import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './accounts/reset-password/reset-password.component';
 import { ProductService } from './_services/product.service';
 
 @NgModule({
@@ -33,7 +37,6 @@ import { ProductService } from './_services/product.service';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    RegisterComponent,
     AccountComponent,
     RegisterComponent,
     ContactUsComponent,
@@ -41,15 +44,21 @@ import { ProductService } from './_services/product.service';
     CategoryListComponent,
     ProductsComponent,
     ProductDetailComponent,
-    AlertsComponent
+    AboutUsComponent,
+    AlertsComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NgxUsefulSwiperModule,
     TabsModule,
+    CollapseModule,
+    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({

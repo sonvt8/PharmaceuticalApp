@@ -7,6 +7,8 @@ import { SwiperOptions } from 'swiper';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
+  isCollapsed = true;
+  starRating = 0; 
 
   constructor() { }
 
@@ -50,6 +52,15 @@ export class ProductDetailComponent implements OnInit {
       disableOnInteraction: false
     },
     loop: true,
+    speed: 800,
+    effect: 'cube',
+    grabCursor: true,
+    cubeEffect: {
+      shadow: false,
+      slideShadows: true,
+      shadowOffset: 40,
+      shadowScale: 0.94,
+    }
   };
 
 }
