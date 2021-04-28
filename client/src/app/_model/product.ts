@@ -18,5 +18,5 @@ export class Product {
     netWeight: number=0
     categoryId: number=0
     photoProductUrl: string=""
-    photos: PhotoProduct[];
+    photoProducts: PhotoProduct[];
 }
