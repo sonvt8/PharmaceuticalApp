@@ -25,6 +25,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { AlertsComponent } from './alerts/alerts.component';
 
 import { CategoryService } from './_services/category.service';
+import { ProductService } from './_services/product.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CategoryService } from './_services/category.service';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    CategoryService
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

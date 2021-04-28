@@ -1,4 +1,4 @@
-import { Product } from "../products/product.model";
+import { Product } from "./product.model";
 
 export class Category {
     public categoryName: string;
