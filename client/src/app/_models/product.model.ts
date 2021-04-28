@@ -2,19 +2,22 @@ import { Photo } from "./photo.model";
 import { Review } from "./review.model";
 
 export class Product {
+    public id: number;
     public productName: string;
-    public outPut: string;
+    public categoryName: string;
     public capsuleSize: string;
-    public machineDimension: string;
-    public shippingWeight: string;
-    public modelNumber: string;
     public dies: number;
+    public machineDimension: string;
+    public machineSize: string;
     public maxPressure: string;
     public maxDiameter: string;
     public maxDepth: string;
-    public productionCapacity: string;
-    public machineSize: string;
+    public modelNumber: string;
     public netWeight: string;
+    public outPut: string;
+    public photoProductUrl: string;
+    public shippingWeight: string;
+    public productionCapacity: string;
     public photos: Photo[];
     public reviews: Review[];
 

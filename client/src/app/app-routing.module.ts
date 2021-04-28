@@ -10,6 +10,7 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-password.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { ResetPasswordComponent } from './accounts/reset-password/reset-password.component';
+import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -20,7 +21,7 @@ const routes: Routes = [
   {path: 'contact', component: ContactUsComponent},
   {path: 'about-us', component: AboutUsComponent},
   {path: 'product-1', component: ProductDetailComponent},
-  {path: 'products/categories/:id', component: ProductListComponent},
+  {path: 'products/categories/:id', component: ProductsComponent},
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ]

@@ -30,6 +30,7 @@ import { CategoryService } from './_services/category.service';
 import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './accounts/reset-password/reset-password.component';
 import { ProductService } from './_services/product.service';
+import { ProductListComponent } from './products/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ProductService } from './_services/product.service';
     CategoriesComponent,
     CategoryListComponent,
     ProductsComponent,
+    ProductListComponent,
     ProductDetailComponent,
     AboutUsComponent,
     AlertsComponent,
