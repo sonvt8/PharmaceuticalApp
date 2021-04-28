@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { Category } from 'src/app/_model/category.model';
 import { Product } from 'src/app/_model/product';
+import { CategoryService } from 'src/app/_services/category.service';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -9,20 +11,25 @@ import { ProductService } from 'src/app/_services/product.service';
   templateUrl: './product-admin-test.component.html',
   styleUrls: ['./product-admin-test.component.css']
 })
-export class ProductAdminTestComponent implements OnInit,OnDestroy {
+export class ProductAdminTestComponent implements OnInit, OnDestroy {
 
   dtOptions: DataTables.Settings = {}
   products: Product[] = []
   prod: Product
-  ModalTitle:string
-  ActivateAddEditProComp=false;
+  cates: Category[] = []
+  ModalTitle: string
+  ActivateAddEditProComp = false;
   public CloseClickCallback: Function;
   @ViewChild('closebutton') closebutton;
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(public productService: ProductService, private toastr: ToastrService) { }
+  constructor(public productService: ProductService, public categoryService: CategoryService, private toastr: ToastrService) {
+    this.categoryService.getCateList().subscribe(res=>{
+      this.cates = res;
+    })
+   }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -31,53 +38,61 @@ export class ProductAdminTestComponent implements OnInit,OnDestroy {
     };
     this.showProductList();
     this.CloseClickCallback = this.closeClick.bind(this);
+    
   }
 
-  showProductList(){
-    this.productService.resetList().subscribe(res=>{
-        this.products = res as Product[];
-        this.dtTrigger.next();  
+  showProductList() {
+    this.productService.resetList().subscribe(res => {
+      this.products = res as Product[];
+      this.dtTrigger.next();
     })
-     
+
   }
 
-  
-  addClick(){
+
+  addClick() {
     this.prod = new Product();
-    this.ModalTitle="Add Product";
-    this.ActivateAddEditProComp=true;
+    this.ModalTitle = "Add Product";
+    this.ActivateAddEditProComp = true;
   }
 
-  editClick(item: any){
+  editClick(item: any) {
     this.prod = item;
-    this.ModalTitle="Update Product";
-    this.ActivateAddEditProComp=true;
+    this.ModalTitle = "Update Product";
+    this.ActivateAddEditProComp = true;
   }
 
-  closeClick(){
-    this.ActivateAddEditProComp=false;
+  closeClick() {
+    this.ActivateAddEditProComp = false;
     this.closebutton.nativeElement.click();
     this.productService.resetList();
   }
 
-  deleteClick(id:number){
-    if(confirm("Are you sure to delete this record?")){
+  deleteClick(id: number) {
+    if (confirm("Are you sure to delete this record?")) {
       this.productService.deleteProduct(id)
-      .subscribe(
-        res=>{
-          this.productService.resetList().subscribe(res => {
-            this.products = res as Product[];
-          })
-          this.toastr.error('Deleted successfully');
-        },
-        err=>{console.log(err); }
-      )
+        .subscribe(
+          res => {
+            this.productService.resetList().subscribe(res => {
+              this.products = res as Product[];
+            })
+            this.toastr.error('Deleted successfully');
+          },
+          err => { console.log(err); }
+        )
     }
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-
-
+  findCachedItemById(value: number) {
+    if (this.cates == null || this.cates.length === 0) { return 'aaa'; }
+    for (const item of this.cates) {
+      if (item.id === value) {
+        return item.categoryName;
+      }
+    }
+    return 'bbb';
+  }
 }

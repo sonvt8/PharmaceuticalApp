@@ -33,7 +33,7 @@ export class AddEditProductTestComponent implements OnInit {
   // ProductionCapacity: string
   // MachineSize: string
   // NetWeight: number
-  // CategoryName: string
+  //CategoryName: string
   // PhotoProductUrl: string
   
   constructor(public productService: ProductService, private toastr: ToastrService, private categoryService: CategoryService) { }
@@ -41,6 +41,7 @@ export class AddEditProductTestComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.getCateList().subscribe(res=>{
       this.cateList = res;
+
     })
     // this.ProductId = this.pro.id;
     // this.ProductName = this.pro.productName;

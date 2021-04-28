@@ -60,6 +60,8 @@ namespace api.Data
                 .FirstOrDefaultAsync();
         }
 
+   
+
         public async Task<IEnumerable<ProductDto>> GetProducts()
         {
             return await _context.Products

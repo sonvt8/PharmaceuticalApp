@@ -23,6 +23,7 @@ import { CategoryListComponent } from './categories/category-list/category-list.
 import { RegisterComponent } from './account/register/register.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

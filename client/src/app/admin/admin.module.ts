@@ -4,6 +4,7 @@ import { DataTablesModule } from "angular-datatables";
 import { FormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { IsAvailablePipe } from '../_pipe/is-available.pipe';
+import { CategoryIdTocategoryNamePipe } from '../_pipe/category-id-tocategory-name.pipe';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -21,7 +22,7 @@ import { AddEditJobComponent } from './job-admin/add-edit-job/add-edit-job.compo
 
 
 @NgModule({
-  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent, ProductAdminTestComponent, AddEditProductTestComponent, JobAdminComponent, AddEditJobComponent, IsAvailablePipe],
+  declarations: [AdminComponent, HomeAdminComponent, CategoryAdminComponent, CreateCategoryComponent, ContactAdminComponent, AddEditContactComponent, ProductAdminComponent, AddEditProductComponent, ProductAdminTestComponent, AddEditProductTestComponent, JobAdminComponent, AddEditJobComponent, IsAvailablePipe, CategoryIdTocategoryNamePipe],
   imports: [
     CommonModule,
     AdminRoutingModule,
