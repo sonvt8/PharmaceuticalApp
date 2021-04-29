@@ -33,7 +33,7 @@ namespace api.Helpers
                 .ForMember(des => des.Status, opt => opt.MapFrom(src => src.IsApproved.GetStatus()));
             CreateMap<FeedBackCreateDto, FeedBack>();
             CreateMap<Product, ProductDto>()
-                .ForMember(des => des.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
+                //.ForMember(des => des.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
                 .ForMember(des => des.PhotoProductUrl, opt => opt.MapFrom(src => src.PhotoProducts.FirstOrDefault(x => x.IsMain).PhotoProductUrl));
             CreateMap<ProductCreateDto, Product>();
             CreateMap<PhotoProduct, PhotoProductDto>();

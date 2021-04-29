@@ -1,5 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +30,18 @@ namespace api.Controllers
         {
             var products = await _unitOfWork.ProductRepository.GetProducts();
             return Ok(products);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsPagination([FromQuery] ProductParams productParams)
+        {
+            var products = await _unitOfWork.ProductRepository.GetProductsPagination(productParams);
+
+            Response.AddPaginationHeader(products.CurrentPage, products.PageSize,
+                products.TotalCount, products.TotalPages);
+
+            return Ok(products);
+
         }
 
         [HttpGet("categories/{categoryId}")]
