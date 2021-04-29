@@ -12,10 +12,10 @@ import { CategoryService } from 'src/app/_service/category.service';
 export class CategoryAdminComponent implements OnInit, OnDestroy {
 
   dtOptions: DataTables.Settings = {}
-  cates: Category[] = []
+  categories: Category[] = []
   cate: Category
-  ModalTitle: string
-  ActivateAddEditCateComp = false;
+  ModalTitle:string
+  ActivateAddEditCateComp=false;
   public CloseClickCallback: Function;
   @ViewChild('closebutton') closebutton;
   // We use this trigger because fetching the list of persons can be quite long,
@@ -29,18 +29,17 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 5
     };
-    this.showCatetList();
+    this.showCateList();
     this.CloseClickCallback = this.closeClick.bind(this);
   }
 
-  showCatetList() {
-    this.categoryService.resetList().subscribe(res => {
-      this.cates = res as Category[];
+  showCateList(){
+    this.categoryService.resetList().subscribe(res=>{
+      this.categories = res as Category[],
       this.dtTrigger.next();
     })
-
+    
   }
-
 
   addClick() {
     this.cate = new Category();
@@ -58,7 +57,7 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
     this.ActivateAddEditCateComp = false;
     this.closebutton.nativeElement.click();
     this.categoryService.resetList().subscribe(res => {
-      this.cates = res as Category[];
+      this.categories = res as Category[];
     })
   }
 
@@ -69,7 +68,7 @@ export class CategoryAdminComponent implements OnInit, OnDestroy {
           res => {
             this.toastr.success('Deleted successfully');
             this.categoryService.resetList().subscribe(res => {
-              this.cates = res as Category[];
+              this.categories = res as Category[];
             })
             
           },

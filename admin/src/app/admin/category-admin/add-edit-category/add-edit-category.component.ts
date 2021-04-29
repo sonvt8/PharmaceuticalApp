@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from 'src/app/_models/category';
+
 import { CategoryService } from 'src/app/_service/category.service';
 
 @Component({
@@ -9,7 +11,9 @@ import { CategoryService } from 'src/app/_service/category.service';
 })
 export class AddEditCategoryComponent implements OnInit {
 
-  @Input() cate: any;
+
+  @Input() cate: Category;
+
   @Input()
   public myCallback: Function;
   ModalTitle: string
@@ -29,7 +33,8 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
   insertRecord() {
-    this.categoryService.addCategory(this.cate).subscribe(
+
+    this.categoryService.postCategory(this.cate).subscribe(
       res => {
         this.myCallback();
         this.toastr.success('Added successfully');
@@ -39,7 +44,7 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
   updateRecord() {
-    this.categoryService.updateCategory(this.cate).subscribe(
+    this.categoryService.putCategory(this.cate).subscribe(
       res => {
         this.myCallback();
         this.toastr.info('Updated successfully');

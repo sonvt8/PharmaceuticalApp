@@ -44,7 +44,12 @@ namespace api.Data
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<JobDto>> GetJobsAsync()
+        public async Task<IEnumerable<Job>> GetJobsAsync()
+        {
+            return await _context.Jobs.ToListAsync();
+        }
+
+        public async Task<IEnumerable<JobDto>> GetJobsDtoAsync()
         {
             return await _context.Jobs
                 .ProjectTo<JobDto>(_mapper.ConfigurationProvider)

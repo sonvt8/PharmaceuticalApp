@@ -16,7 +16,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-add-edit-category  [cate]="cate" [myCallback]="CloseClickCallback" *ngIf="ActivateAddEditCateComp">
+                <app-add-edit-category [cate]="cate" [myCallback]="CloseClickCallback" *ngIf="ActivateAddEditCateComp">
+
                 </app-add-edit-category>
             </div>
         </div>
@@ -40,8 +41,7 @@
         </tr>
     </thead>
     <tbody>
-
-        <tr *ngFor="let cate of cates">
+        <tr *ngFor="let cate of categories">
             <td>
                 {{cate.categoryName}}
             </td>
@@ -71,3 +71,4 @@
 
     </tbody>
 </table>
+

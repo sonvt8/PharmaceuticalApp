@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
 import { Category } from '../_models/category';
 
@@ -8,25 +8,23 @@ import { Category } from '../_models/category';
   providedIn: 'root'
 })
 export class CategoryService {
+
+  baseUrl = environment.apiUrl + "/categories";
   constructor(private http: HttpClient) { }
 
-  readonly APIUrl = environment.apiUrl;
+  postCategory(val: Category){
+    return this.http.post(this.baseUrl,val);
+  }
 
+  putCategory(val: Category){
+    return this.http.put(`${this.baseUrl}/${val.id}`,val);
+  }
+
+  deleteCategory(val: Category){
+    return this.http.delete(`${this.baseUrl}/${val.id}`);
+  }
 
   resetList(){
-    return this.http.get(this.APIUrl+'/categories')
-  }
-
-
-  addCategory(val:Category){
-    return this.http.post(this.APIUrl+'/categories',val);
-  }
-
-  updateCategory(val:Category){
-    return this.http.put(this.APIUrl+'/categories/' + val.id, val);
-  }
-
-  deleteCategory(val:any){
-    return this.http.delete(this.APIUrl+'/categories/'+ val.id);
+    return this.http.get(this.baseUrl);
   }
 }
