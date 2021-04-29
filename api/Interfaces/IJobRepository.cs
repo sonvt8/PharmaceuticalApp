@@ -10,7 +10,8 @@ namespace api.Interfaces
         void AddJob(Job job);
         void UpdateJob(Job job);
         void DeleteJob(Job job);
-        Task<IEnumerable<JobDto>> GetJobsAsync();
+        Task<IEnumerable<JobDto>> GetJobsDtoAsync();
+        Task<IEnumerable<Job>> GetJobsAsync();
         Task<JobDto> GetJobDtoByIdAsync(int jobId);
         Task<Job> GetJobByIdAsync(int jobId);
         Task<bool> JobExists(int jobId);
