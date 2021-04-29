@@ -1,5 +1,5 @@
 export interface PhotoProduct {
     id: number;
-    url: string;
+    photoProductUrl: string;
     isMain: boolean;
 }

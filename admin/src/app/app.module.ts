@@ -34,6 +34,9 @@ import { AddEditAccountComponent } from './admin/account-admin/add-edit-account/
 import { AddEditFeedbackComponent } from './admin/feedback-admin/add-edit-feedback/add-edit-feedback.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IsAvailablePipe } from './_pipes/is-available.pipe';
+import { PhotoEditComponent } from './admin/product-admin/photo-edit/photo-edit.component';
+import {FileUploadModule} from 'ng2-file-upload';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,8 @@ import { IsAvailablePipe } from './_pipes/is-available.pipe';
     AddEditContactComponent,
     AddEditAccountComponent,
     AddEditFeedbackComponent,
-    IsAvailablePipe
+    IsAvailablePipe,
+    PhotoEditComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,9 @@ import { IsAvailablePipe } from './_pipes/is-available.pipe';
     DataTablesModule,
     FormsModule,
     TabsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FileUploadModule,
+    PaginationModule
   ],
   providers: [
     AccountService,

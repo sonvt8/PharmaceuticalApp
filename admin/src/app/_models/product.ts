@@ -8,15 +8,15 @@ export class Product {
     capsuleSize: string=""
     machineDimension: string=""
     shippingWeight: string=""
-    modelNumber: number=0
+    modelNumber: string=""
     dies: number=0
-    maxPressure: number=0
-    maxDiameter: number=0
-    maxDepth: number=0
+    maxPressure: string=""
+    maxDiameter: string=""
+    maxDepth: string=""
     productionCapacity: string=""
     machineSize: string=""
-    netWeight: number=0
+    netWeight: string=""
     categoryId: number=0
     photoProductUrl: string=""
-    photos: PhotoProduct[];
+    photoProducts: PhotoProduct[];
 }

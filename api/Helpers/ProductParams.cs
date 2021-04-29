@@ -13,5 +13,6 @@ namespace api.Helpers
             get => _search;
             set => _search = value.ToLower();
         }
+        //public int ProductId { get; set; }
     }
 }

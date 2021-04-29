@@ -86,6 +86,11 @@ namespace api.Data
                 .Include(p => p.Category)
                 .AsQueryable();
 
+            if (!string.IsNullOrEmpty(productParams.Search))
+            {
+                query = query.Where(e => e.ProductName.ToLower().Contains(productParams.Search));
+            }
+
             return await PagedList<ProductDto>.CreateAsync(query.ProjectTo<ProductDto>(_mapper
                 .ConfigurationProvider).AsNoTracking(),
                     productParams.PageNumber, productParams.PageSize);

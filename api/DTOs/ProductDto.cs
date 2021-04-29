@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace api.DTOs
         public string MachineSize { get; set; }
         public string NetWeight { get; set; }
         public string ProductName { get; set; }
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public string PhotoProductUrl { get; set; }
 
         public ICollection<PhotoProductDto> PhotoProducts { get; set; }

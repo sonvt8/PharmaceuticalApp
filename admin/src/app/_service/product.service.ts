@@ -52,4 +52,19 @@ export class ProductService {
       })
     );
   }
+
+  setMainPhoto(photoId: number, id: number) {
+    // let params = new HttpParams();
+    // params = params.append('id', id.toString())
+    
+    return this.http.put(this.baseUrl + '/set-main-photo/' + photoId + '?' + 'id=' + id,{});
+  }
+
+  deletePhoto(photoId: number, id: number) {
+    let params = new HttpParams();
+    if(id!==null){
+      params = params.append('id', id.toString())
+    }
+    return this.http.delete(this.baseUrl + '/delete-photo/' + photoId, {params});
+  }
 }
