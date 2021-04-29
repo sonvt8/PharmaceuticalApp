@@ -1,17 +1,13 @@
-.container {
-    margin: 3rem auto 4rem;
-}
-
-.container .col-lg-3 {
-    padding: 0 1.5rem 0 0;
-    margin-bottom: 4rem;
-}
-
 .product-card {
     position: relative;
     border: 2px solid #ccc;
     border-radius: 10px;
     text-align: center;
+}
+
+.product-card-top {
+    overflow: hidden;
+    position: relative;
 }
 
 .product-card-hover {

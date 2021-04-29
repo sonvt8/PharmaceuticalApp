@@ -62,7 +62,7 @@ export class AccountComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-            this.router.navigate([this.returnUrl]);
+          this.router.navigate([this.returnUrl]);
         },
         error => {
           this.toastr.error(error.error)
