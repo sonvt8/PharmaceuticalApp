@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { User } from '../_models/user.model';
 import { environment } from 'src/environments/environment';
+import { resetPassword } from 'src/app/_models/resetPassword.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,25 @@ export class AccountService {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify(response));
         }
+        return response;
+      })
+    );
+  }
+
+  sendTokenToEmail(resetPassword: resetPassword) {
+    return this.http.post(`${environment.apiUrl}/accounts/recovery_email`, resetPassword).pipe(
+      map((response: resetPassword) => {
+        if (response) {
+          localStorage.setItem('recoveryPassword', JSON.stringify(response));
+        }
+        return response;
+      })
+    );
+  }
+
+  resetPassword(resetPassword: resetPassword) {
+    return this.http.post(`${environment.apiUrl}/accounts/recovery_password`, resetPassword).pipe(
+      map((response: string) => {
         return response;
       })
     );

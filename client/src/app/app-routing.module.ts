@@ -14,7 +14,7 @@ import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'account', component: AccountComponent},
+  {path: 'login', component: AccountComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
