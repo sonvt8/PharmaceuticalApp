@@ -1,20 +1,20 @@
 <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
     <input type="hidden" name="id" [value]="job.id" />
     <div class="form-group">
-        <label>Product Name</label>
-        <input type="text" class="form-control form-control-lg" placeholder="Job Name" name="JobName" #JobName="ngModel"
-            [(ngModel)]="job.jobName" required [class.invalid]="JobName.invalid && JobName.touched" />
+        <label>Name</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Job Name" name="jobName" #jobName="ngModel"
+            [(ngModel)]="job.jobName" required [class.invalid]="jobName.invalid && jobName.touched" />
     </div>
     <div class="form-group">
         <label>Description</label>
-        <input type="text" class="form-control form-control-lg" placeholder="Description" name="Description"
-            #Description="ngModel" [(ngModel)]="job.description" required
-            [class.invalid]="Description.invalid && Description.touched" />
+        <input type="text" class="form-control form-control-lg" placeholder="Description" name="description"
+            #description="ngModel" [(ngModel)]="job.description" required
+            [class.invalid]="description.invalid && description.touched" />
     </div>
     <div class="form-group">
         <label>Salary</label>
-        <input type="number" class="form-control form-control-lg" placeholder="Salary" name="Salary" #Salary="ngModel"
-            [(ngModel)]="job.salary" required [class.invalid]="Salary.invalid && Salary.touched" />
+        <input type="number" class="form-control form-control-lg" placeholder="Salary" name="salary" #salary="ngModel"
+            [(ngModel)]="job.salary" required [class.invalid]="salary.invalid && salary.touched" />
     </div>
     <div class="form-group">
         <label>Quantity</label>

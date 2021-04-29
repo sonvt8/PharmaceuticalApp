@@ -50,7 +50,7 @@ export class JobAdminComponent implements OnInit, OnDestroy {
 
   editClick(item: any) {
     this.job = item;
-    this.ModalTitle = "Update Product";
+    this.ModalTitle = "Update Job";
     this.ActivateAddEditJobComp = true;
   }
 

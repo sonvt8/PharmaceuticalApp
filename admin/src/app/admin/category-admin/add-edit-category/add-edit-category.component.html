@@ -1,7 +1,7 @@
 <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
     <input type="hidden" name="id" [value]="cate.id" />
     <div class="form-group">
-        <label>Product Name</label>
+        <label>Category Name</label>
         <input type="text" class="form-control form-control-lg" placeholder="Category Name" name="categoryName" #categoryName="ngModel"
             [(ngModel)]="cate.categoryName" required [class.invalid]="categoryName.invalid && categoryName.touched" />
     </div>

@@ -1,1 +1,35 @@
-<p>add-edit-contact works!</p>
+<form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit()">
+    <input type="hidden" name="id" [value]="contact.id" />
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Contact Name" name="name" #name="ngModel"
+            [(ngModel)]="contact.name" required [class.invalid]="name.invalid && name.touched" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Email" name="email"
+            #email="ngModel" [(ngModel)]="contact.email" required
+            [class.invalid]="email.invalid && email.touched" />
+    </div>
+    <div class="form-group">
+        <label>Phone</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Phone" name="phone" #phone="ngModel"
+            [(ngModel)]="contact.phone" required [class.invalid]="phone.invalid && phone.touched" />
+    </div>
+    <div class="form-group">
+        <label>Country</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Country" name="country"
+            #country="ngModel" [(ngModel)]="contact.country" required
+            [class.invalid]="country.invalid && country.touched" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea type="text" class="form-control form-control-lg" placeholder="Description" name="description"
+            #description="ngModel" [(ngModel)]="contact.description" required
+            [class.invalid]="description.invalid && description.touched" ></textarea>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SUBMIT</button>
+    </div>
+
+</form>
