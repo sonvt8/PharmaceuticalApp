@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../_models/user.model';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -8,17 +9,21 @@ import { AccountService } from '../_services/account.service';
 })
 export class HeaderComponent implements OnInit {
   isCollapsed = true;
-  displayLogin = true;
-  account : string;
+  currentUser: User;
+  username: string;
   constructor(
     private accountService: AccountService
-  ) {}
-  
+  ) {
+    this.accountService.user.subscribe(x => {
+      this.currentUser = x;
+      try {
+        this.username = x["fullName"];
+      } catch {
+      }
+    });
+  }
+
   ngOnInit(): void {
-    if (this.accountService.userValue) {
-      this.displayLogin = false;
-      this.account = this.accountService.userValue["fullName"];
-    }
   }
 
   logOut() {
