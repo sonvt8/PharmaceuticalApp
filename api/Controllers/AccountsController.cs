@@ -52,7 +52,7 @@ namespace api.Controllers
             if (!result.Succeeded) return BadRequest(result.Errors);
 
             //Send Token Email
-           var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
             var confirmationLink = Url.Action(nameof(ConfirmEmail), "Accounts", new { token, email = user.Email }, Request.Scheme);
             await _mailService.SendWelcomeEmailAsync(user.FullName, user.Email, confirmationLink);
@@ -212,7 +212,72 @@ namespace api.Controllers
             return BadRequest("Failed to delete the photo");
         }
 
+        [HttpPost("recovery_email")]
+        public async Task<ActionResult<ResetPasswordDto>> ForgotPassword(ForgotPasswordDto forgotPasswordModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Something wrong from your information");
+            var user = await _userManager.FindByEmailAsync(forgotPasswordModel.Email);
+            if (user == null)
+                return NoContent();
+
+            //Send Token Email
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var recoveryLink = Url.Action(nameof(ResetPassword), "Accounts", new { token, email = user.Email }, Request.Scheme);
+            await _mailService.SendForgotEmailAsync(user.FullName, user.Email, recoveryLink);
+
+            return new ResetPasswordDto
+            {
+                Password = "",
+                ConfirmPassword = "",
+                Token = token,
+                Email = forgotPasswordModel.Email
+            };
+        }
+
         [HttpGet]
+        public async Task<IActionResult> ResetPassword(string token, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return BadRequest("Error");
+            var isConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            if (!isConfirmed)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+                if (result.Succeeded)
+                {
+                    return Redirect("https://localhost:4200/reset-password");
+                }
+            }
+            return Redirect("https://localhost:4200/reset-password");
+        }
+
+        [HttpPost("recovery_password")]
+        public async Task<IActionResult> RenewPassword(ResetPasswordDto resetPasswordDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Something wrong happens");
+            var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
+            if (user == null)
+                return NoContent();
+
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.Password);
+            if (!resetPassResult.Succeeded)
+            {
+                foreach (var error in resetPassResult.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return NoContent();
+            }
+
+            return NoContent();
+        }
+
+        [HttpGet("confirm_email")]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -224,7 +289,7 @@ namespace api.Controllers
             {
                 return Redirect("https://localhost:4200/");
             }
-            return BadRequest("Error");
+            return BadRequest("Invalid token link");
         }
     }
 }

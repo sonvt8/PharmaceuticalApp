@@ -83,6 +83,9 @@ namespace api
             services.Configure<EmailConfirmationTokenProviderOptions>(opt =>
                 opt.TokenLifespan = TimeSpan.FromDays(7));
 
+            services.Configure<DataProtectionTokenProviderOptions>(opt =>
+                opt.TokenLifespan = TimeSpan.FromHours(2));
+
             services.AddAuthorization(opt =>
             {
                 opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
