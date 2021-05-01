@@ -16,13 +16,13 @@ using System.Threading.Tasks;
 namespace api.Controllers
 {
     
-    public class CandidateController : BaseApiController
+    public class CandidatesController : BaseApiController
     {
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
-        public CandidateController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService)
+        public CandidatesController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -30,7 +30,7 @@ namespace api.Controllers
             _photoService = photoService;
         }
 
-        [Authorize(Policy = "RequireAdminRole")]
+        //[Authorize(Policy = "RequireAdminRole")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CandidateDto>>> GetCandidate()
         {

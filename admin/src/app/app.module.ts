@@ -37,6 +37,7 @@ import { IsAvailablePipe } from './_pipes/is-available.pipe';
 import { PhotoEditComponent } from './admin/product-admin/photo-edit/photo-edit.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { IsApprovedPipe } from './_pipes/is-approved.pipe';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     AddEditAccountComponent,
     AddEditFeedbackComponent,
     IsAvailablePipe,
-    PhotoEditComponent
+    PhotoEditComponent,
+    IsApprovedPipe
   ],
   imports: [
     BrowserModule,

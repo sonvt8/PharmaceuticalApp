@@ -10,7 +10,7 @@ namespace api.Interfaces
         void DeleteUser(AppUser user);
         void UpdateUser(AppUser user);
         //Task<bool> SaveAllAsync();
-        Task<IEnumerable<UserDto>> GetUsersAsync();
+        Task<IEnumerable<AppUser>> GetUsersAsync();
         Task<AppUser> GetUserByIdAsync(int id);
         //Task<AppUser> GetUserByUsernameAsync(string username);
         //Task<IEnumerable<MemberDto>> GetMembersAsync();

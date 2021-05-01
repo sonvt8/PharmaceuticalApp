@@ -115,14 +115,21 @@ namespace api.Controllers
             return BadRequest("Failed to update user");
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}", Name = "GetUser")]
-        public async Task<ActionResult<UserDto>>GetUser(int id)
+        public async Task<ActionResult<UserDto>>GetUserById(int id)
         {
             var user = await _userManager.Users
                 .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(u => u.Id == id);
             return _mapper.Map<UserDto>(user);
+        }
+
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        {
+            var users = await _unitOfWork.UserRepository.GetUsersAsync();
+            return Ok(users);
         }
 
         [Authorize]
@@ -212,7 +219,7 @@ namespace api.Controllers
             return BadRequest("Failed to delete the photo");
         }
 
-        [HttpGet]
+        [HttpGet("email")]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             var user = await _userManager.FindByEmailAsync(email);

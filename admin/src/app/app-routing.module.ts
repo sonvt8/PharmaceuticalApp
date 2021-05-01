@@ -11,33 +11,34 @@ import { JobAdminComponent } from './admin/job-admin/job-admin.component';
 import { ProductAdminComponent } from './admin/product-admin/product-admin.component';
 
 const routes: Routes = [
+  {path: '', component: HomeAdminComponent},
   {
-    path: "", redirectTo: "home-admin", pathMatch: "full"
+    path: '',
+    runGuardsAndResolvers: 'always',
+    children: [
+      {
+        path: "category-admin", component: CategoryAdminComponent
+      },
+      {
+        path: "product-admin", component: ProductAdminComponent
+      },
+      {
+        path: "contact-admin", component: ContactAdminComponent
+      },
+      {
+        path: "job-admin", component: JobAdminComponent
+      },
+      {
+        path: "account-admin", component: AccountAdminComponent
+      },
+      {
+        path: "feedback-admin", component: FeedbackAdminComponent
+      },
+      {
+        path: "candidate-admin", component: CandidateAdminComponent
+      }
+    ]
   },
-  {
-    path: "home-admin", component: HomeAdminComponent
-  },
-  {
-    path: "category-admin", component: CategoryAdminComponent,
-  },
-  {
-    path: "product-admin", component: ProductAdminComponent,
-  },
-  {
-    path: "contact-admin", component: ContactAdminComponent,
-  },
-  {
-    path: "job-admin", component: JobAdminComponent,
-  },
-  {
-    path: "account-admin", component: AccountAdminComponent,
-  },
-  {
-    path: "feedback-admin", component: FeedbackAdminComponent,
-  },
-  {
-    path: "candidate-admin", component: CandidateAdminComponent,
-  }
 ];
 
 @NgModule({
