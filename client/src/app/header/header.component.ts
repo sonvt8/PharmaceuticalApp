@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   isCollapsed = true;
-  constructor() { }
-
+  displayLogin = true;
+  account : string;
+  constructor(
+    private accountService: AccountService
+  ) {}
+  
   ngOnInit(): void {
+    if (this.accountService.userValue) {
+      this.displayLogin = false;
+      this.account = this.accountService.userValue["fullName"];
+    }
+  }
+
+  logOut() {
+    this.accountService.logout();
   }
 
 }
