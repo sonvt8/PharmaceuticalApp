@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SwiperOptions } from 'swiper';
+import { ActivatedRoute, Params } from '@angular/router';
+
+import { Product } from 'src/app/_models/product.model';
+import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -8,11 +12,28 @@ import { SwiperOptions } from 'swiper';
 })
 export class ProductDetailComponent implements OnInit {
   isCollapsed = true;
-  starRating = 0; 
+  starRating = 0;
+  id: number;
 
-  constructor() { }
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = +params['id'];
+        }
+      );
+    this.loadProducts();
+  }
+
+  loadProducts(){
+    this.productService.getProductById(this.id).subscribe(product => {
+      console.log(product);
+    })
   }
 
   Images: Array<object> = [
