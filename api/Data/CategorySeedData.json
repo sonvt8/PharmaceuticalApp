@@ -17,7 +17,7 @@
 				"ProductionCapacity": "",
 				"PhotoProducts": [
 					{
-						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/8ca834c2aefe5a332c057aa7488b2959/t/d/tdp-6s-tablet-press-main_1.webp",
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/t/d/tdp-0-3-quarter-4-on.webp",
 						"IsMain": true
 					}
 				],
@@ -33,6 +33,173 @@
 						"Title": "Simple",
 						"Description": "Pretty simple design. Can't see it going wrong. Delivery was quick.",
 						"Rating": 5
+					}
+				]
+			},
+			{
+				"ProductName": "TDP 1.5 Desktop Tablet Press",
+				"OutPut": "5400 / hour",
+				"CapsuleSize": "8mm / 0.315in",
+				"MachineDimension": "800mm / 31.5in x 400mm / 15.7in x 700mm / 27.5in",
+				"ShippingWeight": "53.5kg / 118lbs",
+				"ModelNumber": "",
+				"Dies": 1,
+				"MaxPressure": "15 kN",
+				"MaxDiameter": "8mm / 0.315in",
+				"MaxDepth": "12mm / 0.472in",
+				"ProductionCapacity": "",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/t/d/tdp-1.5-main.webp",
+						"IsMain": true
+					}
+				],
+				"Reviews": [
+					{
+						"NickName": "sukno",
+						"Title": "four star",
+						"Description": "Looks and works great.",
+						"Rating": 4
+					},
+					{
+						"NickName": "Johnny",
+						"Title": "Simple",
+						"Description": "Pretty simple design. Can't see it going wrong. Delivery was quick.",
+						"Rating": 5
+					}
+				]
+			},
+			{
+				"ProductName": "TDP 5 Desktop Tablet Press",
+				"OutPut": "4,800 / hour",
+				"CapsuleSize": "8 mm / 0.315 in",
+				"MachineDimension": "800 mm / 31.5 in x 400 mm / 15.7 in x 700 mm / 27.5 in",
+				"ShippingWeight": "132 kg / 291.1 lbs",
+				"ModelNumber": "",
+				"Dies": 1,
+				"MaxPressure": "50 kN",
+				"MaxDiameter": "20 mm / 0.79 in",
+				"MaxDepth": "18 mm / 0.71 in",
+				"ProductionCapacity": "",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-updated-version-side.webp",
+						"IsMain": true
+					}
+				],
+				"Reviews": [
+					{
+						"NickName": "Arthur Ballard",
+						"Title": "Not variable machine. But good",
+						"Description": "This is a great machine for the price. The only major limitation of this machine is that it can only do one speed. There is only one setting.",
+						"Rating": 5
+					},
+					{
+						"NickName": "Colin Jones",
+						"Title": "So far, so good",
+						"Description": "I did a lot of research before buying a machine. So far, so good. And I'll try to stay on top of it so I can report on how it holds up.",
+						"Rating": 5
+					},
+					{
+						"NickName": "Haroun Smith",
+						"Title": "worth the money",
+						"Description": "Well worth the money, strong, works well and am pleased with it. I would if I had to replace with the same model",
+						"Rating": 5
+					}
+				]
+			},
+			{
+				"ProductName": "TDP 6s Desktop Tablet Press",
+				"OutPut": "3000 / hour",
+				"CapsuleSize": "6mm / 0.24in",
+				"MachineDimension": "890mm / 35in x 500mm / 20in x 880mm / 34.6in",
+				"ShippingWeight": "150kg / 330.7lbs",
+				"ModelNumber": "",
+				"Dies": 1,
+				"MaxPressure": "60 kN",
+				"MaxDiameter": "22mm / 0.86in",
+				"MaxDepth": "16mm / 0.63in",
+				"ProductionCapacity": "",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/t/d/tdp-6s-tablet-press-main_1.webp",
+						"IsMain": true
+					}
+				]
+			},
+			{
+				"ProductName": "DTP Tablet Press Range",
+				"OutPut": "3600 / hour",
+				"CapsuleSize": "8 mm",
+				"MachineDimension": "580 mm × 500 mm × 830 mm",
+				"ShippingWeight": "226 kg / 498.3 lbs",
+				"ModelNumber": "",
+				"Dies": 1,
+				"MaxPressure": "50 kN",
+				"MaxDiameter": "25mm",
+				"MaxDepth": "20mm",
+				"ProductionCapacity": "",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/d/t/dtp-tablet-press-range.webp",
+						"IsMain": true
+					}
+				]
+			},
+			{
+				"ProductName": "HSTP High Speed Tablet Press Range",
+				"OutPut": "135,000 / hour",
+				"CapsuleSize": "6 mm",
+				"MachineDimension": "1120mm x 720mm x 1868mm",
+				"ShippingWeight": "1250 kg / 2,755 lbs",
+				"ModelNumber": "HSTP-26",
+				"Dies": 26,
+				"MaxPressure": "20 kN",
+				"MaxDiameter": "25mm",
+				"MaxDepth": "16mm",
+				"ProductionCapacity": "",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/h/s/hstp-high-speed-tablet-press-main.webp",
+						"IsMain": true
+					}
+				]
+			},
+			{
+				"ProductName": "RTP 41 Rotary Tablet Press",
+				"OutPut": "182,040 / hour",
+				"CapsuleSize": "6 mm",
+				"MachineDimension": "1670mm x 950mm x 1230mm",
+				"ShippingWeight": "1676.5kg / 3,696.1lbs",
+				"ModelNumber": "RTP 41",
+				"Dies": 41,
+				"MaxPressure": "80 kN",
+				"MaxDiameter": "12mm",
+				"MaxDepth": "15mm",
+				"ProductionCapacity": "",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/r/t/rtp41-main-angled.webp",
+						"IsMain": true
+					}
+				]
+			},
+			{
+				"ProductName": "RTP 118 Rotary Tablet Press",
+				"OutPut": "32,400 / hour",
+				"CapsuleSize": "8mm / 0.314in",
+				"MachineDimension": "1200mm / 47.24in x 670mm / 26.38in x 675mm / 26.57in",
+				"ShippingWeight": "330kg / 727.5lbs",
+				"ModelNumber": "RTP 118",
+				"Dies": 9,
+				"MaxPressure": "60 kN",
+				"MaxDiameter": "16mm / 0.629in",
+				"MaxDepth": "17mm / 0.669in",
+				"ProductionCapacity": "",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/r/t/rtp-118-rotary-tablet-press-right-facing.webp",
+						"IsMain": true
 					}
 				]
 			}
@@ -54,7 +221,6 @@
 						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/8ca834c2aefe5a332c057aa7488b2959/t/d/tdp-1.5-main.webp",
 						"IsMain": true
 					}
-
 				],
 				"Reviews": [
 					{

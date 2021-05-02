@@ -41,7 +41,7 @@ export class AccountService {
     // remove user from local storage and set current user to null
     localStorage.removeItem('user');
     this.userSubject.next(null);
-    this.router.navigate(['/accounts/login']);
+    this.router.navigate(['/login']);
   }
 
   register(user: User) {

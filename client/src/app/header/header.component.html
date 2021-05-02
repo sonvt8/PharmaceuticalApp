@@ -38,10 +38,19 @@
                 <a class="nav-link" href="#">Careers</a>
             </li>
         </ul>
-        <a routerLink="/login" routerLinkActive="active">
+        <a *ngIf="!currentUser" routerLink="/login" routerLinkActive="active">
             <button class="btn btn-success mr-3">
                 <i class="fa fa-user"></i>
-                Account
+                Log In
+            </button>
+        </a>
+        <a *ngIf="currentUser">
+            <button type="button" class="btn btn-primary mr-3">{{ username }}</button>
+        </a>
+        <a *ngIf="currentUser" (click)="logOut()">
+            <button class="btn btn-danger mr-3">
+                <img class="sign-out" src="../../assets/img/sign-out-alt-solid.svg" alt="">
+                <span>Log Out</span>
             </button>
         </a>
         <form class="form-inline my-2 my-lg-0">

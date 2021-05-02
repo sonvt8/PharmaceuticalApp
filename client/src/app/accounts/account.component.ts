@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
       this.loginForm = this.formBuilder.group({
