@@ -11,15 +11,15 @@ export class FeedbackService {
   baseUrl = environment.apiUrl + "/feedbacks";
 
 
-  postContact(val: FeedBack){
+  postFeedBack(val: FeedBack){
     return this.http.post(this.baseUrl,val);
   }
 
-  putContact(val: FeedBack){
+  putFeedBack(val: FeedBack){
     return this.http.put(`${this.baseUrl}/${val.id}`,val);
   }
 
-  deleteContact(val: FeedBack){
+  deleteFeedBack(val: FeedBack){
     return this.http.delete(`${this.baseUrl}/${val.id}`);
   }
 

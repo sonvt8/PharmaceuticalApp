@@ -76,6 +76,12 @@ export class JobAdminComponent implements OnInit, OnDestroy {
         )
     }
   }
+
+  getColor(val:boolean){
+    if(val==true) return 'badge badge-success'
+    else return 'badge badge-danger'
+}
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

@@ -61,12 +61,8 @@
             <td>
                 {{job.quantity}}
             </td>
-            <td [ngStyle]="{
-                color: job.isAvailable
-                  ? 'hsl(141, 53%, 53%)'
-                  : 'hsl(348, 100%, 61%)'
-              }">
-                {{job.isAvailable | isAvailable}} 
+            <td >
+                <span class="{{getColor(job.isAvailable)}}">{{job.isAvailable | isAvailable}} </span>
             </td>
             <td>
                 <button type="button" class="btn btn-outline-success mr-1" data-toggle="modal"

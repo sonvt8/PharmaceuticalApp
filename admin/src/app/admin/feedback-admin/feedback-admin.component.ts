@@ -48,15 +48,15 @@ export class FeedbackAdminComponent implements OnInit {
   }
 
 
-  addClick() {
-    this.feedback = new FeedBack();
-    this.ModalTitle = "Add FeedBack";
-    this.ActivateAddEditFBComp = true;
-  }
+  // addClick() {
+  //   this.feedback = new FeedBack();
+  //   this.ModalTitle = "Add FeedBack";
+  //   this.ActivateAddEditFBComp = true;
+  // }
 
   editClick(item: any) {
     this.feedback = item;
-    this.ModalTitle = "Update FeedBack";
+    this.ModalTitle = "Approval FeedBack";
     this.ActivateAddEditFBComp = true;
   }
 
@@ -70,7 +70,7 @@ export class FeedbackAdminComponent implements OnInit {
 
   deleteClick(item: any) {
     if (confirm("Are you sure to delete this record?")) {
-      this.feedbackService.deleteContact(item)
+      this.feedbackService.deleteFeedBack(item)
         .subscribe(
           res => {
             this.feedbackService.resetList().subscribe(res => {
@@ -95,5 +95,11 @@ export class FeedbackAdminComponent implements OnInit {
       }
     }
     return '';
+  }
+
+  getColor(val:any){
+      if(val==null) return 'badge badge-warning'
+      else if(val==true) return 'badge badge-success'
+      else return 'badge badge-danger'
   }
 }

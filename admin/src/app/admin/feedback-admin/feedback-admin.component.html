@@ -1,10 +1,5 @@
 <h1>FeedBack</h1>
 
-<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal"
-    (click)="addClick()" data-backdrop="static" data-keyboard="false">
-    Add FeedBack
-</button>
-
 <!-- Modal -->
 <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -16,8 +11,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-add-edit-contact [contact]="feedback" [myCallback]="CloseClickCallback" *ngIf="ActivateAddEditFBComp">
-                </app-add-edit-contact>
+                <app-add-edit-feedback [feedback]="feedback" [myCallback]="CloseClickCallback" *ngIf="ActivateAddEditFBComp">
+                </app-add-edit-feedback>
             </div>
         </div>
     </div>
@@ -59,7 +54,8 @@
                 {{findCachedItemById(feedback.appUserId)}}
             </td>
             <td>
-                {{feedback.isApproved | isApproved}}
+                <span class="{{getColor(feedback.isApproved)}}">{{feedback.isApproved | isApproved}}</span>
+                
             </td>
             <td>
                 <button type="button" class="btn btn-outline-success mr-1" data-toggle="modal"

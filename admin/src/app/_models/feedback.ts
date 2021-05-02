@@ -4,7 +4,7 @@ export class FeedBack {
     company:string='';
     address:string="";
     city:string="";
-    postalcode:string="";
+    postalCode:string="";
     email:string="";
     phone:string="";
     comments:string;

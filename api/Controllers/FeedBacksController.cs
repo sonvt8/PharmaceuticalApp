@@ -76,21 +76,21 @@ namespace api.Controllers
             return CreatedAtAction("GetFeedBackById", new { feedBackId = feedBackToRead.Id }, feedBackToRead);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult> UpdateReview(int id, Review reviewToUpdate)
-        //{
-        //    if (id != reviewToUpdate.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    if (!await _unitOfWork.ReviewRepository.ReviewExists(id)) return NotFound();
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateFeedBack(int id, FeedBack feedBackToUpdate)
+        {
+            if (id != feedBackToUpdate.Id)
+            {
+                return BadRequest();
+            }
+            if (!await _unitOfWork.FeedBackRepository.FeedBackExists(id)) return NotFound();
 
-        //    _unitOfWork.ReviewRepository.UpdateReview(reviewToUpdate);
+            _unitOfWork.FeedBackRepository.UpdateFeedBack(feedBackToUpdate);
 
-        //    if (await _unitOfWork.Complete()) return NoContent();
+            if (await _unitOfWork.Complete()) return NoContent();
 
-        //    return BadRequest("Failed to update review");
-        //}
+            return BadRequest("Failed to update feedback");
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteFeedBack(int id)
