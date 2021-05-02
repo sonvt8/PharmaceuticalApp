@@ -15,8 +15,8 @@ namespace api.Helpers
         {
             CreateMap<Category, CategoryDto>();
             CreateMap<CategoryDto, Category>();
-            CreateMap<Review, ReviewDto>()
-                .ForMember(des => des.ProductName, opt => opt.MapFrom(src => src.Product.ProductName));
+            CreateMap<Review, ReviewDto>();
+                //.ForMember(des => des.ProductName, opt => opt.MapFrom(src => src.Product.ProductName));
             CreateMap<ReviewDto, Review>();
             CreateMap<RegisterDto, AppUser>();
             CreateMap<PhotoUser, PhotoUserDto>();

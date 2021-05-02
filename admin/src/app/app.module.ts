@@ -38,6 +38,8 @@ import { PhotoEditComponent } from './admin/product-admin/photo-edit/photo-edit.
 import {FileUploadModule} from 'ng2-file-upload';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { IsApprovedPipe } from './_pipes/is-approved.pipe';
+import { ReviewAdminComponent } from './admin/review-admin/review-admin.component';
+import { AddEditReviewComponent } from './admin/review-admin/add-edit-review/add-edit-review.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { IsApprovedPipe } from './_pipes/is-approved.pipe';
     AddEditFeedbackComponent,
     IsAvailablePipe,
     PhotoEditComponent,
-    IsApprovedPipe
+    IsApprovedPipe,
+    ReviewAdminComponent,
+    AddEditReviewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +27,18 @@ namespace api.Controllers
         {
             var reviews = await _unitOfWork.ReviewRepository.GetReviews();
             return Ok(reviews);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviewsPagination([FromQuery] PaginationParams paginationParams)
+        {
+            var reviews = await _unitOfWork.ReviewRepository.GetReviewsPagination(paginationParams);
+
+            Response.AddPaginationHeader(reviews.CurrentPage, reviews.PageSize,
+                reviews.TotalCount, reviews.TotalPages);
+
+            return Ok(reviews);
+
         }
 
         [HttpGet("products/{productId}")]
@@ -55,6 +69,7 @@ namespace api.Controllers
 
             return reviewRead;
         }
+
 
         [HttpPost]
         public async Task<ActionResult> AddReview(ReviewCreateDto reviewCreateDto)

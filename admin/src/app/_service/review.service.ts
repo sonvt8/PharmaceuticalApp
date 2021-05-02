@@ -1,36 +1,30 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { PaginatedResult } from '../_models/pagination';
-import { Product } from '../_models/product';
+import { Review } from '../_models/review';
 import { map} from 'rxjs/operators';
+import { PaginatedResult } from '../_models/pagination';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
-
-  readonly baseUrl = environment.apiUrl + '/products'
+export class ReviewService {
+  constructor(private http: HttpClient) { }
+  baseUrl = environment.apiUrl + "/reviews";
   paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
 
-  constructor(private http: HttpClient) { }
-  //formData: Product = new Product();
-  getProducts(){
-    return this.http.get(this.baseUrl);
-  }
 
-  postProduct(val: Product){
+  postReview(val: Review){
     return this.http.post(this.baseUrl,val);
   }
 
-  putProduct(val: Product){
+  putReview(val: Review){
     return this.http.put(`${this.baseUrl}/${val.id}`,val);
   }
 
-  deleteProduct(id:number){
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  deleteReview(val: Review){
+    return this.http.delete(`${this.baseUrl}/${val.id}`);
   }
-
 
   resetList(page?: number, itemPerPage?: number, search?: string){
     let params = new HttpParams();
@@ -53,20 +47,5 @@ export class ProductService {
         return this.paginatedResult;
       })
     );
-  }
-
-  setMainPhoto(photoId: number, id: number) {
-    // let params = new HttpParams();
-    // params = params.append('id', id.toString())
-    
-    return this.http.put(this.baseUrl + '/set-main-photo/' + photoId + '?' + 'id=' + id,{});
-  }
-
-  deletePhoto(photoId: number, id: number) {
-    let params = new HttpParams();
-    if(id!==null){
-      params = params.append('id', id.toString())
-    }
-    return this.http.delete(this.baseUrl + '/delete-photo/' + photoId, {params});
   }
 }

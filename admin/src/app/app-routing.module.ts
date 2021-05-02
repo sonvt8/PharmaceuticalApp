@@ -9,6 +9,7 @@ import { FeedbackAdminComponent } from './admin/feedback-admin/feedback-admin.co
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
 import { JobAdminComponent } from './admin/job-admin/job-admin.component';
 import { ProductAdminComponent } from './admin/product-admin/product-admin.component';
+import { ReviewAdminComponent } from './admin/review-admin/review-admin.component';
 
 const routes: Routes = [
   {path: '', component: HomeAdminComponent},
@@ -36,6 +37,9 @@ const routes: Routes = [
       },
       {
         path: "candidate-admin", component: CandidateAdminComponent
+      },
+      {
+        path: "review-admin", component: ReviewAdminComponent
       }
     ]
   },

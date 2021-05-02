@@ -24,7 +24,7 @@ export class AddEditFeedbackComponent implements OnInit {
     this.feedBackService.putFeedBack(this.feedback).subscribe(
       res => {
         this.myCallback();
-        this.toastr.info('Approve successfully');
+        this.toastr.success('Approve successfully');
       },
       err => { console.log(err); }
     )
@@ -35,7 +35,7 @@ export class AddEditFeedbackComponent implements OnInit {
     this.feedBackService.putFeedBack(this.feedback).subscribe(
       res => {
         this.myCallback();
-        this.toastr.info('Reject successfully');
+        this.toastr.success('Reject successfully');
       },
       err => { console.log(err); }
     )
