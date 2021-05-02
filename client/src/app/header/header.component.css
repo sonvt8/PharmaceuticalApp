@@ -18,3 +18,7 @@ nav.navbar .nav-item.active .nav-link {
 nav.navbar input[type="search"]::placeholder {
     font-style: italic;
 }
+
+img.sign-out {
+    width: 20px;
+}
