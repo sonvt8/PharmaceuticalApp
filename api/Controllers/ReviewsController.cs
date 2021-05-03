@@ -26,7 +26,16 @@ namespace api.Controllers
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviews()
         {
             var reviews = await _unitOfWork.ReviewRepository.GetReviews();
-            return Ok(reviews);
+            var reviewsRequestsModel = _mapper.Map<List<ReviewDto>>(reviews);
+            var model = new RequestReviewDto
+            {
+                TotalRequests = reviewsRequestsModel.Count,
+                ApprovedRequests = reviewsRequestsModel.Count(q => q.IsApproved == true),
+                PendingRequests = reviewsRequestsModel.Count(q => q.IsApproved == null),
+                RejectedRequests = reviewsRequestsModel.Count(q => q.IsApproved == false),
+                Reviews = reviewsRequestsModel
+            };
+            return Ok(model);
         }
 
         [HttpGet("pagination")]
@@ -74,7 +83,7 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult> AddReview(ReviewCreateDto reviewCreateDto)
         {
-            reviewCreateDto.Product = await _unitOfWork.ProductRepository.GetProductByIdAsync(reviewCreateDto.Product.Id);
+            //reviewCreateDto.Product = await _unitOfWork.ProductRepository.GetProductByIdAsync(reviewCreateDto.Product.Id);
 
             var reviewToCreate = _mapper.Map<Review>(reviewCreateDto);
 

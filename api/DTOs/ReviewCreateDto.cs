@@ -14,6 +14,6 @@ namespace api.DTOs
         public string Description { get; set; }
         public int Rating { get; set; }
         public bool IsApproved { get; set; }
-        public Product Product { get; set; }
+        public int ProductId { get; set; }
     }
 }
