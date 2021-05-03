@@ -4,6 +4,7 @@ export class User {
     id:number;
     fullName: string;
     email: string;
+    token: string;
     phoneNumber: string
     photoUserUrl: string;
     streetAddress:string;

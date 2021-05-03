@@ -8,7 +8,9 @@ import { ContactAdminComponent } from './admin/contact-admin/contact-admin.compo
 import { FeedbackAdminComponent } from './admin/feedback-admin/feedback-admin.component';
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
 import { JobAdminComponent } from './admin/job-admin/job-admin.component';
+import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
 import { ProductAdminComponent } from './admin/product-admin/product-admin.component';
+import { RegisterAdminComponent } from './admin/register-admin/register-admin.component';
 import { ReviewAdminComponent } from './admin/review-admin/review-admin.component';
 
 const routes: Routes = [
@@ -40,6 +42,12 @@ const routes: Routes = [
       },
       {
         path: "review-admin", component: ReviewAdminComponent
+      },
+      {
+        path: "register-admin", component: RegisterAdminComponent
+      },
+      {
+        path: "login-admin", component: LoginAdminComponent
       }
     ]
   },

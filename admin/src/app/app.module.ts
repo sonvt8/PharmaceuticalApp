@@ -40,6 +40,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { IsApprovedPipe } from './_pipes/is-approved.pipe';
 import { ReviewAdminComponent } from './admin/review-admin/review-admin.component';
 import { AddEditReviewComponent } from './admin/review-admin/add-edit-review/add-edit-review.component';
+import { RegisterAdminComponent } from './admin/register-admin/register-admin.component';
+import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { AddEditReviewComponent } from './admin/review-admin/add-edit-review/add
     PhotoEditComponent,
     IsApprovedPipe,
     ReviewAdminComponent,
-    AddEditReviewComponent
+    AddEditReviewComponent,
+    RegisterAdminComponent,
+    LoginAdminComponent
   ],
   imports: [
     BrowserModule,
