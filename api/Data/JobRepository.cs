@@ -1,5 +1,6 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -54,6 +55,20 @@ namespace api.Data
             return await _context.Jobs
                 .ProjectTo<JobDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public async Task<PagedList<Job>> GetJobsPagination(PaginationParams paginationParams)
+        {
+            var query = _context.Jobs
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(paginationParams.Search))
+            {
+                query = query.Where(e => e.JobName.ToLower().Contains(paginationParams.Search));
+            }
+
+            return await PagedList<Job>.CreateAsync(query.AsNoTracking(),
+                    paginationParams.PageNumber, paginationParams.PageSize);
         }
 
         public async Task<bool> JobExists(int jobId)

@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { FeedBack } from 'src/app/_models/feedback';
+import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_service/account.service';
 import { FeedbackService } from 'src/app/_service/feedback.service';
@@ -13,7 +14,11 @@ import { FeedbackService } from 'src/app/_service/feedback.service';
 })
 export class FeedbackAdminComponent implements OnInit {
 
-  dtOptions: DataTables.Settings = {}
+  @ViewChild('search', { static: true }) searchTerm: ElementRef;
+  pagination: Pagination;
+  pageNumber = 1;
+  pageSize = 5;
+  search = "";
   feedbacks: FeedBack[] = []
   feedback: FeedBack
   users: User[] = []
@@ -28,19 +33,15 @@ export class FeedbackAdminComponent implements OnInit {
   constructor(public feedbackService: FeedbackService, private accountService: AccountService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5
-    };
     this.showFeedBackList();
     this.CloseClickCallback = this.closeClick.bind(this);
   }
 
   showFeedBackList() {
-    this.feedbackService.resetList().subscribe(res => {
-      this.feedbacks = res as FeedBack[];
-      this.dtTrigger.next();
-      this.accountService.resetList().subscribe(response=>{
+    this.feedbackService.resetList(this.pageNumber, this.pageSize, this.search).subscribe(res => {
+      this.feedbacks = res.result;
+      this.pagination = res.pagination;
+      this.accountService.resetList().subscribe(response => {
         this.users = response as User[];
       })
     })
@@ -48,11 +49,16 @@ export class FeedbackAdminComponent implements OnInit {
   }
 
 
-  // addClick() {
-  //   this.feedback = new FeedBack();
-  //   this.ModalTitle = "Add FeedBack";
-  //   this.ActivateAddEditFBComp = true;
-  // }
+  pageChanged(event: any) {
+    this.pageNumber = event.page;
+    this.showFeedBackList();
+  }
+
+  onSearch() {
+    this.search = this.searchTerm.nativeElement.value;
+    this.pageNumber = 1;
+    this.showFeedBackList();
+  }
 
   editClick(item: any) {
     this.feedback = item;
@@ -63,9 +69,7 @@ export class FeedbackAdminComponent implements OnInit {
   closeClick() {
     this.ActivateAddEditFBComp = false;
     this.closebutton.nativeElement.click();
-    this.feedbackService.resetList().subscribe(res => {
-      this.feedbacks = res as FeedBack[];
-    })
+    this.showFeedBackList();
   }
 
   deleteClick(item: any) {
@@ -73,18 +77,12 @@ export class FeedbackAdminComponent implements OnInit {
       this.feedbackService.deleteFeedBack(item)
         .subscribe(
           res => {
-            this.feedbackService.resetList().subscribe(res => {
-              this.feedbacks = res as FeedBack[];
-            })
+            this.showFeedBackList();
             this.toastr.success('Deleted successfully');
           },
           err => { console.log(err); }
         )
     }
-  }
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
   }
 
   findCachedItemById(value: number) {

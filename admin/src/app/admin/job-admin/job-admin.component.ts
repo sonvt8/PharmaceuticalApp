@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Job } from 'src/app/_models/job';
+import { Pagination } from 'src/app/_models/pagination';
 import { JobService } from 'src/app/_service/job.service';
 
 @Component({
@@ -9,9 +10,13 @@ import { JobService } from 'src/app/_service/job.service';
   templateUrl: './job-admin.component.html',
   styleUrls: ['./job-admin.component.css']
 })
-export class JobAdminComponent implements OnInit, OnDestroy {
+export class JobAdminComponent implements OnInit {
 
-  dtOptions: DataTables.Settings = {}
+  @ViewChild('search', { static: true }) searchTerm: ElementRef;
+  pagination: Pagination;
+  pageNumber = 1;
+  pageSize = 5;
+  search = "";
   jobs: Job[] = []
   job: Job
   ModalTitle: string
@@ -25,22 +30,27 @@ export class JobAdminComponent implements OnInit, OnDestroy {
   constructor(public jobService: JobService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5
-    };
     this.showJobtList();
     this.CloseClickCallback = this.closeClick.bind(this);
   }
 
   showJobtList() {
-    this.jobService.resetList().subscribe(res => {
-      this.jobs = res as Job[];
-      this.dtTrigger.next();
+    this.jobService.resetList(this.pageNumber, this.pageSize, this.search).subscribe(res => {
+      this.jobs = res.result;
+      this.pagination = res.pagination;
     })
-
   }
 
+  pageChanged(event: any) {
+    this.pageNumber = event.page;
+    this.showJobtList();
+  }
+
+  onSearch() {
+    this.search = this.searchTerm.nativeElement.value;
+    this.pageNumber = 1;
+    this.showJobtList();
+  }
 
   addClick() {
     this.job = new Job();
@@ -57,9 +67,7 @@ export class JobAdminComponent implements OnInit, OnDestroy {
   closeClick() {
     this.ActivateAddEditJobComp = false;
     this.closebutton.nativeElement.click();
-    this.jobService.resetList().subscribe(res => {
-      this.jobs = res as Job[];
-    })
+    this.showJobtList();
   }
 
   deleteClick(item: any) {
@@ -67,9 +75,7 @@ export class JobAdminComponent implements OnInit, OnDestroy {
       this.jobService.deleteJob(item)
         .subscribe(
           res => {
-            this.jobService.resetList().subscribe(res => {
-              this.jobs = res as Job[];
-            })
+            this.showJobtList();
             this.toastr.success('Deleted successfully');
           },
           err => { console.log(err); }
@@ -81,10 +87,5 @@ export class JobAdminComponent implements OnInit, OnDestroy {
     if(val==true) return 'badge badge-success'
     else return 'badge badge-danger'
 }
-
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
 
 }

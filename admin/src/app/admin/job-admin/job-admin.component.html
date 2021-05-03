@@ -4,6 +4,7 @@
         (click)="addClick()" data-backdrop="static" data-keyboard="false">
         Add Job
     </button>
+    <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search class="form-control" style="width: 200px;">
 </div>
 
 
@@ -25,7 +26,7 @@
         </div>
     </div>
 </div>
-<table datatable id="tblData" [dtOptions]="dtOptions" [dtTrigger] = "dtTrigger" class="row-border hover">
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -88,5 +89,11 @@
     </tbody>
 </table>
 
+<div class="d-flex justify-content-center" *ngIf="pagination">
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+</div>
 
 

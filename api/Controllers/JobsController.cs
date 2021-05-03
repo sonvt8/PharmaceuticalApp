@@ -1,5 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +29,18 @@ namespace api.Controllers
             var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
 
             return Ok(jobs);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<Job>>> GetJobsPagination([FromQuery] PaginationParams paginationParams)
+        {
+            var jobs = await _unitOfWork.JobRepository.GetJobsPagination(paginationParams);
+
+            Response.AddPaginationHeader(jobs.CurrentPage, jobs.PageSize,
+                jobs.TotalCount, jobs.TotalPages);
+
+            return Ok(jobs);
+
         }
 
         [HttpGet("{jobId}", Name = "GetJobById")]

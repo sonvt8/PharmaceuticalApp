@@ -1,6 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
 using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -30,6 +31,18 @@ namespace api.Controllers
         {
             var feedBacks = await _unitOfWork.FeedBackRepository.GetFeedBacks();
             return Ok(feedBacks);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetFeedBacksPagination([FromQuery] PaginationParams paginationParams)
+        {
+            var feedBacks = await _unitOfWork.FeedBackRepository.GetFeedBacksPagination(paginationParams);
+
+            Response.AddPaginationHeader(feedBacks.CurrentPage, feedBacks.PageSize,
+                feedBacks.TotalCount, feedBacks.TotalPages);
+
+            return Ok(feedBacks);
+
         }
 
         [HttpGet("users/isapproved/{userId}")]
