@@ -1,5 +1,6 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace api.Interfaces
         void UpdateReview(Review review);
         void DeleteReview(Review review);
 
+        Task<PagedList<ReviewDto>> GetReviewsPagination(PaginationParams paginationParams);
         Task<IEnumerable<ReviewDto>> GetReviews();
         Task<IEnumerable<ReviewDto>> GetReviewsDtoOfAProductAsync(int productId);
         Task<IEnumerable<Review>> GetReviewsOfAProductAsync(int productId);

@@ -1,5 +1,6 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -76,6 +77,23 @@ namespace api.Data
                 .Where(p => p.Category.Id == categoryId)
                 .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public async Task<PagedList<ProductDto>> GetProductsPagination(ProductParams productParams)
+        {
+            var query = _context.Products
+                .Include(p => p.PhotoProducts)
+                .Include(p => p.Category)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(productParams.Search))
+            {
+                query = query.Where(e => e.ProductName.ToLower().Contains(productParams.Search));
+            }
+
+            return await PagedList<ProductDto>.CreateAsync(query.ProjectTo<ProductDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(),
+                    productParams.PageNumber, productParams.PageSize);
         }
 
         public async Task<bool> ProductExists(int productId)

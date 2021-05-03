@@ -1,0 +1,23 @@
+<dl class="row">
+    <dt class="col-md-2">Nick Name</dt>
+    <dd class="col-md-10">{{review.nickName}}</dd>
+
+    <dt class="col-md-2">Title</dt>
+    <dd class="col-md-10">{{review.title}}</dd>
+
+    <dt class="col-md-2">Description</dt>
+    <dd class="col-md-10">{{review.description}}</dd>
+
+    <dt class="col-md-2">Rating</dt>
+    <dd class="col-md-10">{{review.rating}}</dd>
+
+    <!-- <dt class="col-md-2">Product Name</dt>
+    <dd class="col-md-10">{{findCachedItemById(review.productId)}}</dd> -->
+
+    <dt class="col-md-2">Status</dt>
+    <dd class="col-md-10"><span class="{{getColor(review.isApproved)}}">{{review.isApproved | isApproved}}</span></dd>
+</dl>
+<div *ngIf="review.isApproved==null">
+    <button class="btn btn-success mr-2" (click)="onApproved()"><i class="fa fa-check"></i>Approve</button>
+    <button class="btn btn-danger" (click)="onRejected()"><i class="fa fa-remove"></i>Reject</button>
+</div>

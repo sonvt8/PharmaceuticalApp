@@ -1,0 +1,32 @@
+<dl class="row">
+    <dt class="col-md-2">Full Name</dt>
+    <dd class="col-md-10">{{feedback.fullName}}</dd>
+
+    <dt class="col-md-2">Company</dt>
+    <dd class="col-md-10">{{feedback.company}}</dd>
+
+    <dt class="col-md-2">Address</dt>
+    <dd class="col-md-10">{{feedback.address}}</dd>
+
+    <dt class="col-md-2">City</dt>
+    <dd class="col-md-10">{{feedback.city}}</dd>
+
+    <dt class="col-md-2">PostalCode</dt>
+    <dd class="col-md-10">{{feedback.postalCode}}</dd>
+
+    <dt class="col-md-2">Email</dt>
+    <dd class="col-md-10">{{feedback.email}}</dd>
+
+    <dt class="col-md-2">Phone</dt>
+    <dd class="col-md-10">{{feedback.phone}}</dd>
+
+    <dt class="col-md-2">Comments</dt>
+    <dd class="col-md-10">{{feedback.comments}}</dd>
+
+    <dt class="col-md-2">Status</dt>
+    <dd class="col-md-10"><span class="{{getColor(feedback.isApproved)}}">{{feedback.isApproved | isApproved}}</span></dd>
+</dl>
+<div *ngIf="feedback.isApproved==null">
+    <button class="btn btn-success mr-2" (click)="onApproved()"><i class="fa fa-check"></i>Approve</button>
+    <button class="btn btn-danger" (click)="onRejected()"><i class="fa fa-remove"></i>Reject</button>
+</div>

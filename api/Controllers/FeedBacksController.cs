@@ -1,6 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
 using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -30,6 +31,18 @@ namespace api.Controllers
         {
             var feedBacks = await _unitOfWork.FeedBackRepository.GetFeedBacks();
             return Ok(feedBacks);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetFeedBacksPagination([FromQuery] PaginationParams paginationParams)
+        {
+            var feedBacks = await _unitOfWork.FeedBackRepository.GetFeedBacksPagination(paginationParams);
+
+            Response.AddPaginationHeader(feedBacks.CurrentPage, feedBacks.PageSize,
+                feedBacks.TotalCount, feedBacks.TotalPages);
+
+            return Ok(feedBacks);
+
         }
 
         [HttpGet("users/isapproved/{userId}")]
@@ -76,21 +89,21 @@ namespace api.Controllers
             return CreatedAtAction("GetFeedBackById", new { feedBackId = feedBackToRead.Id }, feedBackToRead);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult> UpdateReview(int id, Review reviewToUpdate)
-        //{
-        //    if (id != reviewToUpdate.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    if (!await _unitOfWork.ReviewRepository.ReviewExists(id)) return NotFound();
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateFeedBack(int id, FeedBack feedBackToUpdate)
+        {
+            if (id != feedBackToUpdate.Id)
+            {
+                return BadRequest();
+            }
+            if (!await _unitOfWork.FeedBackRepository.FeedBackExists(id)) return NotFound();
 
-        //    _unitOfWork.ReviewRepository.UpdateReview(reviewToUpdate);
+            _unitOfWork.FeedBackRepository.UpdateFeedBack(feedBackToUpdate);
 
-        //    if (await _unitOfWork.Complete()) return NoContent();
+            if (await _unitOfWork.Complete()) return NoContent();
 
-        //    return BadRequest("Failed to update review");
-        //}
+            return BadRequest("Failed to update feedback");
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteFeedBack(int id)
