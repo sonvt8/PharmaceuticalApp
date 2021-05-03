@@ -18,8 +18,52 @@ export class Product {
     public photoProductUrl: string;
     public shippingWeight: string;
     public productionCapacity: string;
-    public photos: Photo[];
+    public description: string;
+    public introductionVideo: string;
+    public photoProducts: Photo[];
     public reviews: Review[];
 
-    // constructor(public name: string, public output: number, public imagePath: string){}
+    constructor(
+        id: number,
+        productName: string,
+        categoryName: string,
+        capsuleSize: string,
+        dies: number,
+        machineDimension: string,
+        machineSize: string,
+        maxPressure: string,
+        maxDiameter: string,
+        maxDepth: string,
+        modelNumber: string,
+        netWeight: string,
+        outPut: string,
+        photoProductUrl: string,
+        shippingWeight: string,
+        productionCapacity: string,
+        description: string,
+        introductionVideo: string,
+        photoProducts: Photo[],
+        reviews: Review[],
+    ){
+        this.id = id;
+        this.productName = productName;
+        this.categoryName = categoryName;
+        this.capsuleSize = capsuleSize;
+        this.dies = dies;
+        this.machineDimension = machineDimension;
+        this.machineSize = machineSize;
+        this.maxPressure = maxPressure;
+        this.maxDiameter = maxDiameter;
+        this.maxDepth = maxDepth;
+        this.modelNumber = modelNumber;
+        this.netWeight = netWeight;
+        this.outPut = outPut;
+        this.photoProductUrl = photoProductUrl;
+        this.shippingWeight = shippingWeight;
+        this.productionCapacity = productionCapacity;
+        this.description = description;
+        this.introductionVideo = introductionVideo;
+        this.photoProducts = photoProducts;
+        this.reviews = reviews;
+    }
 }

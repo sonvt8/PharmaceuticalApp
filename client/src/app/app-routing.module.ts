@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'contact', component: ContactUsComponent},
   {path: 'about-us', component: AboutUsComponent},
-  {path: 'product-1', component: ProductDetailComponent},
+  {path: 'products/:id', component: ProductDetailComponent},
   {path: 'products/categories/:id', component: ProductsComponent},
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

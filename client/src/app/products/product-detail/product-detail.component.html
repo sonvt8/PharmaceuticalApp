@@ -4,7 +4,7 @@
         <div class="col-lg-6 product-carousel">
             <swiper [config]="config">
                 <div class="swiper-wrapper">
-                    <img class="swiper-slide" *ngFor="let img of Images" [src]="img.src" [alt]="img.alt" />
+                    <img class="swiper-slide" *ngFor="let photo of product?.photoProducts; let i = index" [src]="photo.photoProductUrl" alt="image {{i}}" />
                 </div>
 
                 <!-- Add Pagination -->
@@ -18,7 +18,7 @@
         <!-- END: CAROUSEL -->
 
         <div class="col-lg-6 product-hero-right">
-            <h1 class="product-title">TDP 5 Desktop Tablet Press</h1>
+            <h1 class="product-title">{{product?.productName}}</h1>
             <div class="share">
                 <span>SHARE THIS: </span>
                 <ul>
@@ -30,7 +30,7 @@
                     </li>
                 </ul>
             </div>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/UUeTtetpo3w"
+            <iframe width="560" height="315" [src]="product?.introductionVideo | safe"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
@@ -41,26 +41,9 @@
 <div class="product-detail-body container">
     <tabset [justified]="true">
         <tab heading="Description">
-            <p>Manufactured by LFA in Taiwan, the TDP 5 has been built to the most rigorous standards of manufacture and
-                efficiency. We use only the highest quality parts so your TDP 5 will continue to produce
-                pharmaceutical-grade tablets for years to come.</p>
-            <p>The TDP 5 is LFA’s most popular tablet press because of its improvements in quality and ability to get
-                your business or concept off the ground.</p>
-            <p>Customers like Oxford Vitality and Bite were able to start profitable businesses using the TDP 5 for
-                these reasons.</p>
-            <p>If you are looking for a tablet press to help you develop new pills or to test concepts prior to rolling
-                them out for production, the TDP 5’s ability to produce a wide range of tablet sizes in small quantities
-                means that this is definitely the machine for you. Designed to suit the needs of laboratory and
-                developmental work rather than large scale manufacturing, the TDP 5 is nevertheless capable of producing
-                any quantity from just a few tablets all the way up to small production runs of up to 4,800 tablets an
-                hour.</p>
-            <p>The appeal of this tablet press lies in its versatility, combined with a strong feature set and the high
-                quality of its manufacture. The latter ensures excellent reliability. For all these reasons the TDP 5 is
-                a popular choice for use in research institutes, laboratories, food technology applications,
-                pharmaceutical development, chemical plants and hospitals, or any location where flexibility, ease of
-                use and speed are at a premium.</p>
-            <p>This tablet press is exceptionally easy to use, and despite its small size it offers a number of
-                advantages that distinguish it from comparable machines.</p>
+            <div *ngFor="let description of descriptions">
+                <p>{{description}}</p>
+            </div>
         </tab>
         <tab heading="Data Sheet">
             <h3 class="mb-4">Product Specification</h3>
@@ -112,73 +95,7 @@
             </table>
         </tab>
         <tab heading="Review">
-            <button type="button" class="btn btn-warning" (click)="isCollapsed = !isCollapsed"
-                [attr.aria-expanded]="!isCollapsed" aria-controls="collapseForm">Review this product
-            </button>
-            <div id="collapseForm" [collapse]="isCollapsed" [isAnimated]="true" class="row">
-                <form class="col-lg-6 review-form">
-                    <legend>
-                        <p class="mb-0">You're reviewing:</p>
-                        <h4>TDP 5 Desktop Tablet Press</h4>
-                    </legend>
-                    <div class="form-group">
-                        <label for="" class="mb-0">Your rating</label>
-                        <div>
-                            <ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false" aria-required="true">
-                            </ngb-rating>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Nickname</label>
-                        <input type="text" class="form-control" id="" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Summary</label>
-                        <input type="text" class="form-control" id="" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Review</label>
-                        <textarea class="form-control" id="" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </form>
-            </div>
-            <div id="customer-reviews">
-                <h4 class="heading">Customer Reviews:</h4>
-                <ul>
-                    <li class="review">
-                        <h5>Not variable machine. But good</h5>
-                        <div class="row">
-                            <div class="col-3 rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="col-9">
-                                <p>This is a great machine for the price. The only major limitation of this machine is that it can only do one speed. There is only one setting.</p>
-                                <p>Review by Arthur Ballard</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="review">
-                        <h5>So far, so good</h5>
-                        <div class="row">
-                            <div class="col-3 rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="col-9">
-                                <p>I did a lot of research before buying a machine. So far, so good. And I'll try to stay on top of it so I can report on how it holds up.</p>
-                                <p>Review by Colin Jones</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <app-reviews></app-reviews>
         </tab>
     </tabset>
 </div>

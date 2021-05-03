@@ -4,6 +4,67 @@
 		"CategoryDescription": "LFA Tablet Press supplies, tablet, pill and pellet presses form R&D Hand Held models right up to full production capacity Rotary Tablet Presses.\nSome of our most popular models include the Desk Top Presses which are fantastic for research departments and small batch production.\nLFA Tablet Presses also supplies a small range of excipients that can be used in the tablet presses. This includes Firmapress our all in one tableting excipient that works with almost every API.",
 		"Products": [
 			{
+				"ProductName": "TDP 5 Desktop Tablet Press",
+				"OutPut": "4,800 / hour",
+				"CapsuleSize": "8 mm / 0.315 in",
+				"MachineDimension": "800 mm / 31.5 in x 400 mm / 15.7 in x 700 mm / 27.5 in",
+				"ShippingWeight": "132 kg / 291.1 lbs",
+				"ModelNumber": "",
+				"Dies": 1,
+				"MaxPressure": "50 kN",
+				"MaxDiameter": "20 mm / 0.79 in",
+				"MaxDepth": "18 mm / 0.71 in",
+				"ProductionCapacity": "",
+				"Description": "Manufactured by LFA in Taiwan, the TDP 5 has been built to the most rigorous standards of manufacture and efficiency. We use only the highest quality parts so your TDP 5 will continue to produce pharmaceutical-grade tablets for years to come.\nThe TDP 5 is LFA’s most popular tablet press because of its improvements in quality and ability to get your business or concept off the ground.\nCustomers like Oxford Vitality and Bite were able to start profitable businesses using the TDP 5 for these reasons.\nIf you are looking for a tablet press to help you develop new pills or to test concepts prior to rolling them out for production, the TDP 5’s ability to produce a wide range of tablet sizes in small quantities means that this is definitely the machine for you. Designed to suit the needs of laboratory and developmental work rather than large scale manufacturing, the TDP 5 is nevertheless capable of producing any quantity from just a few tablets all the way up to small production runs of up to 4,800 tablets an hour.\nThe appeal of this tablet press lies in its versatility, combined with a strong feature set and the high quality of its manufacture. The latter ensures excellent reliability. For all these reasons the TDP 5 is a popular choice for use in research institutes, laboratories, food technology applications, pharmaceutical development, chemical plants and hospitals, or any location where flexibility, ease of use and speed are at a premium.\nThis tablet press is exceptionally easy to use, and despite its small size it offers a number of advantages that distinguish it from comparable machines.",
+				"IntroductionVideo": "https://www.youtube.com/embed/UUeTtetpo3w",
+				"PhotoProducts": [
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-updated-version-side.webp",
+						"IsMain": true
+					},
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-rear-view.webp",
+						"IsMain": false
+					},
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-lfa-logo-view.webp",
+						"IsMain": false
+					},
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-flywheel-view.-2.webp",
+						"IsMain": false
+					},
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-front-view.webp",
+						"IsMain": false
+					},
+					{
+						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-flywheel-view.webp",
+						"IsMain": false
+					}
+				],
+				"Reviews": [
+					{
+						"NickName": "Arthur Ballard",
+						"Title": "Not variable machine. But good",
+						"Description": "This is a great machine for the price. The only major limitation of this machine is that it can only do one speed. There is only one setting.",
+						"Rating": 5
+					},
+					{
+						"NickName": "Colin Jones",
+						"Title": "So far, so good",
+						"Description": "I did a lot of research before buying a machine. So far, so good. And I'll try to stay on top of it so I can report on how it holds up.",
+						"Rating": 5
+					},
+					{
+						"NickName": "Haroun Smith",
+						"Title": "worth the money",
+						"Description": "Well worth the money, strong, works well and am pleased with it. I would if I had to replace with the same model",
+						"Rating": 5
+					}
+				]
+			},
+			{
 				"ProductName": "TDP 0 Desktop Tablet Press",
 				"OutPut": "30-50/min",
 				"CapsuleSize": "2-6 mm",
@@ -66,45 +127,6 @@
 						"NickName": "Johnny",
 						"Title": "Simple",
 						"Description": "Pretty simple design. Can't see it going wrong. Delivery was quick.",
-						"Rating": 5
-					}
-				]
-			},
-			{
-				"ProductName": "TDP 5 Desktop Tablet Press",
-				"OutPut": "4,800 / hour",
-				"CapsuleSize": "8 mm / 0.315 in",
-				"MachineDimension": "800 mm / 31.5 in x 400 mm / 15.7 in x 700 mm / 27.5 in",
-				"ShippingWeight": "132 kg / 291.1 lbs",
-				"ModelNumber": "",
-				"Dies": 1,
-				"MaxPressure": "50 kN",
-				"MaxDiameter": "20 mm / 0.79 in",
-				"MaxDepth": "18 mm / 0.71 in",
-				"ProductionCapacity": "",
-				"PhotoProducts": [
-					{
-						"PhotoProductUrl": "https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-updated-version-side.webp",
-						"IsMain": true
-					}
-				],
-				"Reviews": [
-					{
-						"NickName": "Arthur Ballard",
-						"Title": "Not variable machine. But good",
-						"Description": "This is a great machine for the price. The only major limitation of this machine is that it can only do one speed. There is only one setting.",
-						"Rating": 5
-					},
-					{
-						"NickName": "Colin Jones",
-						"Title": "So far, so good",
-						"Description": "I did a lot of research before buying a machine. So far, so good. And I'll try to stay on top of it so I can report on how it holds up.",
-						"Rating": 5
-					},
-					{
-						"NickName": "Haroun Smith",
-						"Title": "worth the money",
-						"Description": "Well worth the money, strong, works well and am pleased with it. I would if I had to replace with the same model",
 						"Rating": 5
 					}
 				]

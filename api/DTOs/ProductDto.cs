@@ -22,6 +22,8 @@ namespace api.DTOs
         public string MachineSize { get; set; }
         public string NetWeight { get; set; }
         public string ProductName { get; set; }
+        public string Description { get; set; }
+        public string IntroductionVideo { get; set; }
         public int CategoryId { get; set; }
         public string PhotoProductUrl { get; set; }
 
