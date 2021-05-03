@@ -74,7 +74,7 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult> AddReview(ReviewCreateDto reviewCreateDto)
         {
-            reviewCreateDto.Product = await _unitOfWork.ProductRepository.GetProductByIdAsync(reviewCreateDto.Product.Id);
+            //reviewCreateDto.Product = await _unitOfWork.ProductRepository.GetProductByIdAsync(reviewCreateDto.Product.Id);
 
             var reviewToCreate = _mapper.Map<Review>(reviewCreateDto);
 
