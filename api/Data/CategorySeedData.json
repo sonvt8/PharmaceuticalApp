@@ -59,7 +59,8 @@
 						"NickName": "sukno",
 						"Title": "four star",
 						"Description": "Looks and works great.",
-						"Rating": 4
+						"Rating": 4,
+						"IsApproved":  true
 					},
 					{
 						"NickName": "Johnny",

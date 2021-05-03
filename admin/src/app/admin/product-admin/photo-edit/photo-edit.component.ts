@@ -13,7 +13,7 @@ export class PhotoEditComponent implements OnInit {
 
   @Input() pro: Product;
   uploader: FileUploader;
-  baseUrl = 'http://localhost:22566/api/products';
+  baseUrl = 'https://localhost:5001/api/products';
   hasBaseDropzoneOver = false;
   
   constructor(private productService: ProductService) { }
