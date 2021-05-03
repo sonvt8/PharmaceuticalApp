@@ -1,9 +1,11 @@
 <h1>Contact</h1>
-
-<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal"
-    (click)="addClick()" data-backdrop="static" data-keyboard="false">
-    Add Contact
-</button>
+<div class="d-flex justify-content-between ">
+    <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal"
+        (click)="addClick()" data-backdrop="static" data-keyboard="false">
+        Add Contact
+    </button>
+    <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search class="form-control" style="width: 200px;">
+</div>
 
 <!-- Modal -->
 <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -22,7 +24,7 @@
         </div>
     </div>
 </div>
-<table datatable id="tblData" [dtOptions]="dtOptions" [dtTrigger] = "dtTrigger" class="row-border hover">
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -85,4 +87,9 @@
     </tbody>
 </table>
 
-
+<div class="d-flex justify-content-center" *ngIf="pagination">
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+</div>

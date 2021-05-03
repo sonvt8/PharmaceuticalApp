@@ -12,7 +12,7 @@ import { ReviewService } from 'src/app/_service/review.service';
   templateUrl: './review-admin.component.html',
   styleUrls: ['./review-admin.component.css']
 })
-export class ReviewAdminComponent implements OnInit, OnDestroy {
+export class ReviewAdminComponent implements OnInit {
   @ViewChild('search', { static: true }) searchTerm: ElementRef;
   pagination: Pagination;
   pageNumber = 1;
@@ -25,9 +25,6 @@ export class ReviewAdminComponent implements OnInit, OnDestroy {
   ActivateAddEditReviewComp = false;
   public CloseClickCallback: Function;
   @ViewChild('closebutton') closebutton;
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(public reviewService: ReviewService, private productService: ProductService, private toastr: ToastrService) { }
 
@@ -99,8 +96,4 @@ export class ReviewAdminComponent implements OnInit, OnDestroy {
     else return 'badge badge-danger'
   }
 
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
 }

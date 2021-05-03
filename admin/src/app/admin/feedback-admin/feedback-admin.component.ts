@@ -26,9 +26,6 @@ export class FeedbackAdminComponent implements OnInit {
   ActivateAddEditFBComp = false;
   public CloseClickCallback: Function;
   @ViewChild('closebutton') closebutton;
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(public feedbackService: FeedbackService, private accountService: AccountService, private toastr: ToastrService) { }
 

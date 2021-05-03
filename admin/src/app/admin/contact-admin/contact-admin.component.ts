@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Contact } from 'src/app/_models/contact';
+import { Pagination } from 'src/app/_models/pagination';
 import { ContactService } from 'src/app/_service/contact.service';
 
 @Component({
@@ -9,38 +10,45 @@ import { ContactService } from 'src/app/_service/contact.service';
   templateUrl: './contact-admin.component.html',
   styleUrls: ['./contact-admin.component.css']
 })
-export class ContactAdminComponent implements OnInit, OnDestroy {
+export class ContactAdminComponent implements OnInit {
 
-  dtOptions: DataTables.Settings = {}
+  @ViewChild('search', { static: true }) searchTerm: ElementRef;
+  pagination: Pagination;
+  pageNumber = 1;
+  pageSize = 5;
+  search = "";
   contacts: Contact[] = []
   contact: Contact
   ModalTitle: string
   ActivateAddEditContComp = false;
   public CloseClickCallback: Function;
   @ViewChild('closebutton') closebutton;
-  // We use this trigger because fetching the list of persons can be quite long,
-  // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(public contactService: ContactService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5
-    };
-    this.showContacttList();
+    this.showContactList();
     this.CloseClickCallback = this.closeClick.bind(this);
   }
 
-  showContacttList() {
-    this.contactService.resetList().subscribe(res => {
-      this.contacts = res as Contact[];
-      this.dtTrigger.next();
+  showContactList() {
+    this.contactService.resetList(this.pageNumber, this.pageSize, this.search).subscribe(res => {
+      this.contacts = res.result;
+      this.pagination = res.pagination;
     })
 
   }
+  
+  pageChanged(event: any) {
+    this.pageNumber = event.page;
+    this.showContactList();
+  }
 
+  onSearch() {
+    this.search = this.searchTerm.nativeElement.value;
+    this.pageNumber = 1;
+    this.showContactList();
+  }
 
   addClick() {
     this.contact = new Contact();
@@ -57,9 +65,7 @@ export class ContactAdminComponent implements OnInit, OnDestroy {
   closeClick() {
     this.ActivateAddEditContComp = false;
     this.closebutton.nativeElement.click();
-    this.contactService.resetList().subscribe(res => {
-      this.contacts = res as Contact[];
-    })
+    this.showContactList();
   }
 
   deleteClick(item: any) {
@@ -67,18 +73,12 @@ export class ContactAdminComponent implements OnInit, OnDestroy {
       this.contactService.deleteContact(item)
         .subscribe(
           res => {
-            this.contactService.resetList().subscribe(res => {
-              this.contacts = res as Contact[];
-            })
+            this.showContactList();
             this.toastr.success('Deleted successfully');
           },
           err => { console.log(err); }
         )
     }
-  }
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
   }
 
 }
