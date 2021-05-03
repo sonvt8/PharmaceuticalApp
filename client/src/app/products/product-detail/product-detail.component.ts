@@ -5,7 +5,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Product } from 'src/app/_models/product.model';
 import { ProductService } from 'src/app/_services/product.service';
 import { Subscription } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,16 +13,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 
 export class ProductDetailComponent implements OnInit, OnDestroy  {
-  isCollapsed = true;
-  starRating = 0;
   sub: Subscription;
   product: Product;
   descriptions: String[];
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {

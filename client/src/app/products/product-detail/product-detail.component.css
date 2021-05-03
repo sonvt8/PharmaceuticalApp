@@ -38,7 +38,7 @@ tab {
     padding-top: 2rem;
 }
 
-ngb-rating {
+/* ngb-rating {
     color: #FFC107;
     font-size: 35px;
     outline: none;
@@ -73,4 +73,4 @@ label::after {
 #customer-reviews .review .fa-star {
     color: #e6e600;
     margin-right: 0.25rem;
-}
+} */
