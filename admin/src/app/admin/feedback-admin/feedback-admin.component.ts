@@ -26,6 +26,9 @@ export class FeedbackAdminComponent implements OnInit {
   ActivateAddEditFBComp = false;
   public CloseClickCallback: Function;
   @ViewChild('closebutton') closebutton;
+  pendingRequest:number=0;
+  approvedRequest:number=0;
+  rejectedRequest:number=0;
 
   constructor(public feedbackService: FeedbackService, private accountService: AccountService, private toastr: ToastrService) { }
 
@@ -38,6 +41,17 @@ export class FeedbackAdminComponent implements OnInit {
     this.feedbackService.resetList(this.pageNumber, this.pageSize, this.search).subscribe(res => {
       this.feedbacks = res.result;
       this.pagination = res.pagination;
+      this.feedbacks.forEach(p=>{
+        if(!p.isApproved){
+          this.rejectedRequest += 1;
+        }
+        if(p.isApproved){
+          this.approvedRequest += 1;
+        }
+        if(p.isApproved===null){
+          this.pendingRequest += 1;
+        }
+      })
       this.accountService.resetList().subscribe(response => {
         this.users = response as User[];
       })

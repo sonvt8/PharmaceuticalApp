@@ -25,6 +25,9 @@ export class ReviewAdminComponent implements OnInit {
   ActivateAddEditReviewComp = false;
   public CloseClickCallback: Function;
   @ViewChild('closebutton') closebutton;
+  pendingRequest:number=0;
+  approvedRequest:number=0;
+  rejectedRequest:number=0;
 
   constructor(public reviewService: ReviewService, private productService: ProductService, private toastr: ToastrService) { }
 
@@ -37,6 +40,17 @@ export class ReviewAdminComponent implements OnInit {
     this.reviewService.resetList(this.pageNumber, this.pageSize, this.search).subscribe(res => {
       this.reviews = res.result;
       this.pagination = res.pagination;
+      this.reviews.forEach(p=>{
+        if(!p.isApproved){
+          this.rejectedRequest += 1;
+        }
+        if(p.isApproved){
+          this.approvedRequest += 1;
+        }
+        if(p.isApproved===null){
+          this.pendingRequest += 1;
+        }
+      })
       this.productService.getProducts().subscribe(response => {
         this.products = response as Product[];
       })
