@@ -20,6 +20,8 @@ namespace api.Entities
         public string ProductionCapacity { get; set; }
         public string MachineSize { get; set; }
         public string NetWeight { get; set; }
+        public string Description { get; set; }
+        public string IntroductionVideo { get; set; }
 
         public ICollection<PhotoProduct> PhotoProducts { get; set; }
         public ICollection<Review> Reviews { get; set; }

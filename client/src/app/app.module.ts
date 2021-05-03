@@ -31,10 +31,12 @@ import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-passw
 import { ResetPasswordComponent } from './accounts/reset-password/reset-password.component';
 import { ProductService } from './_services/product.service';
 import { ProductListComponent } from './products/product-list/product-list.component';
+import { SafePipe } from './_helpers/safepipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SafePipe,
     HomeComponent,
     HeaderComponent,
     FooterComponent,

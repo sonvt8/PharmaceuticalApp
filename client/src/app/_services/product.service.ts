@@ -3,13 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 import { Product } from '../_models/product.model';
+import { ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private currentProductSource = new ReplaySubject<Product>(1);
+  _product$ = this.currentProductSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   getProducts() {
     return this.http.get<Product[]>(`${environment.apiUrl}/products`);
@@ -20,6 +24,13 @@ export class ProductService {
   }
 
   getProductById(id: number) {
-    return this.http.get<Product>(`${environment.apiUrl}/products/${id}`);
+    return this.http.get<Product>(`${environment.apiUrl}/products/${id}`).pipe(
+      map((response: Product) => {
+        if(response) {
+          this.currentProductSource.next(response);
+          return response;
+        }
+      })
+    );
   }
 }

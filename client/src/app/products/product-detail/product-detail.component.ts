@@ -1,62 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Product } from 'src/app/_models/product.model';
 import { ProductService } from 'src/app/_services/product.service';
+import { Subscription } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+
+export class ProductDetailComponent implements OnInit, OnDestroy  {
   isCollapsed = true;
   starRating = 0;
-  id: number;
+  sub: Subscription;
+  product: Product;
+  descriptions: String[];
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
-    this.route.params
+    this.sub = this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
+          const id = params['id'];
+          if (id) {
+            this.productService.getProductById(id).subscribe(product => {
+              console.log(product);
+              this.product = product;
+              this.descriptions = this.product.description.split("\n");
+            })
+          }
         }
       );
-    this.loadProducts();
   }
-
-  loadProducts(){
-    this.productService.getProductById(this.id).subscribe(product => {
-      console.log(product);
-    })
-  }
-
-  Images: Array<object> = [
-    {
-      src: 'https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-updated-version-side.webp',
-      alt: 'Image 1',
-    }, {
-      src: 'https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-rear-view.webp',
-      alt: 'Image 2'
-    }, {
-      src: 'https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-lfa-logo-view.webp',
-      alt: 'Image 3'
-    }, {
-      src: 'https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-flywheel-view.-2.webp',
-      alt: 'Image 4'
-    }, {
-      src: 'https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-front-view.webp',
-      alt: 'Image 5'
-    }, {
-      src: 'https://www.lfatabletpresses.com/media/catalog/product/cache/2d6735ae975a35971640ff95cc4716ba/l/f/lfa-tdp-5-flywheel-view.webp',
-      alt: 'Image 6'
-    }
-  ]
 
   config: SwiperOptions = {
     pagination: {
@@ -84,4 +68,7 @@ export class ProductDetailComponent implements OnInit {
     }
   };
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }
