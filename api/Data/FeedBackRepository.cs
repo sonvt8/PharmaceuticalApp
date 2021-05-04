@@ -1,5 +1,6 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -62,6 +63,21 @@ namespace api.Data
                 .Where(f => f.AppUser.Id == userId)
                 .ProjectTo<FeedBackDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public async Task<PagedList<FeedBackDto>> GetFeedBacksPagination(PaginationParams paginationParams)
+        {
+            var query = _context.FeedBacks
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(paginationParams.Search))
+            {
+                query = query.Where(e => e.FullName.ToLower().Contains(paginationParams.Search));
+            }
+
+            return await PagedList<FeedBackDto>.CreateAsync(query.ProjectTo<FeedBackDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(),
+                    paginationParams.PageNumber, paginationParams.PageSize);
         }
 
         public async Task<UserDto> GetUserOfAFeedBackAsync(int feedBackId)

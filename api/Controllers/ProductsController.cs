@@ -1,5 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +32,18 @@ namespace api.Controllers
             return Ok(products);
         }
 
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsPagination([FromQuery] ProductParams productParams)
+        {
+            var products = await _unitOfWork.ProductRepository.GetProductsPagination(productParams);
+
+            Response.AddPaginationHeader(products.CurrentPage, products.PageSize,
+                products.TotalCount, products.TotalPages);
+
+            return Ok(products);
+
+        }
+
         [HttpGet("categories/{categoryId}")]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetProductsOfACategory(int categoryId)
         {
@@ -53,7 +67,7 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult> AddProduct(ProductCreateDto productCreateDto)
         {
-            productCreateDto.Category = await _unitOfWork.CategoryRepository.GetCategoryByIdAsync(productCreateDto.Category.Id);
+            //productCreateDto.Category = await _unitOfWork.CategoryRepository.GetCategoryByIdAsync(productCreateDto.Category.Id);
 
             var productToCreate = _mapper.Map<Product>(productCreateDto);
 
@@ -61,9 +75,9 @@ namespace api.Controllers
 
             await _unitOfWork.Complete();
 
-            var productToRead = _mapper.Map<ProductDto>(productToCreate);
+            //var productToRead = _mapper.Map<ProductDto>(productToCreate);
 
-            return CreatedAtAction("GetProductById", new { productId = productToRead.Id }, productToRead);
+            return CreatedAtAction("GetProductById", new { productId = productToCreate.Id }, productToCreate);
         }
 
         [HttpPut("{id}")]
@@ -101,11 +115,14 @@ namespace api.Controllers
                 product.PhotoProducts.Remove(photo);
             }
 
-            var reviews = product.Reviews.ToList();
+            var reviews = product.Reviews;
 
-            foreach (var review in reviews)
+            if (reviews != null)
             {
-                product.Reviews.Remove(review);
+                foreach (var review in reviews.ToList())
+                {
+                    product.Reviews.Remove(review);
+                }
             }
 
             _unitOfWork.ProductRepository.DeleteProduct(product);
@@ -149,11 +166,14 @@ namespace api.Controllers
         }
 
         [HttpPut("set-main-photo/{photoId}")]
-        public async Task<ActionResult> SetMainPhoto(int photoId, [FromQuery] int productId)
+        public async Task<ActionResult> SetMainPhoto(int photoId, [FromQuery(Name = "id")] int productId)
         {
             var product = await _unitOfWork.ProductRepository.GetProductByIdAsync(productId);
 
+
             var photo = product.PhotoProducts.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null) return NotFound();
 
             if (photo.IsMain) return BadRequest("This is already your main photo");
 
@@ -167,7 +187,7 @@ namespace api.Controllers
         }
 
         [HttpDelete("delete-photo/{photoId}")]
-        public async Task<ActionResult> DeletePhoto(int photoId, [FromQuery] int productId)
+        public async Task<ActionResult> DeletePhoto(int photoId, [FromQuery(Name = "id")] int productId)
         {
             var product = await _unitOfWork.ProductRepository.GetProductByIdAsync(productId);
 

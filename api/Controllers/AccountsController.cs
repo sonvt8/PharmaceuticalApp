@@ -75,12 +75,12 @@ namespace api.Controllers
         {
             var user = await _userManager.Users
                  .SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
-            if (user == null) return Unauthorized("Email or Password is incorrect!");
+            if (user == null) return Unauthorized("Email is incorrect!");
 
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            if (!result.Succeeded) return Unauthorized("Email or Password is incorrect!");
+            if (!result.Succeeded) return Unauthorized("Password is incorrect!");
 
             var isConfirmed = await _userManager.IsEmailConfirmedAsync(user);
             if (!isConfirmed)
@@ -115,14 +115,21 @@ namespace api.Controllers
             return BadRequest("Failed to update user");
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}", Name = "GetUser")]
-        public async Task<ActionResult<UserDto>>GetUser(int id)
+        public async Task<ActionResult<UserDto>>GetUserById(int id)
         {
             var user = await _userManager.Users
                 .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(u => u.Id == id);
             return _mapper.Map<UserDto>(user);
+        }
+
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        {
+            var users = await _unitOfWork.UserRepository.GetUsersAsync();
+            return Ok(users);
         }
 
         [Authorize]

@@ -18,7 +18,7 @@ namespace api.Entities
         [Required]
         public string Description { get; set; }
         public int Rating { get; set; }
-        public bool? IsApproved { get; set; }
+        public bool? IsApproved { get; set; } = null;
 
         public Product Product { get; set; }
         public int ProductId { get; set; }

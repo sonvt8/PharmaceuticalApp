@@ -1,4 +1,6 @@
 ﻿using api.Entities;
+using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +27,18 @@ namespace api.Controllers
             var contacts = await _unitOfWork.ContactRepository.GetContactsAsync();
 
             return Ok(contacts);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<Contact>>> GetContactsPagination([FromQuery] PaginationParams paginationParams)
+        {
+            var contacts = await _unitOfWork.ContactRepository.GetContactsPagination(paginationParams);
+
+            Response.AddPaginationHeader(contacts.CurrentPage, contacts.PageSize,
+                contacts.TotalCount, contacts.TotalPages);
+
+            return Ok(contacts);
+
         }
 
         [HttpGet("{contactId}", Name = "GetContactById")]

@@ -1,5 +1,6 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -83,6 +84,21 @@ namespace api.Data
             return await _context.Reviews
                 .Where(r => r.Product.Id == productId)
                 .ToListAsync();
+        }
+
+        public async Task<PagedList<ReviewDto>> GetReviewsPagination(PaginationParams paginationParams)
+        {
+            var query = _context.Reviews
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(paginationParams.Search))
+            {
+                query = query.Where(e => e.NickName.ToLower().Contains(paginationParams.Search));
+            }
+
+            return await PagedList<ReviewDto>.CreateAsync(query.ProjectTo<ReviewDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(),
+                    paginationParams.PageNumber, paginationParams.PageSize);
         }
     }
 }

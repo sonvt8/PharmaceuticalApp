@@ -20,7 +20,7 @@ namespace api.Entities
         public string Country { get; set; }
         public string Degree { get; set; }
         public string Experience { get; set; }
-        public bool? IsApproved { get; set; }
+        public bool? IsApproved { get; set; } = null;
         public bool IsApplied { get; set; } = false;
 
         public Job Job { get; set; }
