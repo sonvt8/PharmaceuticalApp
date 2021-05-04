@@ -44,6 +44,9 @@ export class FeedbackAdminComponent implements OnInit {
       this.feedbacks = res.result;
       this.pagination = res.pagination;
       this.getRequestFeedBack();
+      this.accountService.resetList().subscribe(response => {
+        this.users = response as User[];
+      })
     })
 
   }
