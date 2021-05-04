@@ -56,40 +56,14 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Product</td>
-                        <td>TDP 5</td>
+                        <td>Name</td>
+                        <td>{{product?.productName}}</td>
                     </tr>
-                    <tr>
-                        <td>Number of dies</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Max Pressure (kN)</td>
-                        <td>50</td>
-                    </tr>
-                    <tr>
-                        <td>Max Diameter of Tablet</td>
-                        <td>20 mm / 0.79 in</td>
-                    </tr>
-                    <tr>
-                        <td>Max Production Capacity Per Hour</td>
-                        <td>4,800</td>
-                    </tr>
-                    <tr>
-                        <td>Height</td>
-                        <td>800 mm / 31.5 in</td>
-                    </tr>
-                    <tr>
-                        <td>Width</td>
-                        <td>400 mm / 15.7 in</td>
-                    </tr>
-                    <tr>
-                        <td>Depth</td>
-                        <td>700 mm / 27.5 in</td>
-                    </tr>
-                    <tr>
-                        <td>Weight</td>
-                        <td>132 kg / 291.1 lbs</td>
+                    <tr *ngFor="let property of properties | keyvalue">
+                        <ng-template [ngIf]="property.value">
+                            <td>{{property.key}}</td>
+                            <td>{{property.value}}</td>
+                        </ng-template>
                     </tr>
                 </tbody>
             </table>
