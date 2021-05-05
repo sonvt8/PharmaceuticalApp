@@ -1,5 +1,6 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,10 @@ namespace api.Interfaces
     public interface ICandidateRepository
     {
         void AddCandidate(AppUser user);
-        void UpdateBook(AppUser user);
-        void DeleteBook(AppUser user);
+        void UpdateCandidate(AppUser candidate);
+        void DeleteCandidate(AppUser user);
 
+        Task<PagedList<CandidateDto>> GetCandidatesPagination(PaginationParams paginationParams);
         Task<IEnumerable<CandidateDto>> GetCandidatesDtoAsync();
         Task<CandidateDto> GetCandidateDtoByIdAsync(int userId);
 

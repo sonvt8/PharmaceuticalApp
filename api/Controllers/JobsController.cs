@@ -23,12 +23,29 @@ namespace api.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        [HttpGet("no-request")]
+        public async Task<ActionResult<IEnumerable<Job>>> GetJobsNoRequest()
+        {
+            var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
+
+            return Ok(jobs);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
         {
             var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
 
-            return Ok(jobs);
+            var availableJobModel = _mapper.Map<List<Job>>(jobs);
+            var model = new AvailableJobDto
+            {
+                Total = availableJobModel.Count,
+                Available = availableJobModel.Count(q => q.IsAvailable == true),
+                Expired = availableJobModel.Count(q => q.IsAvailable == false),
+                Jobs = availableJobModel
+            };
+            return Ok(model);
         }
 
         [HttpGet("pagination")]

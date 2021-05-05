@@ -11,6 +11,7 @@ import { map} from 'rxjs/operators';
 export class AccountService {
   
   baseUrl = environment.apiUrl + "/accounts";
+  baseUrl1 = environment.apiUrl;
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
   
@@ -30,6 +31,24 @@ export class AccountService {
         }
       })
     )
+  }
+
+  register(model: any) {
+    return this.http.post(this.baseUrl + '/register', model).pipe(
+      map((user: User) => {
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+      })
+    )
+  }
+  getUsersWithRoles() {
+    return this.http.get<Partial<User[]>>(this.baseUrl1 + '/admin/users-with-roles');
+  }
+
+  updateUserRoles(id: number, roles: string[]) {
+    return this.http.post(this.baseUrl1 + '/admin/edit-roles/' + id + '?roles=' + roles, {});
   }
 
   setCurrentUser(user: User) {

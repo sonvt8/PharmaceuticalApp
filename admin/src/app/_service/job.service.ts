@@ -14,6 +14,14 @@ export class JobService {
   baseUrl = environment.apiUrl + "/jobs";
   paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
 
+  getJobNoRequest(){
+    return this.http.get(this.baseUrl + '/no-request');
+  }
+
+  getJob(){
+    return this.http.get(this.baseUrl);
+  }
+
   postJob(val: Job){
     return this.http.post(this.baseUrl,val);
   }
