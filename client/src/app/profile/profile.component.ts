@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   ];
 
   username: string;
-  selectedIndex: number;
+  selectedIndex: number = 0;
 
   constructor(
     private accountService: AccountService
@@ -37,8 +37,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedIndex = 0;
   }
+
 
   select(index: number) {
     this.selectedIndex = index;
