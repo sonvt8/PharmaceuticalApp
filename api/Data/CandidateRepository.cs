@@ -1,5 +1,6 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -27,12 +28,13 @@ namespace api.Data
             _context.Users.Add(user);
         }
 
+
         public async Task<bool> CandidateExists(int candidateId)
         {
             return await _context.Users.AnyAsync(c => c.Id == candidateId);
         }
 
-        public void DeleteBook(AppUser user)
+        public void DeleteCandidate(AppUser user)
         {
             _context.Users.Remove(user);
         }
@@ -87,9 +89,28 @@ namespace api.Data
                 .ToListAsync();
         }
 
-        public void UpdateBook(AppUser user)
+        public async Task<PagedList<CandidateDto>> GetCandidatesPagination(PaginationParams paginationParams)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            var query = _context.Users
+                .Include(p => p.PhotoUsers)
+                .Include(j => j.Job)
+                .AsQueryable();
+
+            query = query.Where(e => e.IsApplied==true);
+
+            if (!string.IsNullOrEmpty(paginationParams.Search))
+            {
+                query = query.Where(e => e.FullName.ToLower().Contains(paginationParams.Search));
+            }
+
+            return await PagedList<CandidateDto>.CreateAsync(query.ProjectTo<CandidateDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(),
+                    paginationParams.PageNumber, paginationParams.PageSize);
+        }
+
+        public void UpdateCandidate(AppUser candidate)
+        {
+            _context.Entry(candidate).State = EntityState.Modified;
         }
     }
 }

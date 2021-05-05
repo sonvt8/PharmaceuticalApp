@@ -32,6 +32,9 @@
                 Name
             </th>
             <th>
+                Image
+            </th>
+            <th>
                 Description
             </th>
             <th>
@@ -42,9 +45,12 @@
     </thead>
     <tbody>
 
-        <tr *ngFor="let prod of products">
+        <tr *ngFor="let prod of products">            
             <td>
                 {{prod.productName}}
+            </td>
+            <td>
+                <img src="{{prod.photoProductUrl || './assets/img/noimage.png'}}" alt="{{prod.productName}}">
             </td>
             <td>
                 {{prod.outPut}}

@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { FeedBack } from 'src/app/_models/feedback';
 import { Pagination } from 'src/app/_models/pagination';
+import { RequestTotal } from 'src/app/_models/requestTotal';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_service/account.service';
 import { FeedbackService } from 'src/app/_service/feedback.service';
@@ -22,6 +23,7 @@ export class FeedbackAdminComponent implements OnInit {
   feedbacks: FeedBack[] = []
   feedback: FeedBack
   users: User[] = []
+  request: RequestTotal
   ModalTitle: string
   ActivateAddEditFBComp = false;
   public CloseClickCallback: Function;
@@ -41,17 +43,7 @@ export class FeedbackAdminComponent implements OnInit {
     this.feedbackService.resetList(this.pageNumber, this.pageSize, this.search).subscribe(res => {
       this.feedbacks = res.result;
       this.pagination = res.pagination;
-      this.feedbacks.forEach(p=>{
-        if(!p.isApproved){
-          this.rejectedRequest += 1;
-        }
-        if(p.isApproved){
-          this.approvedRequest += 1;
-        }
-        if(p.isApproved===null){
-          this.pendingRequest += 1;
-        }
-      })
+      this.getRequestFeedBack();
       this.accountService.resetList().subscribe(response => {
         this.users = response as User[];
       })
@@ -59,6 +51,11 @@ export class FeedbackAdminComponent implements OnInit {
 
   }
 
+  getRequestFeedBack(){
+    this.feedbackService.getFeedBack().subscribe(res=>{
+      this.request = res as RequestTotal
+    })
+  }
 
   pageChanged(event: any) {
     this.pageNumber = event.page;

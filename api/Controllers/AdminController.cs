@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace api.Controllers
 {
-    [Authorize(Policy = "RequireAdminRole")]
+    //[Authorize(Policy = "RequireAdminRole")]
     public class AdminController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;

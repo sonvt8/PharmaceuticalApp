@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Pagination } from 'src/app/_models/pagination';
 import { Product } from 'src/app/_models/product';
+import { RequestTotal } from 'src/app/_models/requestTotal';
 import { Review } from 'src/app/_models/review';
 import { ProductService } from 'src/app/_service/product.service';
 import { ReviewService } from 'src/app/_service/review.service';
@@ -20,6 +21,7 @@ export class ReviewAdminComponent implements OnInit {
   search = "";
   reviews: Review[] = []
   review: Review
+  request: RequestTotal
   products: Product[] = []
   ModalTitle: string
   ActivateAddEditReviewComp = false;
@@ -40,22 +42,17 @@ export class ReviewAdminComponent implements OnInit {
     this.reviewService.resetList(this.pageNumber, this.pageSize, this.search).subscribe(res => {
       this.reviews = res.result;
       this.pagination = res.pagination;
-      this.reviews.forEach(p=>{
-        if(!p.isApproved){
-          this.rejectedRequest += 1;
-        }
-        if(p.isApproved){
-          this.approvedRequest += 1;
-        }
-        if(p.isApproved===null){
-          this.pendingRequest += 1;
-        }
-      })
+      this.getRequestReview();
       this.productService.getProducts().subscribe(response => {
         this.products = response as Product[];
       })
     })
 
+  }
+  getRequestReview(){
+    this.reviewService.getReview().subscribe(res=>{
+      this.request = res as RequestTotal
+    })
   }
 
   pageChanged(event: any) {

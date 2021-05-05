@@ -27,7 +27,8 @@ namespace api.Helpers
             CreateMap<JobCreateDto, Job>();
             CreateMap<AppUser, CandidateDto>()
                 .ForMember(des => des.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()))
-                .ForMember(des => des.Status, opt => opt.MapFrom(src => src.IsApproved.GetStatus()));
+               .ForMember(des => des.PhotoUserUrl, opt => opt.MapFrom(src => src.PhotoUsers.FirstOrDefault(x => x.IsMain).PhotoUserUrl));
+            CreateMap<CandidateDto, AppUser>();
             CreateMap<CandidateCreateDto, AppUser>();
             CreateMap<FeedBack, FeedBackDto>();
                 //.ForMember(des => des.Status, opt => opt.MapFrom(src => src.IsApproved.GetStatus()));
