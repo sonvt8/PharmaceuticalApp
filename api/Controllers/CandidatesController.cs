@@ -1,6 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
 using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,29 @@ namespace api.Controllers
         public async Task<ActionResult<IEnumerable<CandidateDto>>> GetCandidate()
         {
             var candidates = await _unitOfWork.CandidateRepository.GetCandidatesDtoAsync();
+
+            var candidatesRequestsModel = _mapper.Map<List<CandidateDto>>(candidates);
+            var model = new RequestCandidateDto
+            {
+                TotalRequests = candidatesRequestsModel.Count,
+                ApprovedRequests = candidatesRequestsModel.Count(q => q.IsApproved == true),
+                PendingRequests = candidatesRequestsModel.Count(q => q.IsApproved == null),
+                RejectedRequests = candidatesRequestsModel.Count(q => q.IsApproved == false),
+                Candidates = candidatesRequestsModel
+            };
+            return Ok(model);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetCandidatesPagination([FromQuery] PaginationParams paginationParams)
+        {
+            var candidates = await _unitOfWork.CandidateRepository.GetCandidatesPagination(paginationParams);
+
+            Response.AddPaginationHeader(candidates.CurrentPage, candidates.PageSize,
+                candidates.TotalCount, candidates.TotalPages);
+
             return Ok(candidates);
+
         }
 
         [Authorize(Policy = "RequireAdminRole")]
@@ -74,9 +97,21 @@ namespace api.Controllers
             return BadRequest("Failed to update user");
         }
 
-        
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateCandidate(int id, CandidateCreateDto candidateCreateDto)
+        {
+            var user = await _unitOfWork.UserRepository.GetUserByIdAsync(id);
 
-        [Authorize(Policy = "RequireAdminRole")]
+            _mapper.Map(candidateCreateDto, user);
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded) return NoContent();
+
+            return BadRequest("Failed to update user");
+        }
+
+        //[Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUserByAdmin(int id)
         {

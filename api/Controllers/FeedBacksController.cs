@@ -30,7 +30,16 @@ namespace api.Controllers
         public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetFeedBacks()
         {
             var feedBacks = await _unitOfWork.FeedBackRepository.GetFeedBacks();
-            return Ok(feedBacks);
+            var feedBacksRequestsModel = _mapper.Map<List<FeedBackDto>>(feedBacks);
+            var model = new RequestFeedBackDto
+            {
+                TotalRequests = feedBacksRequestsModel.Count,
+                ApprovedRequests = feedBacksRequestsModel.Count(q => q.IsApproved == true),
+                PendingRequests = feedBacksRequestsModel.Count(q => q.IsApproved == null),
+                RejectedRequests = feedBacksRequestsModel.Count(q => q.IsApproved == false),
+                FeedBacks = feedBacksRequestsModel
+            };
+            return Ok(model);
         }
 
         [HttpGet("pagination")]

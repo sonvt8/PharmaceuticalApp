@@ -117,7 +117,7 @@ namespace api.Controllers
 
         //[Authorize]
         [HttpGet("{id}", Name = "GetUser")]
-        public async Task<ActionResult<UserDto>>GetUserById(int id)
+        public async Task<ActionResult<UserDto>> GetUserById(int id)
         {
             var user = await _userManager.Users
                 .Include(p => p.PhotoUsers)
@@ -138,7 +138,7 @@ namespace api.Controllers
         {
 
             var currentUser = await _userManager.Users
-                .Include(p=>p.PhotoUsers)
+                .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
 
             var result = await _photoService.AddPhotoAsync(file);
@@ -243,7 +243,7 @@ namespace api.Controllers
             };
         }
 
-        [HttpGet]
+        [HttpGet("reset_password")]
         public async Task<IActionResult> ResetPassword(string token, string email)
         {
             var user = await _userManager.FindByEmailAsync(email);

@@ -37,6 +37,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { ResumesComponent } from './profile/resumes/resumes.component';
+import { ReviewDetailsComponent } from './reviews/review-details/review-details.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { ResumesComponent } from './profile/resumes/resumes.component';
     ProfileComponent,
     ProfileDetailComponent,
     ChangePasswordComponent,
-    ResumesComponent
+    ResumesComponent,
+    ReviewDetailsComponent
   ],
   imports: [
     BrowserModule,

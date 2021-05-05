@@ -13,6 +13,9 @@ export class ReviewService {
   baseUrl = environment.apiUrl + "/reviews";
   paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
 
+  getReview(){
+    return this.http.get(this.baseUrl);
+  }
 
   postReview(val: Review){
     return this.http.post(this.baseUrl,val);

@@ -13,6 +13,9 @@ export class FeedbackService {
   baseUrl = environment.apiUrl + "/feedbacks";
   paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
 
+  getFeedBack(){
+    return this.http.get(this.baseUrl);
+  }
 
   postFeedBack(val: FeedBack){
     return this.http.post(this.baseUrl,val);

@@ -11,7 +11,7 @@ namespace api.DTOs
         public int Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string PhotoUrl { get; set; }
+        public string PhotoUserUrl { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
         public string StreetAddress { get; set; }
@@ -20,8 +20,9 @@ namespace api.DTOs
         public string Country { get; set; }
         public string Degree { get; set; }
         public string Experience { get; set; }
-        public string Status { get; set; }
-  
+        public bool? IsApproved { get; set; }
+        public int? JobId { get; set; }
+
         public ICollection<PhotoUserDto> PhotoUsers { get; set; }
     }
 }
