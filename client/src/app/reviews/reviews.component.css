@@ -24,13 +24,3 @@ label::after {
     font-weight: 200;
     margin-bottom: 2.5rem;
 }
-
-#customer-reviews .review {
-    padding: 1rem 0 0.75rem 0;
-    border-bottom: 2px solid #e6e6e6;
-}
-
-#customer-reviews .review .fa-star {
-    color: #e6e600;
-    margin-right: 0.25rem;
-}

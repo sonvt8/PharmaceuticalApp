@@ -1,7 +1,9 @@
 export class Review {
+    public id: number;
     public nickName: string;
     public title: string;
     public description: string;
-    public rating: string;
+    public rating: number;
     public isApproved: boolean;
+    public productId: number;
 }

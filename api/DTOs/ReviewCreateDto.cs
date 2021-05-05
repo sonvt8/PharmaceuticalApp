@@ -9,7 +9,7 @@ namespace api.DTOs
     public class ReviewCreateDto
     {
         public int Id { get; set; }
-        public string Email { get; set; }
+        public string NickName { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int Rating { get; set; }

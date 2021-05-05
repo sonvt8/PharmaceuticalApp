@@ -30,40 +30,9 @@
     </form>
 </div>
 <div id="customer-reviews">
-    <h4 class="heading">Customer Reviews:</h4>
-    <ul>
-        <li class="review">
-            <h5>Not variable machine. But good</h5>
-            <div class="row">
-                <div class="col-3 rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                </div>
-                <div class="col-9">
-                    <p>This is a great machine for the price. The only major limitation of this machine is that it can
-                        only do one speed. There is only one setting.</p>
-                    <p>Review by Arthur Ballard</p>
-                </div>
-            </div>
-        </li>
-        <li class="review">
-            <h5>So far, so good</h5>
-            <div class="row">
-                <div class="col-3 rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                </div>
-                <div class="col-9">
-                    <p>I did a lot of research before buying a machine. So far, so good. And I'll try to stay on top of
-                        it so I can report on how it holds up.</p>
-                    <p>Review by Colin Jones</p>
-                </div>
-            </div>
-        </li>
-    </ul>
+    <app-review-details *ngIf="reviewExisted; else infoText"
+    [reviews] = "reviews"></app-review-details>
+    <ng-template #infoText>
+        <h3>No reviews</h3>
+    </ng-template>
 </div>

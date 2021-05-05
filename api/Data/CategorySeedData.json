@@ -54,13 +54,13 @@
 						"NickName": "Colin Jones",
 						"Title": "So far, so good",
 						"Description": "I did a lot of research before buying a machine. So far, so good. And I'll try to stay on top of it so I can report on how it holds up.",
-						"Rating": 5
+						"Rating": 3
 					},
 					{
 						"NickName": "Haroun Smith",
 						"Title": "worth the money",
 						"Description": "Well worth the money, strong, works well and am pleased with it. I would if I had to replace with the same model",
-						"Rating": 5
+						"Rating": 4
 					}
 				]
 			},
@@ -115,7 +115,7 @@
 						"NickName": "Johnny",
 						"Title": "Simple",
 						"Description": "Pretty simple design. Can't see it going wrong. Delivery was quick.",
-						"Rating": 5
+						"Rating": 3
 					}
 				]
 			},
@@ -157,9 +157,9 @@
 					},
 					{
 						"NickName": "Johnny",
-						"Title": "Simple",
-						"Description": "Pretty simple design. Can't see it going wrong. Delivery was quick.",
-						"Rating": 5
+						"Title": "Terrible",
+						"Description": "The worst I have ever bought",
+						"Rating": 1
 					}
 				]
 			},
@@ -378,7 +378,7 @@
 						"NickName": "sonvt8",
 						"Title": "four star",
 						"Description": "Looks and works great.",
-						"Rating": 4
+						"Rating": 3
 					}
 				]
 			},
