@@ -1,0 +1,19 @@
+<div class="container-fluid px-0 profile">
+    <div class="row no-gutters">
+        <div class="col-lg-2 profile-side">
+            <div class="text-center">
+                <img src="https://randomuser.me/api/portraits/men/97.jpg">
+                <h3>{{username}}</h3>
+            </div>
+            <div class="list-group">
+                <a *ngFor="let item of items; let i = index" 
+                [ngClass]="{'active': selectedIndex == i, 'list-group-item list-group-item-action': true}"
+                (click)="select(i)" 
+                [routerLink]="[(item.path)]">{{ item.name }}</a>
+            </div>
+        </div>
+        <div class="col-lg-10 profile-main">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

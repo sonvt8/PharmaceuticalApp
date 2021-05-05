@@ -11,17 +11,31 @@ import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-passw
 import { AuthGuard } from './_helpers/auth.guard';
 import { ResetPasswordComponent } from './accounts/reset-password/reset-password.component';
 import { ProductsComponent } from './products/products.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { ResumesComponent } from './profile/resumes/resumes.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'login', component: AccountComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'forgot-password', component: ForgotPasswordComponent},
-  {path: 'reset-password', component: ResetPasswordComponent},
-  {path: 'contact', component: ContactUsComponent},
-  {path: 'about-us', component: AboutUsComponent},
-  {path: 'products/:id', component: ProductDetailComponent},
-  {path: 'products/categories/:id', component: ProductsComponent},
+  { path: '', component: HomeComponent },
+  { path: 'login', component: AccountComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  {
+    path: 'user/1',
+    component: ProfileComponent,
+    children: [
+      { path: '', redirectTo: 'detail', pathMatch: 'full' },
+      { path: 'detail', component: ProfileDetailComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
+      { path: 'resumes', component: ResumesComponent }
+    ]
+  },
+  { path: 'contact', component: ContactUsComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'products/:id', component: ProductDetailComponent },
+  { path: 'products/categories/:id', component: ProductsComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ]
