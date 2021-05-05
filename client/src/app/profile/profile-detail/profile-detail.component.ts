@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import countries from 'src/assets/json/countries.json';
 
 @Component({
   selector: 'app-profile-detail',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-detail.component.css']
 })
 export class ProfileDetailComponent implements OnInit {
+  public countries:{Name: string, Code: string} = countries;
 
   constructor() { }
 
