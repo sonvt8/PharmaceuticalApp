@@ -12,6 +12,7 @@ import { JobService } from './_service/job.service';
 import { CandidateService } from './_service/candidate.service';
 import { CategoryService } from './_service/category.service';
 import { ContactService } from './_service/contact.service';
+import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +31,6 @@ import { AddEditProductComponent } from './admin/product-admin/add-edit-product/
 import { AddEditJobComponent } from './admin/job-admin/add-edit-job/add-edit-job.component';
 import { AddEditCandidateComponent } from './admin/candidate-admin/add-edit-candidate/add-edit-candidate.component';
 import { AddEditContactComponent } from './admin/contact-admin/add-edit-contact/add-edit-contact.component';
-import { AddEditAccountComponent } from './admin/account-admin/add-edit-account/add-edit-account.component';
 import { AddEditFeedbackComponent } from './admin/feedback-admin/add-edit-feedback/add-edit-feedback.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IsAvailablePipe } from './_pipes/is-available.pipe';
@@ -42,6 +42,9 @@ import { ReviewAdminComponent } from './admin/review-admin/review-admin.componen
 import { AddEditReviewComponent } from './admin/review-admin/add-edit-review/add-edit-review.component';
 import { RegisterAdminComponent } from './admin/register-admin/register-admin.component';
 import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
+import { RoleManagementComponent } from './admin/account-admin/role-management/role-management.component';
+import { UserManagementComponent } from './admin/account-admin/user-management/user-management.component';
+import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,6 @@ import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
     AddEditJobComponent,
     AddEditCandidateComponent,
     AddEditContactComponent,
-    AddEditAccountComponent,
     AddEditFeedbackComponent,
     IsAvailablePipe,
     PhotoEditComponent,
@@ -68,7 +70,10 @@ import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
     ReviewAdminComponent,
     AddEditReviewComponent,
     RegisterAdminComponent,
-    LoginAdminComponent
+    LoginAdminComponent,
+    RoleManagementComponent,
+    UserManagementComponent,
+    RolesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +88,8 @@ import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
     TabsModule,
     BrowserAnimationsModule,
     FileUploadModule,
-    PaginationModule
+    PaginationModule,
+    ModalModule.forRoot()
   ],
   providers: [
     AccountService,
@@ -92,7 +98,8 @@ import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
     CategoryService,
     JobService,
     ContactService,
-    FeedbackService
+    FeedbackService,
+    BsModalService
   ],
   bootstrap: [AppComponent]
 })
