@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { Available } from 'src/app/_models/available';
 import { Job } from 'src/app/_models/job';
 import { Pagination } from 'src/app/_models/pagination';
 import { JobService } from 'src/app/_service/job.service';
@@ -19,6 +20,7 @@ export class JobAdminComponent implements OnInit {
   search = "";
   jobs: Job[] = []
   job: Job
+  available: Available
   ModalTitle: string
   ActivateAddEditJobComp = false;
   public CloseClickCallback: Function;
@@ -35,9 +37,15 @@ export class JobAdminComponent implements OnInit {
     this.jobService.resetList(this.pageNumber, this.pageSize, this.search).subscribe(res => {
       this.jobs = res.result;
       this.pagination = res.pagination;
+      this.getAvailableJob();
     })
   }
 
+  getAvailableJob(){
+    this.jobService.getJob().subscribe(res=>{
+      this.available = res as Available
+    })
+  }
   pageChanged(event: any) {
     this.pageNumber = event.page;
     this.showJobtList();

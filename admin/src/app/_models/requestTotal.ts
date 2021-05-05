@@ -1,5 +1,3 @@
-
-
 export class RequestTotal {
     totalRequests : number
     approvedRequests : number

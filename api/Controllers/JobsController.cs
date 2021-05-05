@@ -28,7 +28,15 @@ namespace api.Controllers
         {
             var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
 
-            return Ok(jobs);
+            var availableJobModel = _mapper.Map<List<Job>>(jobs);
+            var model = new AvailableJobDto
+            {
+                Total = availableJobModel.Count,
+                Available = availableJobModel.Count(q => q.IsAvailable == true),
+                Expired = availableJobModel.Count(q => q.IsAvailable == false),
+                Jobs = availableJobModel
+            };
+            return Ok(model);
         }
 
         [HttpGet("pagination")]
