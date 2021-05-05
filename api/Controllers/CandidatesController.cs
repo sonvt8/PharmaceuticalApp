@@ -61,7 +61,7 @@ namespace api.Controllers
 
         }
 
-        [Authorize(Policy = "RequireAdminRole")]
+        //[Authorize(Policy = "RequireAdminRole")]
         [HttpGet("{id}", Name = "GetCandidate")]
         public async Task<ActionResult<CandidateDto>> GetCandidate(int id)
         {
