@@ -8,7 +8,6 @@ namespace api.DTOs
 {
     public class ReviewCreateDto
     {
-        public int Id { get; set; }
         public string NickName { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

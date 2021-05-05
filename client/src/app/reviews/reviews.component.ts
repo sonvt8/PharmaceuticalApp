@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Params } from '@angular/router';
+
 import { ReviewService } from '../_services/review.service';
 import { Review } from '../_models/review.model';
 
@@ -11,30 +13,86 @@ import { Review } from '../_models/review.model';
   styleUrls: ['./reviews.component.css']
 })
 export class ReviewsComponent implements OnInit, OnDestroy {
+  reviewForm: FormGroup;
+  loading = false;
+  submitted = false;
   isCollapsed = true;
-  starRating = 0;
+  starRating:number = 0;
   reviewExisted:boolean = false;
+  id:number = 0;
+
   sub: Subscription;
   reviews: Review[];
   
   constructor(
     private reviewService: ReviewService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.sub = this.route.params
       .subscribe(
         (params: Params) => {
-          const id = params['id'];
-          if (id) {
-            this.reviewService.getReviewsByProductId(id).subscribe(reviews => {
+          this.id = params['id'];
+          if (this.id ) {
+            this.reviewService.getReviewsByProductId(this.id ).subscribe(reviews => {
               this.reviews = reviews;
               this.reviewExisted = reviews.length > 0;
             })
           }
         }
       );
+
+    this.reviewForm = this.formBuilder.group({
+      nickName: ['', Validators.required],
+      title: ['', Validators.required],
+      content: ['', Validators.required],
+    });
+  }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.reviewForm.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.reviewForm.invalid) {
+      return;
+    }
+
+    if (this.starRating < 1) {
+      this.toastr.error("Please choose your rating")
+      return;
+    }
+
+    this.loading = true;
+
+    var review: Review = {
+      nickName: this.reviewForm.get('nickName').value,
+      title: this.reviewForm.get('title').value,
+      description:this.reviewForm.get('content').value,
+      rating:this.starRating,
+      isApproved: false,
+      productId: this.id 
+    };
+
+    this.reviewService.submitReview(review).subscribe(response => {
+      this.toastr.success('Your review will be considered and approved by Admin');
+      this.reviewForm.reset();
+      this.reload();
+    },error => {
+      this.toastr.error(error.error)
+      this.loading = false;
+    });
+  }
+
+  reload() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['./'], { relativeTo: this.route });
   }
 
   ngOnDestroy() {

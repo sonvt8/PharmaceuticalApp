@@ -13,4 +13,8 @@ export class ReviewService {
   getReviewsByProductId(id: number) {
     return this.http.get<Review[]>(`${environment.apiUrl}/reviews/products/${id}`);
   }
+
+  submitReview(review: Review) {
+    return this.http.post(`${environment.apiUrl}/reviews`, review);
+  }
 }

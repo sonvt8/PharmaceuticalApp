@@ -1,5 +1,4 @@
 export class Review {
-    public id: number;
     public nickName: string;
     public title: string;
     public description: string;
