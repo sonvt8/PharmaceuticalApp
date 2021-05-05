@@ -1,6 +1,6 @@
 <h4 class="heading">Customer Reviews:</h4>
 <ul *ngFor="let review of reviews">
-    <li class="review">
+    <li class="review" *ngIf="review.isApproved">
         <h5>{{review.title}}</h5>
         <div class="row">
             <div class="review-rating" *ngIf="review.rating">

@@ -30,7 +30,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy  {
           const id = params['id'];
           if (id) {
             this.productService.getProductById(id).subscribe(product => {
-              console.log(product);
               this.product = product;
               this.descriptions = this.product.description.split("\n");
               this.properties.set("CapsuleSize", product.capsuleSize); 

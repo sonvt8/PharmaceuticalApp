@@ -40,7 +40,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
           if (this.id ) {
             this.reviewService.getReviewsByProductId(this.id ).subscribe(reviews => {
               this.reviews = reviews;
-              this.reviewExisted = reviews.length > 0;
+              this.reviewExisted = reviews.length > 0 && reviews.some(ele => ele.isApproved === true);
             })
           }
         }
