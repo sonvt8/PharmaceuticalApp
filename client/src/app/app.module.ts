@@ -33,6 +33,7 @@ import { ProductService } from './_services/product.service';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { SafePipe } from './_helpers/safepipe';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { ReviewDetailsComponent } from './reviews/review-details/review-details.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
     AlertsComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    ReviewDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy  {
   sub: Subscription;
   product: Product;
   descriptions: String[];
+  properties: Map<string, string> = new Map();
 
   constructor(
     private productService: ProductService,
@@ -29,9 +30,20 @@ export class ProductDetailComponent implements OnInit, OnDestroy  {
           const id = params['id'];
           if (id) {
             this.productService.getProductById(id).subscribe(product => {
-              console.log(product);
               this.product = product;
               this.descriptions = this.product.description.split("\n");
+              this.properties.set("CapsuleSize", product.capsuleSize); 
+              this.properties.set("Machine Dimension", product.machineDimension); 
+              this.properties.set("Machine Size", product.machineSize); 
+              this.properties.set("Max Pressure", product.maxPressure); 
+              this.properties.set("Max Diameter", product.maxDiameter); 
+              this.properties.set("MaxDepth", product.maxDepth); 
+              this.properties.set("Net Weight", product.netWeight); 
+              this.properties.set("Model Number", product.modelNumber);
+              this.properties.set("OutPut", product.outPut); 
+              this.properties.set("Dies", product.dies.toString()); 
+              this.properties.set("Shipping Weight", product.shippingWeight); 
+              this.properties.set("Production Capacity", product.productionCapacity);
             })
           }
         }

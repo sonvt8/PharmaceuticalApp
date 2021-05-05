@@ -72,7 +72,7 @@ namespace api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> AddReview(ReviewCreateDto reviewCreateDto)
+        public async Task<ActionResult> AddReview(ReviewDto reviewCreateDto)
         {
             //reviewCreateDto.Product = await _unitOfWork.ProductRepository.GetProductByIdAsync(reviewCreateDto.Product.Id);
 
