@@ -23,6 +23,15 @@ namespace api.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        [HttpGet("no-request")]
+        public async Task<ActionResult<IEnumerable<Job>>> GetJobsNoRequest()
+        {
+            var jobs = await _unitOfWork.JobRepository.GetJobsAsync();
+
+            return Ok(jobs);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
         {

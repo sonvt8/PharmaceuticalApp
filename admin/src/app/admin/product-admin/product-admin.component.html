@@ -50,7 +50,7 @@
                 {{prod.productName}}
             </td>
             <td>
-                <img src="{{prod.photoProductUrl}}" alt="{{prod.productName}}">
+                <img src="{{prod.photoProductUrl || './assets/img/noimage.png'}}" alt="{{prod.productName}}">
             </td>
             <td>
                 {{prod.outPut}}

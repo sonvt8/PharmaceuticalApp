@@ -52,10 +52,10 @@ namespace api.Controllers
             if (!result.Succeeded) return BadRequest(result.Errors);
 
             //Send Token Email
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Accounts", new { token, email = user.Email }, Request.Scheme);
-            await _mailService.SendWelcomeEmailAsync(user.FullName, user.Email, confirmationLink);
+            //var confirmationLink = Url.Action(nameof(ConfirmEmail), "Accounts", new { token, email = user.Email }, Request.Scheme);
+            //await _mailService.SendWelcomeEmailAsync(user.FullName, user.Email, confirmationLink);
 
             var roleResult = await _userManager.AddToRoleAsync(user, "Member");
 
