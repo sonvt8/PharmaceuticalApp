@@ -75,7 +75,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
       title: this.reviewForm.get('title').value,
       description:this.reviewForm.get('content').value,
       rating:this.starRating,
-      isApproved: false,
+      isApproved: null,
       productId: this.id 
     };
 
