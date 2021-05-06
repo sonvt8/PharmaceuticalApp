@@ -1,9 +1,18 @@
 <div class="container">
-    <h1>{{categoryName}}</h1>
+    <div class="d-flex justify-content-between ">
+        <h1>{{findCachedItemById(categoryId)}}</h1>
+        <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search class="form-control mr-4" style="width: 200px; height: 40px;">  
+    </div>
     <p>{{count}} items</p>
     <div class="row no-gutters">
         <app-product-list class="col-lg-3 col-md-6 col-8" 
         *ngFor="let productEl of products" 
         [product]="productEl"></app-product-list>
     </div>
+</div>
+<div class="d-flex justify-content-center" *ngIf="pagination">
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
 </div>

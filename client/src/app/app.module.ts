@@ -34,6 +34,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { SafePipe } from './_helpers/safepipe';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { ReviewDetailsComponent } from './reviews/review-details/review-details.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ReviewDetailsComponent } from './reviews/review-details/review-details.
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    PaginationModule,
     ToastrModule.forRoot({
       progressBar: true,
       positionClass: 'toast-bottom-right'
