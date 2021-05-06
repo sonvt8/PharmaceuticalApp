@@ -19,6 +19,6 @@ namespace api.DTOs
         public string Experience { get; set; }
         public bool? IsApproved { get; set; } = null;
         public bool IsApplied { get; set; } = true;
-        public int JobId { get; set; }
+        public int? JobId { get; set; }
     }
 }
