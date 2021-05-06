@@ -46,6 +46,11 @@ export class CandidateAdminComponent implements OnInit {
       this.getRequestCandidate();
       this.jobService.getJobNoRequest().subscribe(response => {
         this.jobs = response as Job[];
+        this.candidates.forEach(c => {
+          if(c.jobId != null){
+            c.jobTitle = this.findCachedItemById(c.jobId);
+          }
+        });
       })
     })
 
