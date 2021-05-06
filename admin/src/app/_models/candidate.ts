@@ -15,5 +15,6 @@ export class Candidate {
     experience:string='';
     isApproved:boolean=null;
     jobId: number = 0;
+    jobTitle: string = '';
     photoUsers: PhotoUser[];
 }

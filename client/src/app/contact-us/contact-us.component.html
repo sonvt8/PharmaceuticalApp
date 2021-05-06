@@ -27,24 +27,56 @@
                     </ul>
                 </div>
                 <div class="col-lg-8 contact-form text-left">
-                    <form>
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
                         <legend>Get In Touch</legend>
                         <p>Leave us a message and we’ll get back to you as quickly as possible.</p>
                         <div class="form-row">
                             <div class="col">
-                                <input type="text" class="form-control" id="" placeholder="Name *">
+                                <input type="text" class="form-control" formControlName="name" placeholder="Name *" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.name.errors.required">Your Name is required</div>
+                                </div>
                             </div>
                             <div class="col">
-                                <input type="email" class="form-control" id="" placeholder="Email *">
+                                <input type="text" formControlName="email" class="form-control" placeholder="Email *" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.required">Email is required</div>
+                                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" class="form-control" formControlName="phone" placeholder="Phone *" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                                    <div *ngIf="f.phone.errors.required">Your Phone is required</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" formControlName="country" placeholder="Country *" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
+                                <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                                    <div *ngIf="f.country.errors.required">Your Country is required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group mt-3">
-                            <input type="text" class="form-control" id="" placeholder="Subject *">
+                            <input type="text" class="form-control" formControlName="subject" placeholder="Subject *" [ngClass]="{ 'is-invalid': submitted && f.subject.errors }" />
+                            <div *ngIf="submitted && f.subject.errors" class="invalid-feedback">
+                                <div *ngIf="f.subject.errors.required">Subject is required</div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" id="" rows="3" placeholder="Your message *"></textarea>
+                            <textarea class="form-control" formControlName="description" rows="3" placeholder="Your message *" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">What do you want to share with us?</div>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-success">SUBMIT</button>
+                        <button  [disabled]="loading" class="btn btn-success btn-submit">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            Submit
+                        </button>
+                        <button routerLink="../" class="btn btn-secondary">Cancel</button>
                     </form>
                 </div>
             </div>

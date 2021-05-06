@@ -38,3 +38,7 @@ hr.divider {
 #contactUs .contact-form .btn {
     padding: 0.375rem 3rem;
 }
+
+.btn-secondary{
+    margin-left:10px;
+}
