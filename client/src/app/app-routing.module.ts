@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { ResumesComponent } from './profile/resumes/resumes.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
   },
   { path: 'contact', component: ContactUsComponent },
   { path: 'about-us', component: AboutUsComponent },
+  { path: 'feedback', component: FeedbackComponent},
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'products/categories/:id', component: ProductsComponent },
   // otherwise redirect to home
