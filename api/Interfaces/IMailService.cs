@@ -11,5 +11,6 @@ namespace api.Interfaces
         Task SendEmailAsync(MailRequest mailRequest);
         Task SendWelcomeEmailAsync(string fullName, string confirmedEmail, string confirmedUrl);
         Task SendForgotEmailAsync(string fullName, string passRecoveryEmail, string passRecoveryUrl);
+        Task SendApproveCandidatelAsync(string fullName, string jobTitle, string emailCandidate);
     }
 }

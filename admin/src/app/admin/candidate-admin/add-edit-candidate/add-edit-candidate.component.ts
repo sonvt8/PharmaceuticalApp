@@ -17,14 +17,14 @@ export class AddEditCandidateComponent implements OnInit {
   
   constructor(public candidateService: CandidateService, private toastr: ToastrService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
   onApproved() {
     this.candidate.isApproved = true;
     this.candidateService.putCandidate(this.candidate).subscribe(
       res => {
         this.myCallback();
-        this.toastr.success('Approve successfully');
+        this.toastr.success('Interview confirmation email has been sent to candidate');
       },
       err => { console.log(err); }
     )
