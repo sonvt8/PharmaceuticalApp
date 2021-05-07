@@ -45,6 +45,9 @@ import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
 import { RoleManagementComponent } from './admin/account-admin/role-management/role-management.component';
 import { UserManagementComponent } from './admin/account-admin/user-management/user-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
+import { AccountAdminTestComponent } from './admin/account-admin-test/account-admin-test.component';
+import { UsersModalComponent } from './modals/users-modal/users-modal.component';
+import { TabModalComponent } from './modals/tab-modal/tab-modal.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,10 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     LoginAdminComponent,
     RoleManagementComponent,
     UserManagementComponent,
-    RolesModalComponent
+    RolesModalComponent,
+    AccountAdminTestComponent,
+    UsersModalComponent,
+    TabModalComponent
   ],
   imports: [
     BrowserModule,
