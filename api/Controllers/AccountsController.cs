@@ -91,6 +91,7 @@ namespace api.Controllers
             return new AccountDto
             {
                 FullName = user.FullName,
+                Gender = user.Gender,
                 Token = await _tokenService.CreateToken(user),
                 Email = user.Email
             };

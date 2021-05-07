@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import countries from 'src/assets/json/countries.json';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
+import { AccountService } from 'src/app/_services/account.service';
+import countriesLbr from 'src/assets/json/countries.json';
+import { User } from 'src/app/_models/user.model';
+import { Country } from 'src/app/_models/country.model';
 
 @Component({
   selector: 'app-profile-detail',
@@ -7,14 +14,45 @@ import countries from 'src/assets/json/countries.json';
   styleUrls: ['./profile-detail.component.css']
 })
 export class ProfileDetailComponent implements OnInit {
-  public countries:{Name: string, Code: string} = countries;
+  // countries:{Name: string, Code: string};
+  
 
-  constructor() { }
+  profileForm: FormGroup;
+  loading = false;
+  submitted = false;
+  url: string;
+  countries: Country[] = countriesLbr;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private accountService: AccountService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
+    this.profileForm = this.formBuilder.group({
+      fullname: ['', Validators.required],
+      gender: ['female', Validators.required],
+      address: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      city: [''],
+      state: [''],
+      zip: ['', Validators.pattern(/^[1-9]+[0-9]*$/)],
+      phone: [''],
+      lstCountries: [null]
+    });
   }
 
-  url: string;
+  // convenience getter for easy access to form fields
+  get f() { return this.profileForm.controls; }
+
+  onSubmit(){
+    console.log("Form Submitted")
+    console.log(this.countries)
+    console.log(this.profileForm.value)
+  }
 
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
@@ -27,6 +65,7 @@ export class ProfileDetailComponent implements OnInit {
       }
     }
   }
+
   public delete() {
     this.url = null;
   }

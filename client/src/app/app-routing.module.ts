@@ -25,6 +25,8 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: 'user/1',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     component: ProfileComponent,
     children: [
       { path: '', redirectTo: 'detail', pathMatch: 'full' },
