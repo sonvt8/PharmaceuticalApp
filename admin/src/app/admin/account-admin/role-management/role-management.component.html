@@ -1,3 +1,8 @@
+
+<div class="d-flex justify-content-between ">
+    <h1>Role</h1>
+    <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search class="form-control" style="width: 200px;">
+</div>
 <div class="row">
     <table class="table">
         <tr>
@@ -11,4 +16,11 @@
             <td><button (click)="openRolesModal(user)" class="btn btn-info">Edit Roles</button></td>
         </tr>
     </table>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="pagination">
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
 </div>

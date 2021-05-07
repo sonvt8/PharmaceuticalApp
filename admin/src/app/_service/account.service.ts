@@ -22,6 +22,10 @@ export class AccountService {
   getAccountList() {
     return this.http.get(this.baseUrl);
   }
+  
+  putUser(val: User){
+    return this.http.put(this.baseUrl1 + '/admin/users/' + val.id, val);
+  }
 
   login(model: any) {
     return this.http.post(this.baseUrl + '/login', model).pipe(
@@ -43,8 +47,27 @@ export class AccountService {
       })
     )
   }
-  getUsersWithRoles() {
-    return this.http.get<Partial<User[]>>(this.baseUrl1 + '/admin/users-with-roles');
+  getUsersWithRoles(page?: number, itemPerPage?: number, search?: string) {
+    let params = new HttpParams();
+
+    if (page !== null && itemPerPage !== null) {
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemPerPage.toString());
+    }
+
+    if (search !== "") {
+      params = params.append('search', search);
+    }
+
+    return this.http.get<any>(this.baseUrl1 + '/admin/pagination/users-with-roles', { observe: 'response', params }).pipe(
+      map(response => {
+        this.paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return this.paginatedResult;
+      })
+    );
   }
 
   updateUserRoles(id: number, roles: string[]) {
@@ -89,5 +112,20 @@ export class AccountService {
         return this.paginatedResult;
       })
     );
+  }
+
+  setMainPhoto(photoId: number, id: number) {
+    // let params = new HttpParams();
+    // params = params.append('id', id.toString())
+    
+    return this.http.put(this.baseUrl1 + '/admin/set-main-photo/' + photoId + '?' + 'id=' + id,{});
+  }
+
+  deletePhoto(photoId: number, id: number) {
+    let params = new HttpParams();
+    if(id!==null){
+      params = params.append('id', id.toString())
+    }
+    return this.http.delete(this.baseUrl1 + '/admin/delete-photo/' + photoId, {params});
   }
 }

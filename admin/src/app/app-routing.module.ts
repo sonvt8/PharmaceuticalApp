@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AccountAdminTestComponent } from './admin/account-admin-test/account-admin-test.component';
 import { AccountAdminComponent } from './admin/account-admin/account-admin.component';
 import { AdminComponent } from './admin/admin.component';
 import { CandidateAdminComponent } from './admin/candidate-admin/candidate-admin.component';
@@ -35,9 +34,6 @@ const routes: Routes = [
       },
       {
         path: "account-admin", component: AccountAdminComponent, canActivate: [AdminGuard],
-      },
-      {
-        path: "account-admin-test", component: AccountAdminTestComponent, canActivate: [AdminGuard],
       },
       {
         path: "feedback-admin", component: FeedbackAdminComponent, canActivate: [AdminGuard],
