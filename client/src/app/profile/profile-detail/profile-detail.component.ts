@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 import { AccountService } from 'src/app/_services/account.service';
 import countriesLbr from 'src/assets/json/countries.json';
@@ -13,15 +14,15 @@ import { Country } from 'src/app/_models/country.model';
   templateUrl: './profile-detail.component.html',
   styleUrls: ['./profile-detail.component.css']
 })
-export class ProfileDetailComponent implements OnInit {
-  // countries:{Name: string, Code: string};
-  
+export class ProfileDetailComponent implements OnInit, OnDestroy {
+  loading: boolean = false;
+  submitted: boolean = false;
+  url: string;
 
   profileForm: FormGroup;
-  loading = false;
-  submitted = false;
-  url: string;
   countries: Country[] = countriesLbr;
+  currentUser: User;
+  subscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,16 +33,24 @@ export class ProfileDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.currentUser = JSON.parse(localStorage.getItem('user'));
+    this.subscription = this.accountService.user
+      .subscribe(
+        (user: User) => {
+          this.currentUser = user;
+        }
+      );
+    
     this.profileForm = this.formBuilder.group({
-      fullname: ['', Validators.required],
-      gender: ['female', Validators.required],
-      address: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      city: [''],
-      state: [''],
-      zip: ['', Validators.pattern(/^[1-9]+[0-9]*$/)],
-      phone: [''],
-      lstCountries: [null]
+      fullname: [this.currentUser.fullName, Validators.required],
+      gender: [this.currentUser.gender , Validators.required],
+      address: this.currentUser.streetAddress,
+      email: [this.currentUser.email, [Validators.required, Validators.email]],
+      city: this.currentUser.city,
+      state:this.currentUser.state,
+      zip: [this.currentUser.zip, Validators.pattern(/^[0-9]{5}(?:-[0-9]{4})?$/)],
+      phone: this.currentUser.phoneNumber,
+      lstCountries: this.currentUser.country
     });
   }
 
@@ -49,24 +58,49 @@ export class ProfileDetailComponent implements OnInit {
   get f() { return this.profileForm.controls; }
 
   onSubmit(){
-    console.log("Form Submitted")
-    console.log(this.countries)
-    console.log(this.profileForm.value)
-  }
-
-  onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result as string;
-      }
+    if(!this.profileForm.dirty) {
+      this.toastr.info("Nothing changed in your form!");
+      return;
     }
+
+    this.currentUser['fullName'] = this.profileForm.controls['fullname'].value;
+    this.currentUser['email'] = this.profileForm.controls['email'].value;
+    this.currentUser['gender'] = this.profileForm.controls['gender'].value;
+    this.currentUser['streetAddress'] = this.profileForm.controls['address'].value;
+    this.currentUser['state'] = this.profileForm.controls['state'].value;
+    this.currentUser['city'] = this.profileForm.controls['city'].value;
+    this.currentUser['country'] = this.profileForm.controls['lstCountries'].value;
+    this.currentUser['phoneNumber'] = this.profileForm.controls['phone'].value;
+    this.currentUser['zip'] = this.profileForm.controls['zip'].value;
+
+    this.accountService.update(this.currentUser).subscribe(response => {
+      if(response)  {
+        this.toastr.success('Your profile has been updated successfully');
+        this.router.navigate(['../back'], { relativeTo: this.route });
+      }
+    },error => {
+      this.toastr.error(error.error)
+      this.loading = false;
+    })
   }
 
-  public delete() {
-    this.url = null;
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
+
+  // onSelectFile(event) {
+  //   if (event.target.files && event.target.files[0]) {
+  //     var reader = new FileReader();
+
+  //     reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+  //     reader.onload = (event) => { // called once readAsDataURL is completed
+  //       this.url = event.target.result as string;
+  //     }
+  //   }
+  // }
+
+  // public delete() {
+  //   this.url = null;
+  // }
 }
