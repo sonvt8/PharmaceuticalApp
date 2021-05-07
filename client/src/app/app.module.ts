@@ -33,7 +33,12 @@ import { ProductService } from './_services/product.service';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { SafePipe } from './_helpers/safepipe';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { ResumesComponent } from './profile/resumes/resumes.component';
 import { ReviewDetailsComponent } from './reviews/review-details/review-details.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +60,12 @@ import { ReviewDetailsComponent } from './reviews/review-details/review-details.
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ReviewsComponent,
-    ReviewDetailsComponent
+    ProfileComponent,
+    ProfileDetailComponent,
+    ChangePasswordComponent,
+    ResumesComponent,
+    ReviewDetailsComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,
