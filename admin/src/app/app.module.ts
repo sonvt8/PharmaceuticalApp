@@ -48,6 +48,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
 import { AccountAdminTestComponent } from './admin/account-admin-test/account-admin-test.component';
 import { UsersModalComponent } from './modals/users-modal/users-modal.component';
 import { TabModalComponent } from './modals/tab-modal/tab-modal.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { TabModalComponent } from './modals/tab-modal/tab-modal.component';
     RolesModalComponent,
     AccountAdminTestComponent,
     UsersModalComponent,
-    TabModalComponent
+    TabModalComponent,
+    HasRoleDirective
   ],
   imports: [
     BrowserModule,
