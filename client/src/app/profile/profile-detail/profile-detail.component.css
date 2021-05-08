@@ -4,6 +4,10 @@ h3 {
     margin-bottom: 2rem;
 }
 
+.photo-upload {
+    align-items: center;
+}
+
 img {
     height: 100%;
     width: 100%;
@@ -54,8 +58,4 @@ img {
 
 #fileInput {
     display: none;
-}
-
-.delete-img {
-    margin-left: 3.8rem;
 }
