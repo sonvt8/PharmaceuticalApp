@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from '../_models/user.model';
 import { AccountService } from '../_services/account.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed = true;
   currentUser: User;
   username: string;
+  subscription: Subscription;
+
   constructor(
     private accountService: AccountService
   ) {
-    this.accountService.user.subscribe(x => {
+    this.subscription = this.accountService.user.subscribe(x => {
       this.currentUser = x;
+
       try {
-        this.username = x["fullName"];
+        this.username = x.fullName;
       } catch {
       }
     });
@@ -28,6 +32,10 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.accountService.logout();
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
 }

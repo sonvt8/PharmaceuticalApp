@@ -66,7 +66,13 @@ namespace api.Controllers
                 FullName = user.FullName,
                 Token = await _tokenService.CreateToken(user),
                 Email = user.Email,
-                Gender = user.Gender
+                Gender = user.Gender,
+                StreetAddress = user.StreetAddress,
+                PhoneNumber = user.PhoneNumber,
+                State = user.State,
+                City = user.City,
+                Country = user.Country,
+                Zip = user.Zip
             };
         }
 
@@ -91,8 +97,15 @@ namespace api.Controllers
             return new AccountDto
             {
                 FullName = user.FullName,
+                Gender = user.Gender,
                 Token = await _tokenService.CreateToken(user),
-                Email = user.Email
+                Email = user.Email,
+                StreetAddress = user.StreetAddress,
+                PhoneNumber = user.PhoneNumber,
+                State = user.State,
+                City = user.City,
+                Country = user.Country,
+                Zip = user.Zip
             };
         }
 
@@ -102,15 +115,31 @@ namespace api.Controllers
         }
 
         [Authorize]
-        public async Task<ActionResult> UpdateUser(UserUpdateDto userUpdateDto)
+        public async Task<ActionResult<AccountDto>> UpdateUser(UserUpdateDto userUpdateDto)
         {
-            var currentUser = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+            var currentUser = await _userManager.Users
+                .SingleOrDefaultAsync(x => x.Email == userUpdateDto.Email.ToLower());
 
             _mapper.Map(userUpdateDto, currentUser);
 
             var result = await _userManager.UpdateAsync(currentUser);
 
-            if (result.Succeeded) return NoContent();
+            if (result.Succeeded) 
+            {
+                return new AccountDto
+                {
+                    FullName = currentUser.FullName,
+                    Gender = currentUser.Gender,
+                    Token = await _tokenService.CreateToken(currentUser),
+                    Email = currentUser.Email,
+                    StreetAddress = currentUser.StreetAddress,
+                    PhoneNumber = currentUser.PhoneNumber,
+                    State = currentUser.State,
+                    City = currentUser.City,
+                    Country = currentUser.Country,
+                    Zip = currentUser.Zip
+                };
+            };
 
             return BadRequest("Failed to update user");
         }

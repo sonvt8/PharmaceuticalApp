@@ -32,7 +32,7 @@
                 <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Feedback</a>
+                <a class="nav-link" routerLink="/feedback">Feedback</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Careers</a>
@@ -44,7 +44,7 @@
                 Log In
             </button>
         </a>
-        <a *ngIf="currentUser">
+        <a *ngIf="currentUser" routerLink="/user/1" routerLinkActive="active">
             <button type="button" class="btn btn-primary mr-3">{{ username }}</button>
         </a>
         <a *ngIf="currentUser" (click)="logOut()">

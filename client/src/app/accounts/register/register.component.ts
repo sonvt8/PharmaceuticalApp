@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
 
     var user: User = {
-      fullname: this.registerForm.get('lastName').value + " " + this.registerForm.get('firstName').value,
+      fullName: this.registerForm.get('firstName').value + " " + this.registerForm.get('lastName').value,
       email: this.registerForm.get('email').value,
       gender:this.registerForm.get('gender').value,
       password:this.registerForm.get('password').value,

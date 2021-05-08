@@ -30,8 +30,19 @@ export class AccountService {
   login(user: User) {
     return this.http.post<User>(`${environment.apiUrl}/accounts/login`, user)
       .pipe(map(user => {
+        
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify({
+          "fullName": user.fullName,
+          "email": user.email,
+          "gender": user.gender,
+          "phoneNumber": user.phoneNumber,
+          "streetAddress": user.streetAddress,
+          "state": user.state,
+          "zip": user.zip,
+          "country": user.country,
+          "city": user.city
+        }));
         this.userSubject.next(user);
         return user;
       }));
@@ -49,7 +60,39 @@ export class AccountService {
       map((response: User) => {
         if (response) {
           this.userSubject.next(response);
-          localStorage.setItem('user', JSON.stringify(response));
+          localStorage.setItem('user', JSON.stringify({
+            "fullName": response.fullName,
+            "email": response.email,
+            "gender": response.gender,
+            "phoneNumber": response.phoneNumber,
+            "streetAddress": response.streetAddress,
+            "state": response.state,
+            "zip": response.zip,
+            "country": response.country,
+            "city": user.city
+          }));
+        }
+        return response;
+      })
+    );
+  }
+
+  update(user: User) {
+    return this.http.post(`${environment.apiUrl}/accounts`, user).pipe(
+      map((response: User) => {
+        if (response) {
+          this.userSubject.next(response);
+          localStorage.setItem('user', JSON.stringify({
+            "fullName": response.fullName,
+            "email": response.email,
+            "gender": response.gender,
+            "phoneNumber": response.phoneNumber,
+            "streetAddress": response.streetAddress,
+            "state": response.state,
+            "zip": response.zip,
+            "country": response.country,
+            "city": user.city
+          }));
         }
         return response;
       })
