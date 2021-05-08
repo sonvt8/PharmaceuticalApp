@@ -58,4 +58,27 @@ export class ProductService {
       })
     );
   }
+
+  resetProductList(page?: number, itemPerPage?: number, search?: string){
+    let params = new HttpParams();
+
+    if(page!==null && itemPerPage !== null){
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemPerPage.toString());
+    }
+
+    if(search!==""){
+      params = params.append('search', search);
+    }
+
+    return this.http.get<any>(environment.apiUrl+'/products/pagination', {observe: 'response', params}).pipe(
+      map(response=>{
+        this.paginatedResult.result = response.body;
+        if(response.headers.get('Pagination')!==null){
+          this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return this.paginatedResult;
+      })
+    );
+  }
 }

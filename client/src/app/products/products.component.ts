@@ -64,7 +64,7 @@ export class ProductsComponent implements OnInit {
       this.categoryId = res.result[0].categoryId;
       this.products = res.result;
       this.pagination = res.pagination;
-      this.count = res.result.length;
+      this.count = res.pagination.totalItems;
       this.categoryService.getCategories().subscribe(response=>{
         this.cates = response as Category[];
       })
