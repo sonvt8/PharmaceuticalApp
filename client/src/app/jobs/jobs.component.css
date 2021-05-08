@@ -1,0 +1,34 @@
+.top {
+    padding: 30px 0;
+    border-bottom: 1px solid #e9e9e9;
+    margin-bottom: 2rem;
+}
+
+.top h1,
+.top h4 {
+    font-weight: 200;
+}
+
+main {
+    margin-bottom: 4rem;
+}
+
+main h4 {
+    font-weight: 400;
+}
+
+.list-group-item {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-group-item .fa-arrow-right {
+    font-size: 20px;
+    transition: all 0.4s;
+}
+
+.list-group-item:hover .fa-arrow-right {
+    transform: translateX(10px);
+}

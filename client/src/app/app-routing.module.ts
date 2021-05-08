@@ -16,6 +16,7 @@ import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { ResumesComponent } from './profile/resumes/resumes.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { JobsComponent } from './jobs/jobs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'feedback', component: FeedbackComponent},
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'products/categories/:id', component: ProductsComponent },
+  { path: 'jobs', component: JobsComponent},
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ]
