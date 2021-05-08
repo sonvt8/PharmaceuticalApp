@@ -30,6 +30,7 @@ export class AccountService {
   login(user: User) {
     return this.http.post<User>(`${environment.apiUrl}/accounts/login`, user)
       .pipe(map(user => {
+        
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({
           "fullName": user.fullName,
@@ -40,6 +41,7 @@ export class AccountService {
           "state": user.state,
           "zip": user.zip,
           "country": user.country,
+          "city": user.city
         }));
         this.userSubject.next(user);
         return user;
@@ -67,6 +69,7 @@ export class AccountService {
             "state": response.state,
             "zip": response.zip,
             "country": response.country,
+            "city": user.city
           }));
         }
         return response;
@@ -88,6 +91,7 @@ export class AccountService {
             "state": response.state,
             "zip": response.zip,
             "country": response.country,
+            "city": user.city
           }));
         }
         return response;

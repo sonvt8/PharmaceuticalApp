@@ -114,8 +114,8 @@ namespace api.Controllers
             return await _userManager.Users.AnyAsync(x => x.Email == email.ToLower());
         }
 
-
-        public async Task<ActionResult<UserUpdateDto>> UpdateUser(UserUpdateDto userUpdateDto)
+        [Authorize]
+        public async Task<ActionResult<AccountDto>> UpdateUser(UserUpdateDto userUpdateDto)
         {
             var currentUser = await _userManager.Users
                 .SingleOrDefaultAsync(x => x.Email == userUpdateDto.Email.ToLower());
@@ -124,7 +124,22 @@ namespace api.Controllers
 
             var result = await _userManager.UpdateAsync(currentUser);
 
-            if (result.Succeeded) return userUpdateDto;
+            if (result.Succeeded) 
+            {
+                return new AccountDto
+                {
+                    FullName = currentUser.FullName,
+                    Gender = currentUser.Gender,
+                    Token = await _tokenService.CreateToken(currentUser),
+                    Email = currentUser.Email,
+                    StreetAddress = currentUser.StreetAddress,
+                    PhoneNumber = currentUser.PhoneNumber,
+                    State = currentUser.State,
+                    City = currentUser.City,
+                    Country = currentUser.Country,
+                    Zip = currentUser.Zip
+                };
+            };
 
             return BadRequest("Failed to update user");
         }
