@@ -36,7 +36,6 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { ReviewDetailsComponent } from './reviews/review-details/review-details.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProductSearchComponent } from './product-search/product-search.component';
-import { ProductSearchListComponent } from './product-search/product-search-list/product-search-list.component';
 
 @NgModule({
   declarations: [
@@ -59,8 +58,7 @@ import { ProductSearchListComponent } from './product-search/product-search-list
     ResetPasswordComponent,
     ReviewsComponent,
     ReviewDetailsComponent,
-    ProductSearchComponent,
-    ProductSearchListComponent,
+    ProductSearchComponent
   ],
   imports: [
     BrowserModule,
