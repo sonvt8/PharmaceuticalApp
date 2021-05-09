@@ -35,7 +35,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // this.currentUser = JSON.parse(localStorage.getItem('user'));
+    
     this.subscription = this.accountService.user
       .subscribe(
         (user: User) => {

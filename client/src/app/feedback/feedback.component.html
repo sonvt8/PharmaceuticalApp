@@ -9,31 +9,40 @@
                         <p><img src="../../assets/img/undraw-contact.svg" alt="Image" class="img-fluid"></p>
                     </div>
                     <div class="col-md-6">
-                        <form class="mb-5" method="post">
+                        <form class="mb-5" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" placeholder="Your name">
+                                    <input type="text" class="form-control" placeholder="Your name" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }" disabled>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" placeholder="Your organization">
+                                    <input type="text" class="form-control" placeholder="Your organization" formControlName="organization"  [ngClass]="{ 'is-invalid': submitted && f.organization.errors }">
+                                    <div *ngIf="submitted && f.organization.errors" class="invalid-feedback">
+                                        <div *ngIf="f.organization.errors.required">Your organization is required</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" placeholder="Email">
+                                    <input type="text" class="form-control" placeholder="Email" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" disabled>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" placeholder="Subject">
+                                    <input type="text" class="form-control" placeholder="Subject" formControlName="subject" [ngClass]="{ 'is-invalid': submitted && f.subject.errors }">
+                                    <div *ngIf="submitted && f.subject.errors" class="invalid-feedback">
+                                        <div *ngIf="f.subject.errors.required">Subject is required</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
                                     <textarea class="form-control" cols="30" rows="7"
-                                        placeholder="Write your message"></textarea>
+                                    placeholder="Write your message" formControlName="content" [ngClass]="{ 'is-invalid': submitted && f.content.errors }"></textarea>
+                                    <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
+                                        <div *ngIf="f.content.errors.required">What you need to share with us?</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -41,6 +50,11 @@
                                     <input type="submit" value="Send Message"
                                         class="btn btn-primary rounded-0 py-2 px-4 btn-submit">
                                 </div>
+                                <!-- <button  [disabled]="loading" class="btn btn-success btn-submit">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Submit
+                                </button>
+                                <button routerLink="../" class="btn btn-secondary">Cancel</button> -->
                             </div>
                         </form>
                     </div>

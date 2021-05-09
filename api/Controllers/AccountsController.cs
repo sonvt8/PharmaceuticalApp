@@ -81,7 +81,7 @@ namespace api.Controllers
         {
             var user = await _userManager.Users
                  .SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
-            if (user == null) return Unauthorized("Email is incorrect!");
+            if (user == null) return BadRequest("Email is incorrect!");
 
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, loginDto.Password, false);

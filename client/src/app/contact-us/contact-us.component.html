@@ -53,12 +53,6 @@
                                     <div *ngIf="f.phone.errors.required">Your Phone is required</div>
                                 </div>
                             </div>
-                            <!-- <div class="col">
-                                <input type="text" class="form-control" formControlName="country" placeholder="Country *" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
-                                <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
-                                    <div *ngIf="f.country.errors.required">Your Country is required</div>
-                                </div>
-                            </div> -->
                             <div class="col">
                                 <select formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
                                     <option [value]="null" label="Select a country ... " selected="selected">Select a country ... </option>

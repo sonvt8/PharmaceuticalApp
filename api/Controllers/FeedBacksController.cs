@@ -85,9 +85,10 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult> AddFeedBack(FeedBackCreateDto feedBackCreateDto)
         {
-            feedBackCreateDto.AppUser = await _unitOfWork.UserRepository.GetUserByIdAsync(feedBackCreateDto.AppUser.Id);
-
+            var user = await _userManager.FindByEmailAsync(feedBackCreateDto.Email);
             var feedBackToCreate = _mapper.Map<FeedBack>(feedBackCreateDto);
+
+            feedBackToCreate.AppUserId = user.Id;
 
             _unitOfWork.FeedBackRepository.AddFeedBack(feedBackToCreate);
 

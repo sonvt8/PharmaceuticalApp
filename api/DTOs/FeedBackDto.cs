@@ -15,6 +15,7 @@ namespace api.DTOs
         public string PostalCode { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public string Subject { get; set; }
         public string Comments { get; set; }
         public bool? IsApproved { get; set; }
         public int AppUserId { get; set; }
