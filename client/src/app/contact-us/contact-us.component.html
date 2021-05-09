@@ -48,16 +48,22 @@
                         <br>
                         <div class="form-row">
                             <div class="col">
-                                <input type="text" class="form-control" formControlName="phone" placeholder="Phone *" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                                <input type="text" class="form-control" appPhoneMask formControlName="phone" placeholder="Phone *" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
                                 <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
                                     <div *ngIf="f.phone.errors.required">Your Phone is required</div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 <input type="text" class="form-control" formControlName="country" placeholder="Country *" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
                                 <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                                     <div *ngIf="f.country.errors.required">Your Country is required</div>
                                 </div>
+                            </div> -->
+                            <div class="col">
+                                <select formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+                                    <option [value]="null" label="Select a country ... " selected="selected">Select a country ... </option>
+                                    <option [value]="country.Name" *ngFor="let country of countries">{{ country.Name }}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group mt-3">
