@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { User } from '../_models/user.model';
 import { environment } from 'src/environments/environment';
 import { resetPassword } from 'src/app/_models/resetPassword.model';
+import { ChangePassword } from '../_models/changePassword.model';
 
 @Injectable({
   providedIn: 'root'
@@ -99,6 +100,10 @@ export class AccountService {
     );
   }
 
+  uploadProfileImage(form: FormData) {
+    return this.http.post(`${environment.apiUrl}/accounts/add-photo`, form);
+  }
+
   sendTokenToEmail(resetPassword: resetPassword) {
     return this.http.post(`${environment.apiUrl}/accounts/recovery_email`, resetPassword).pipe(
       map((response: resetPassword) => {
@@ -113,6 +118,16 @@ export class AccountService {
   resetPassword(resetPassword: resetPassword) {
     return this.http.post(`${environment.apiUrl}/accounts/recovery_password`, resetPassword).pipe(
       map((response: string) => {
+        return response;
+      })
+    );
+  }
+
+  changePassword(changePwd: ChangePassword) {
+    return this.http.post(`${environment.apiUrl}/accounts/change_password`, changePwd).pipe(
+      map((response: string) => {
+        localStorage.removeItem('user');
+        this.userSubject.next(null);
         return response;
       })
     );

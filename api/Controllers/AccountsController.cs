@@ -163,18 +163,17 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser(IFormFile file)
+        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser([FromForm] IFormFile file)
         {
-
             var currentUser = await _userManager.Users
                 .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
 
             var result = await _photoService.AddPhotoAsync(file);
 
-            if (result.Error != null) return BadRequest(result.Error.Message);
+            if (result.Error != null) return BadRequest(result.Error.Message); 
 
-            var photo = new PhotoUser
+             var photo = new PhotoUser
             {
                 PhotoUserUrl = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
@@ -326,6 +325,37 @@ namespace api.Controllers
                 return Redirect("https://localhost:4200/");
             }
             return BadRequest("Invalid token link");
+        }
+
+        [HttpPost("change_password")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Something wrong happens");
+
+            var user = await _userManager.FindByEmailAsync(changePasswordDto.Email);
+            if (user == null)
+                return Unauthorized("User does not exist!");
+
+            var result = await _signInManager
+                .CheckPasswordSignInAsync(user, changePasswordDto.OldPassword, false);
+
+            if (!result.Succeeded) return Unauthorized("Old Password is incorrect!");
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, token, changePasswordDto.NewPassword);
+            if (!resetPassResult.Succeeded)
+            {
+                foreach (var error in resetPassResult.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return Content("something wrong happens in change password");
+            }
+
+            return NoContent();
         }
     }
 }

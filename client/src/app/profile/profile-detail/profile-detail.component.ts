@@ -17,7 +17,9 @@ import { Country } from 'src/app/_models/country.model';
 export class ProfileDetailComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   submitted: boolean = false;
-  url: string;
+  url: string = '';
+  fileToUpload: File = null;
+  files: Array<any> = new Array<any>();
 
   profileForm: FormGroup;
   countries: Country[] = countriesLbr;
@@ -88,16 +90,46 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+  onSelectFile(files: FileList) {
+    // if (event.target.files && event.target.files[0]) {
+    //   var reader = new FileReader();
 
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
+    //   reader.readAsDataURL(event.target.files[0]); // read file as data url
 
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result as string;
-      }
+    //   reader.onload = (event) => { // called once readAsDataURL is completed
+    //     this.url = event.target.result as string;
+    //   }
+    // }
+
+    if (files.length === 0) {
+      return;
     }
+    this.fileToUpload = files[0];
+
+    var reader = new FileReader();
+
+    reader.readAsDataURL(this.fileToUpload); // read file as data url
+    reader.onload = (event) => { // called once readAsDataURL is completed
+      this.url = event.target.result as string;
+    }
+
+    const formData: FormData = new FormData();
+    formData.append('avatar', this.fileToUpload, this.fileToUpload.name);
+
+    this.accountService.uploadProfileImage(formData).subscribe(response => {
+      if(response)  {
+        this.toastr.success('Successfully!!');
+        this.reload();
+      }
+    },error => {
+      this.toastr.error(error.error)
+    })
+  }
+
+  reload() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['./'], { relativeTo: this.route });
   }
 
   public delete() {

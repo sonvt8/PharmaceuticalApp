@@ -9,7 +9,7 @@
                 <div class="hover-text">Choose file</div>
                 <div class="background"></div>
             </label>
-            <input id="fileInput" type='file' (change)="onSelectFile($event)">
+            <input id="fileInput" type="file" (change)="onSelectFile($event.target.files)" accept="image/*">
         </div>
         <div class="col-lg-8">
             <button *ngIf="url" (click)="delete()" class="btn btn-outline-danger delete-img">Delete</button>
