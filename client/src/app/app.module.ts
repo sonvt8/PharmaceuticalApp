@@ -44,6 +44,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { PhoneMaskDirective } from './_helpers/phone-mask.directive';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
+import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
     JobDetailComponent,
     PhoneMaskDirective,
     ReviewDetailsComponent,
-    ProductSearchComponent
+    ProductSearchComponent,
+    JobsListComponent
   ],
   exports: [PhoneMaskDirective],
   imports: [

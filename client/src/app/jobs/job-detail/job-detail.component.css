@@ -1,0 +1,44 @@
+h4 {
+    font-weight: 400;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #26ae61;
+}
+
+#jobDesc ul {
+    list-style-type: disc;
+}
+
+#jobDesc ul li::marker {
+    color: #26ae61;
+}
+
+.col-lg-3 h4 {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.overview {
+    padding: 2rem 1.5rem;
+    border: 1px solid #26ae61;
+}
+
+.overview ul li {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.overview-content {
+    margin-left: 2rem;
+}
+
+.overview-content strong {
+    position: relative;
+    top: -5px;
+}
+
+.overview .icon {
+    font-size: 20px;
+    text-align: center;
+    width: 25px;
+}
