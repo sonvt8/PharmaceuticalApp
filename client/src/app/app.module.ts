@@ -73,7 +73,7 @@ import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
     FeedbackComponent,
     JobsComponent,
     JobDetailComponent,
-    PhoneMaskDirective
+    PhoneMaskDirective,
     ReviewDetailsComponent,
     ProductSearchComponent
   ],
