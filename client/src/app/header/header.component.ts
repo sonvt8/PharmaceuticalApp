@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed = true;
-  isLoggedin = false;
 
   currentUser: User;
   username: string;
@@ -20,10 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private accountService: AccountService
   ) {
     this.subscription = this.accountService.user.subscribe(x => {
-      if(x) {
-        this.currentUser = x;
-        this.isLoggedin = true;
-      }
+      this.currentUser = x;
       
       try {
         this.username = x.fullName;

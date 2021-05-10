@@ -18,6 +18,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   submitted: boolean = false;
   url: string = '';
+  uploaded: boolean = false;
   fileToUpload: File = null;
   files: Array<any> = new Array<any>();
 
@@ -42,6 +43,10 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
           this.currentUser = user;
         }
       );
+
+    if(this.currentUser.photoUserUrl == ''){
+      this.currentUser.photoUserUrl = 'http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=300';
+    }
     
     this.profileForm = this.formBuilder.group({
       fullname: [this.currentUser.fullName, Validators.required],
@@ -60,14 +65,18 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   get f() { return this.profileForm.controls; }
 
   onSubmit(){
-    if(!this.profileForm.dirty) {
-      this.toastr.info("Nothing changed in your form!");
+    if(this.uploaded){
       return;
     }
 
+    if(!this.profileForm.dirty) {
+      this.toastr.info("Nothing changed in your form!");
+      return;
+    }this.profileForm.controls['email'].value;
+    this.currentUser['gender'] =
+
     this.currentUser['fullName'] = this.profileForm.controls['fullname'].value;
-    this.currentUser['email'] = this.profileForm.controls['email'].value;
-    this.currentUser['gender'] = this.profileForm.controls['gender'].value;
+    this.currentUser['email'] =  this.profileForm.controls['gender'].value;
     this.currentUser['streetAddress'] = this.profileForm.controls['address'].value;
     this.currentUser['state'] = this.profileForm.controls['state'].value;
     this.currentUser['city'] = this.profileForm.controls['city'].value;
@@ -91,16 +100,6 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   }
 
   onSelectFile(files: FileList) {
-    // if (event.target.files && event.target.files[0]) {
-    //   var reader = new FileReader();
-
-    //   reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-    //   reader.onload = (event) => { // called once readAsDataURL is completed
-    //     this.url = event.target.result as string;
-    //   }
-    // }
-
     if (files.length === 0) {
       return;
     }
@@ -112,13 +111,20 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     reader.onload = (event) => { // called once readAsDataURL is completed
       this.url = event.target.result as string;
     }
+    this.uploaded = true;
+  }
+
+  onUploadFile(){
 
     const formData: FormData = new FormData();
-    formData.append('avatar', this.fileToUpload, this.fileToUpload.name);
+    formData.append('name', this.currentUser['fullName'] + "_avatar");
+    formData.append('avatar', this.fileToUpload);
 
     this.accountService.uploadProfileImage(formData).subscribe(response => {
       if(response)  {
+        this.currentUser['photoUserUrl'] = response.photoUserUrl;
         this.toastr.success('Successfully!!');
+        this.uploaded = false;
         this.reload();
       }
     },error => {
@@ -132,7 +138,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['./'], { relativeTo: this.route });
   }
 
-  public delete() {
-    this.url = null;
-  }
+  // public delete() {
+  //   this.url = null;
+  // }
 }

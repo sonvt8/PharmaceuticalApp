@@ -41,7 +41,8 @@ export class AccountService {
           "state": user.state,
           "zip": user.zip,
           "country": user.country,
-          "city": user.city
+          "city": user.city,
+          "photoUserUrl": user.photoUserUrl
         }));
         this.userSubject.next(user);
         return user;
@@ -69,7 +70,8 @@ export class AccountService {
             "state": response.state,
             "zip": response.zip,
             "country": response.country,
-            "city": user.city
+            "city": response.city,
+            "photoUserUrl": response.photoUserUrl
           }));
         }
         return response;
@@ -91,7 +93,8 @@ export class AccountService {
             "state": response.state,
             "zip": response.zip,
             "country": response.country,
-            "city": user.city
+            "city": response.city,
+            "photoUserUrl": response.photoUserUrl
           }));
         }
         return response;
@@ -100,7 +103,17 @@ export class AccountService {
   }
 
   uploadProfileImage(form: FormData) {
-    return this.http.post(`${environment.apiUrl}/accounts/add-photo`, form);
+    return this.http.post(`${environment.apiUrl}/accounts/add-photo`, form).pipe(
+      map((response: any) => {
+        if (response) {
+          var existing = localStorage.getItem('user');
+          existing = existing ? JSON.parse(existing) : {};
+          existing['photoUserUrl'] = response.photoUserUrl;
+          localStorage.setItem('user', JSON.stringify(existing));
+        }
+        return response;
+      })
+    );
   }
 
   sendTokenToEmail(resetPassword: resetPassword) {

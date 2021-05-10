@@ -32,7 +32,7 @@
                 <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" *ngIf="isLoggedin" routerLink="/feedback">Feedback</a>
+                <a class="nav-link" *ngIf="currentUser" routerLink="/feedback">Feedback</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/jobs">Careers</a>

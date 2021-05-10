@@ -61,18 +61,23 @@ namespace api.Controllers
 
             if (!roleResult.Succeeded) return BadRequest(result.Errors);
 
+            var newUser = await _userManager.Users
+                .Include(p => p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Email == user.Email.ToLower());
+
             return new AccountDto
             {
-                FullName = user.FullName,
-                Token = await _tokenService.CreateToken(user),
-                Email = user.Email,
-                Gender = user.Gender,
-                StreetAddress = user.StreetAddress,
-                PhoneNumber = user.PhoneNumber,
-                State = user.State,
-                City = user.City,
-                Country = user.Country,
-                Zip = user.Zip
+                FullName = newUser.FullName,
+                Token = await _tokenService.CreateToken(newUser),
+                Email = newUser.Email,
+                Gender = newUser.Gender,
+                StreetAddress = newUser.StreetAddress,
+                PhoneNumber = newUser.PhoneNumber,
+                State = newUser.State,
+                City = newUser.City,
+                Country = newUser.Country,
+                Zip = newUser.Zip,
+                PhotoUserUrl = newUser.PhotoUsers.FirstOrDefault(p => p.IsMain).PhotoUserUrl
             };
         }
 
@@ -80,7 +85,8 @@ namespace api.Controllers
         public async Task<ActionResult<AccountDto>> Login(LoginDto loginDto)
         {
             var user = await _userManager.Users
-                 .SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
+                .Include(p => p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Email == loginDto.Email.ToLower());
             if (user == null) return BadRequest("Email is incorrect!");
 
             var result = await _signInManager
@@ -105,7 +111,8 @@ namespace api.Controllers
                 State = user.State,
                 City = user.City,
                 Country = user.Country,
-                Zip = user.Zip
+                Zip = user.Zip,
+                PhotoUserUrl = user.PhotoUsers.FirstOrDefault(p => p.IsMain).PhotoUserUrl
             };
         }
 
@@ -163,8 +170,10 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser([FromForm] IFormFile file)
+        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser([FromForm] FileUploadDto uploadDto)
         {
+            var file = uploadDto.Avatar;
+
             var currentUser = await _userManager.Users
                 .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
