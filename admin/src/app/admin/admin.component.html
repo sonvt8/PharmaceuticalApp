@@ -71,7 +71,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item  active has-treeview menu-open">
+                    <li class="nav-item  active has-treeview menu-open" *ngIf="(accountService.currentUser$ | async)" >
                         <a class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -79,7 +79,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview" *ngIf="accountService.currentUser$ | async">
+                        <ul class="nav nav-treeview" *appHasRole='["Admin", "Moderator"]'>
                             <li class="nav-item">
                                 <a routerLink="/product-admin" routerLinkActive='active' class="nav-link">
                                     <i class="fas fa-cogs nav-icon"></i>

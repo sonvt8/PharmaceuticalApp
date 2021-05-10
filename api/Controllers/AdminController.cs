@@ -1,5 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
+using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -48,7 +50,17 @@ namespace api.Controllers
 
             return Ok(users);
         }
-      
+        [HttpGet("pagination/users-with-roles")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsersWithRolesPagination([FromQuery] PaginationParams paginationParams)
+        {
+            var users = await _unitOfWork.UserRepository.GetUsersWithRolesPagination(paginationParams);
+
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize,
+                users.TotalCount, users.TotalPages);
+
+            return Ok(users);
+        }
+
         [HttpPost("edit-roles/{id}")]
         public async Task<ActionResult> EditRoles(int id, [FromQuery] string roles)
         {

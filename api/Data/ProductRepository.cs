@@ -79,6 +79,24 @@ namespace api.Data
                 .ToListAsync();
         }
 
+        public async Task<PagedList<ProductDto>> GetProductsOfCategoryAsyncPagination(int categoryId, ProductParams productParams)
+        {
+            var query = _context.Products
+                .Include(p => p.PhotoProducts)
+                .Include(p => p.Category)
+                .Where(p => p.Category.Id == categoryId)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(productParams.Search))
+            {
+                query = query.Where(e => e.ProductName.ToLower().Contains(productParams.Search));
+            }
+
+            return await PagedList<ProductDto>.CreateAsync(query.ProjectTo<ProductDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(),
+                    productParams.PageNumber, productParams.PageSize);
+        }
+
         public async Task<PagedList<ProductDto>> GetProductsPagination(ProductParams productParams)
         {
             var query = _context.Products

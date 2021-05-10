@@ -1,6 +1,7 @@
 ﻿using api.DTOs;
 using api.Entities;
 using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -166,6 +167,18 @@ namespace api.Controllers
         {
             var users = await _unitOfWork.UserRepository.GetUsersAsync();
             return Ok(users);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetProductsPagination([FromQuery] PaginationParams paginationParams)
+        {
+            var users = await _unitOfWork.UserRepository.GetUsersPagination(paginationParams);
+
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize,
+                users.TotalCount, users.TotalPages);
+
+            return Ok(users);
+
         }
 
         [Authorize]

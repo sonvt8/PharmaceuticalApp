@@ -13,6 +13,7 @@ namespace api.Interfaces
         void DeleteProduct(Product product);
 
         Task<PagedList<ProductDto>> GetProductsPagination(ProductParams productParams);
+        Task<PagedList<ProductDto>> GetProductsOfCategoryAsyncPagination(int categoryId, ProductParams productParams);
         Task<IEnumerable<ProductDto>> GetProducts();
         Task<IEnumerable<ProductDto>> GetProductsOfCategoryAsync(int categoryId);
         Task<CategoryDto> GetCategoryOfAProductAsync(int productId);

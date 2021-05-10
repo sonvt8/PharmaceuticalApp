@@ -6,9 +6,9 @@
                 <app-user-management></app-user-management>
             </div>
         </tab>
-        <tab heading='Role management'>
+        <tab heading='Role management' *appHasRole='["Admin"]'>
             <div class="container-fluid">
-                <app-role-management></app-role-management>
+                <app-role-management ></app-role-management>
             </div>
         </tab>
     </tabset>
