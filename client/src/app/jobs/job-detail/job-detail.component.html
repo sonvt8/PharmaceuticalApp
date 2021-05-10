@@ -2,7 +2,14 @@
     <div class="col-lg-8">
         <h4>Quality Assurance Specialist</h4>
         <div #jobDesc>
-            <p>Under limited supervision, responsible for delivery of activities at client to ensure Product Quality throughout the lifecycle of commercial and/or clinical products. This key role must ensure effective interaction with other departments and locations regarding product quality risks, technology transfer, commercial operations, process and analytical lifecycle management and product discontinuation. This role will involve leading/partnering with major stakeholders such as Regulatory Affairs, Operations, Clinical Supply, Quality Control and Stability regarding GMP document, data preparation and review. The Global role enables efficient communication and decision making related to the quality of client products.</p>
+            <p>Under limited supervision, responsible for delivery of activities at client to ensure Product Quality
+                throughout the lifecycle of commercial and/or clinical products. This key role must ensure effective
+                interaction with other departments and locations regarding product quality risks, technology transfer,
+                commercial operations, process and analytical lifecycle management and product discontinuation. This
+                role will involve leading/partnering with major stakeholders such as Regulatory Affairs, Operations,
+                Clinical Supply, Quality Control and Stability regarding GMP document, data preparation and review. The
+                Global role enables efficient communication and decision making related to the quality of client
+                products.</p>
             <h6>Responsibilities:</h6>
             <ul>
                 <li>Provide Record Management support by performing the following activities:</li>
@@ -39,7 +46,26 @@
                     </div>
                 </li>
             </ul>
-            <button [disabled]="!currentUser" class="btn btn-success w-100 font-weight-bold">Apply</button>
+            <button [disabled]="!currentUser" class="btn btn-success w-100 font-weight-bold"
+                (click)="openVerticallyCentered(content)">Apply</button>
         </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Apply For This Job</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <tabset [justified]="true">
+            <tab heading="Basic Info">Justified content</tab>
+            <tab heading="Education">Short Labeled Justified content</tab>
+        </tabset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success">Send Application</button>
+    </div>
+</ng-template>

@@ -42,3 +42,19 @@ h4 {
     text-align: center;
     width: 25px;
 }
+
+/* MODAL CSS */
+
+h4.modal-title {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.modal-footer {
+    display: block;
+}
+
+.modal-footer .btn {
+    width: 100%;
+}
