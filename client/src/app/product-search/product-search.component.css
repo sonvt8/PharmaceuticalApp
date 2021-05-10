@@ -1,0 +1,8 @@
+.container {
+    margin: 3rem auto 4rem;
+}
+
+.container .col-lg-3 {
+    padding: 0 1.5rem 0 0;
+    margin-bottom: 4rem;
+}

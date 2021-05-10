@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.component';
+import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_service/account.service';
 
@@ -11,9 +12,15 @@ import { AccountService } from 'src/app/_service/account.service';
 })
 export class RoleManagementComponent implements OnInit {
 
-  users: Partial<User[]>;
+  users: User[];
   bsModalRef: BsModalRef;
-
+  @ViewChild('search', { static: true }) searchTerm: ElementRef;
+  pagination: Pagination;
+  pageNumber = 1;
+  pageSize = 5;
+  search = "";
+  user: User
+  
   constructor(private accountService: AccountService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
@@ -21,9 +28,20 @@ export class RoleManagementComponent implements OnInit {
   }
 
   getUsersWithRoles() {
-    this.accountService.getUsersWithRoles().subscribe(users => {
-      this.users = users;
+    this.accountService.getUsersWithRoles(this.pageNumber, this.pageSize, this.search).subscribe(res => {
+      this.users = res.result;
+      this.pagination = res.pagination;
     })
+  }
+  pageChanged(event: any) {
+    this.pageNumber = event.page;
+    this.getUsersWithRoles();
+  }
+
+  onSearch() {
+    this.search = this.searchTerm.nativeElement.value;
+    this.pageNumber = 1;
+    this.getUsersWithRoles();
   }
 
   openRolesModal(user: User) {

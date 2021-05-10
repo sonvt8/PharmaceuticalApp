@@ -90,6 +90,20 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Description"
+                            name="productionCapacity" #description="ngModel" [(ngModel)]="pro.description"
+                            [class.invalid]="description.invalid && description.touched" />
+                    </div>
+                    <div class="form-group">
+                        <label>Introduction Video</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Introduction Video"
+                            name="introductionVideo" #introductionVideo="ngModel" [(ngModel)]="pro.introductionVideo"
+                            [class.invalid]="introductionVideo.invalid && introductionVideo.touched" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
                         <label>Net Weight</label>
                         <input type="text" class="form-control form-control-lg" placeholder="Net Weight"
                             name="netWeight" #netWeight="ngModel" [(ngModel)]="pro.netWeight"

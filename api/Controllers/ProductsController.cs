@@ -44,6 +44,18 @@ namespace api.Controllers
 
         }
 
+        [HttpGet("pagination/categories/{categoryId}")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsOfACategoryPagination([FromQuery] ProductParams productParams, int categoryId)
+        {
+            var products = await _unitOfWork.ProductRepository.GetProductsOfCategoryAsyncPagination(categoryId, productParams);
+
+            Response.AddPaginationHeader(products.CurrentPage, products.PageSize,
+                products.TotalCount, products.TotalPages);
+
+            return Ok(products);
+
+        }
+
         [HttpGet("categories/{categoryId}")]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetProductsOfACategory(int categoryId)
         {

@@ -3,6 +3,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { PhotoProduct } from 'src/app/_models/photoProduct';
 import { Product } from 'src/app/_models/product';
 import { ProductService } from 'src/app/_service/product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-photo-edit',
@@ -13,7 +14,7 @@ export class PhotoEditComponent implements OnInit {
 
   @Input() pro: Product;
   uploader: FileUploader;
-  baseUrl = 'https://localhost:5001/api/products';
+  baseUrl = environment.apiUrl;
   hasBaseDropzoneOver = false;
   
   constructor(private productService: ProductService) { }
@@ -44,7 +45,7 @@ export class PhotoEditComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + '/add-photo/' + this.pro.id,
+      url: this.baseUrl + '/products/add-photo/' + this.pro.id,
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,

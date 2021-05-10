@@ -17,6 +17,8 @@ export class Product {
     machineSize: string=""
     netWeight: string=""
     categoryId: number=0
+    description:string = ""
+    introductionVideo: string = ""
     photoProductUrl: string=""
     photoProducts: PhotoProduct[];
 }

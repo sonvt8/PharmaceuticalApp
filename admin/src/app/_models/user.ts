@@ -12,6 +12,7 @@ export class User {
     streetAddress:string;
     state:string;
     city:string;
+    country:string;
     roles: string[];
     photoUsers: PhotoUser[];
 }
