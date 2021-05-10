@@ -12,11 +12,8 @@
             <input id="fileInput" type="file" (change)="onSelectFile($event.target.files)" accept="image/*">
         </div>
         <div class="col-lg-8">
-            <button *ngIf="uploaded && url" (click)="onUploadFile()" class="btn btn-success submit-img">Change</button>
+            <button *ngIf="url" (click)="onUploadFile()" class="btn btn-success submit-img">{{ isEdited == 'uploaded' ? 'Upload' : 'Edit' }}</button>
         </div>
-        <!-- <div class="col-lg-8">
-            <button *ngIf="uploaded === 'deleted' && url" (click)="delete()" class="btn btn-outline-danger delete-img">Delete</button>
-        </div> -->
     </div>
 
     <div class="form-row">

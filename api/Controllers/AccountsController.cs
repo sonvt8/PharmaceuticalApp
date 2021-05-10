@@ -77,7 +77,7 @@ namespace api.Controllers
                 City = newUser.City,
                 Country = newUser.Country,
                 Zip = newUser.Zip,
-                PhotoUserUrl = newUser.PhotoUsers.FirstOrDefault(p => p.IsMain).PhotoUserUrl
+                PhotoUserUrl = newUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl
             };
         }
 
@@ -112,7 +112,7 @@ namespace api.Controllers
                 City = user.City,
                 Country = user.Country,
                 Zip = user.Zip,
-                PhotoUserUrl = user.PhotoUsers.FirstOrDefault(p => p.IsMain).PhotoUserUrl
+                PhotoUserUrl = user.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl
             };
         }
 

@@ -18,7 +18,8 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   submitted: boolean = false;
   url: string = '';
-  uploaded: boolean = false;
+  isEdited: string = '';
+  isDefaultImage: boolean = false;
   fileToUpload: File = null;
   files: Array<any> = new Array<any>();
 
@@ -44,9 +45,10 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
         }
       );
 
-    if(this.currentUser.photoUserUrl == ''){
+    if(this.currentUser.photoUserUrl == null){
       this.currentUser.photoUserUrl = 'http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=300';
-    }
+      this.isDefaultImage = true;
+    } 
     
     this.profileForm = this.formBuilder.group({
       fullname: [this.currentUser.fullName, Validators.required],
@@ -65,18 +67,18 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   get f() { return this.profileForm.controls; }
 
   onSubmit(){
-    if(this.uploaded){
+    if(this.isEdited != ''){
       return;
     }
 
     if(!this.profileForm.dirty) {
       this.toastr.info("Nothing changed in your form!");
       return;
-    }this.profileForm.controls['email'].value;
-    this.currentUser['gender'] =
+    }
 
     this.currentUser['fullName'] = this.profileForm.controls['fullname'].value;
-    this.currentUser['email'] =  this.profileForm.controls['gender'].value;
+    this.currentUser['email'] = this.profileForm.controls['email'].value;
+    this.currentUser['gender'] = this.profileForm.controls['gender'].value;
     this.currentUser['streetAddress'] = this.profileForm.controls['address'].value;
     this.currentUser['state'] = this.profileForm.controls['state'].value;
     this.currentUser['city'] = this.profileForm.controls['city'].value;
@@ -111,7 +113,12 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     reader.onload = (event) => { // called once readAsDataURL is completed
       this.url = event.target.result as string;
     }
-    this.uploaded = true;
+
+    if(this.isDefaultImage){
+      this.isEdited = 'uploaded';
+    }else{
+      this.isEdited = 'edited';
+    }
   }
 
   onUploadFile(){
@@ -120,16 +127,21 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     formData.append('name', this.currentUser['fullName'] + "_avatar");
     formData.append('avatar', this.fileToUpload);
 
-    this.accountService.uploadProfileImage(formData).subscribe(response => {
-      if(response)  {
-        this.currentUser['photoUserUrl'] = response.photoUserUrl;
-        this.toastr.success('Successfully!!');
-        this.uploaded = false;
-        this.reload();
-      }
-    },error => {
-      this.toastr.error(error.error)
-    })
+    if(this.isEdited == 'uploaded'){
+      this.accountService.uploadProfileImage(formData).subscribe(response => {
+        if(response)  {
+          this.currentUser['photoUserUrl'] = response.photoUserUrl;
+          this.toastr.success('Successfully!!');
+          this.isEdited = 'edited';
+          this.reload();
+        }
+      },error => {
+        this.toastr.error(error.error)
+      })
+    }else{
+      console.log("do replace image")
+    }
+    
   }
 
   reload() {
@@ -138,7 +150,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['./'], { relativeTo: this.route });
   }
 
-  // public delete() {
-  //   this.url = null;
-  // }
+  public delete() {
+    this.url = null;
+  }
 }
