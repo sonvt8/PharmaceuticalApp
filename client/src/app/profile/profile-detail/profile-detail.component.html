@@ -1,0 +1,85 @@
+<h3 class="text-info">General Information</h3>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <h6>Photo</h6>
+    <div class="row photo-upload">
+        <div class="col-lg-4">
+            <label class="hoverable" for="fileInput">
+                <img [src]="url ? url : 'http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=300'">
+                <div class="hover-text">Choose file</div>
+                <div class="background"></div>
+            </label>
+            <input id="fileInput" type='file' (change)="onSelectFile($event)">
+        </div>
+        <div class="col-lg-8">
+            <button *ngIf="url" (click)="delete()" class="btn btn-outline-danger delete-img">Delete</button>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-9">
+            <label for="fullname">Fullname</label>
+            <input formControlName="fullname" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }">
+            <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                <div *ngIf="f.fullname.errors.required">Fullname is required</div>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="gender">Gender</label>
+            <select id="gender" class="form-control" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email</label>
+        <input disabled formControlName="email" type="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Address</label>
+        <input formControlName="address" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input formControlName="city" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+            <input formControlName="state" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputZip">Zip</label>
+            <input formControlName="zip" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.zip.errors }">
+            <div *ngIf="submitted && f.zip.errors" class="invalid-feedback">
+                <div *ngIf="f.zip.errors.pattern">Zip code is wrong</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Phone</label>
+            <input class="form-control"  type="text" appPhoneMask  formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Country</label>
+            <select formControlName="lstCountries" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lstCountries.errors }">
+                <option [ngValue]="null" disabled>Select Country ... </option>
+                <option *ngFor="let country of countries" [ngValue]="country.Name">{{country.Name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-success btn-submit">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Update Profile
+        </button>
+        <a routerLink="../login" class="btn btn-link">Cancel</a>
+    </div>
+</form>

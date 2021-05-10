@@ -33,9 +33,17 @@ import { ProductService } from './_services/product.service';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { SafePipe } from './_helpers/safepipe';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { ResumesComponent } from './profile/resumes/resumes.component';
 import { ReviewDetailsComponent } from './reviews/review-details/review-details.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProductSearchComponent } from './product-search/product-search.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { PhoneMaskDirective } from './_helpers/phone-mask.directive';
+import { JobsComponent } from './jobs/jobs.component';
+import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
 
 @NgModule({
   declarations: [
@@ -57,9 +65,19 @@ import { ProductSearchComponent } from './product-search/product-search.componen
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ReviewsComponent,
+    ProfileComponent,
+    ProfileDetailComponent,
+    ChangePasswordComponent,
+    ResumesComponent,
+    ReviewDetailsComponent,
+    FeedbackComponent,
+    JobsComponent,
+    JobDetailComponent,
+    PhoneMaskDirective,
     ReviewDetailsComponent,
     ProductSearchComponent
   ],
+  exports: [PhoneMaskDirective],
   imports: [
     BrowserModule,
     FormsModule,

@@ -54,7 +54,7 @@ export class AccountComponent implements OnInit {
       email: this.loginForm.get('email').value,
       password:this.loginForm.get('password').value,
       gender: '',
-      fullname: '',
+      fullName: '',
       token: ''
     };
 

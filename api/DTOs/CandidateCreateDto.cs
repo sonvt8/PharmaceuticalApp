@@ -20,5 +20,7 @@ namespace api.DTOs
         public bool? IsApproved { get; set; } = null;
         public bool IsApplied { get; set; } = true;
         public int? JobId { get; set; }
+        public string JobTitle { get; set; } = null;
+        public string Fullname { get; set; } = null;
     }
 }

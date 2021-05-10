@@ -23,12 +23,14 @@ namespace api.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
-        public CandidatesController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService)
+        private readonly IMailService _mailService;
+        public CandidatesController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService, IMailService mailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
             _photoService = photoService;
+            _mailService = mailService;
         }
 
         //[Authorize(Policy = "RequireAdminRole")]
@@ -106,7 +108,12 @@ namespace api.Controllers
 
             var result = await _userManager.UpdateAsync(user);
 
-            if (result.Succeeded) return NoContent();
+            if (result.Succeeded)
+            {
+                //Send Confirmation Email
+                await _mailService.SendApproveCandidatelAsync(user.FullName, candidateCreateDto.JobTitle, user.Email);
+                return NoContent();
+            }
 
             return BadRequest("Failed to update user");
         }

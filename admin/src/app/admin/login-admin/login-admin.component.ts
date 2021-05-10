@@ -22,7 +22,7 @@ export class LoginAdminComponent implements OnInit {
       this.toastr.success("Login successfully");
     }, error=>{
       console.log(error);
-      this.toastr.error("Login successfully");
+      this.toastr.error("Login unsuccessfully");
     })
   }
 
