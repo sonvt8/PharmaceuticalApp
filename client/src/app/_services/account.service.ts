@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { User } from '../_models/user.model';
 import { environment } from 'src/environments/environment';
 import { resetPassword } from 'src/app/_models/resetPassword.model';
+import { ChangePassword } from '../_models/changePassword.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,6 @@ export class AccountService {
   login(user: User) {
     return this.http.post<User>(`${environment.apiUrl}/accounts/login`, user)
       .pipe(map(user => {
-        
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({
           "fullName": user.fullName,
@@ -41,7 +41,8 @@ export class AccountService {
           "state": user.state,
           "zip": user.zip,
           "country": user.country,
-          "city": user.city
+          "city": user.city,
+          "photoUserUrl": user.photoUserUrl
         }));
         this.userSubject.next(user);
         return user;
@@ -69,7 +70,8 @@ export class AccountService {
             "state": response.state,
             "zip": response.zip,
             "country": response.country,
-            "city": user.city
+            "city": response.city,
+            "photoUserUrl": response.photoUserUrl
           }));
         }
         return response;
@@ -91,8 +93,23 @@ export class AccountService {
             "state": response.state,
             "zip": response.zip,
             "country": response.country,
-            "city": user.city
+            "city": response.city,
+            "photoUserUrl": response.photoUserUrl
           }));
+        }
+        return response;
+      })
+    );
+  }
+
+  uploadProfileImage(form: FormData) {
+    return this.http.post(`${environment.apiUrl}/accounts/add-photo`, form).pipe(
+      map((response: any) => {
+        if (response) {
+          var existing = localStorage.getItem('user');
+          existing = existing ? JSON.parse(existing) : {};
+          existing['photoUserUrl'] = response.photoUserUrl;
+          localStorage.setItem('user', JSON.stringify(existing));
         }
         return response;
       })
@@ -113,6 +130,16 @@ export class AccountService {
   resetPassword(resetPassword: resetPassword) {
     return this.http.post(`${environment.apiUrl}/accounts/recovery_password`, resetPassword).pipe(
       map((response: string) => {
+        return response;
+      })
+    );
+  }
+
+  changePassword(changePwd: ChangePassword) {
+    return this.http.post(`${environment.apiUrl}/accounts/change_password`, changePwd).pipe(
+      map((response: string) => {
+        localStorage.removeItem('user');
+        this.userSubject.next(null);
         return response;
       })
     );

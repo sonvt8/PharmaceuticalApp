@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { ContactService } from '../_services/contact.service';
 
+import countries from 'src/assets/json/countries.json';
+
 
 @Component({
   selector: 'app-contact-us',
@@ -14,6 +16,7 @@ export class ContactUsComponent implements OnInit {
   contactForm: FormGroup;
   loading = false;
   submitted = false;
+  public countries:{Name: string, Code: string} = countries;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,7 +31,7 @@ export class ContactUsComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
-      country: ['', Validators.required],
+      country: [null],
       subject: ['', Validators.required],
       description: ['', Validators.required]
     });

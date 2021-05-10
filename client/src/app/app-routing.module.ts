@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   {
-    path: 'user/1',
+    path: 'user/profile',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     component: ProfileComponent,
@@ -39,7 +39,7 @@ const routes: Routes = [
   },
   { path: 'contact', component: ContactUsComponent },
   { path: 'about-us', component: AboutUsComponent },
-  { path: 'feedback', component: FeedbackComponent},
+  { path: 'feedback', runGuardsAndResolvers: 'always', canActivate: [AuthGuard], component: FeedbackComponent},
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'products/categories/:id', component: ProductsComponent },
   { path: 'jobs', component: JobsComponent},

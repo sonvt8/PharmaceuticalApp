@@ -16,6 +16,7 @@ import { ProductService } from '../_services/product.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed = true;
+
   currentUser: User;
   username: string;
   subscription: Subscription;
@@ -25,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {
     this.subscription = this.accountService.user.subscribe(x => {
       this.currentUser = x;
-
+      
       try {
         this.username = x.fullName;
       } catch {

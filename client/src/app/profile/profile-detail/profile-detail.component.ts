@@ -17,7 +17,11 @@ import { Country } from 'src/app/_models/country.model';
 export class ProfileDetailComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   submitted: boolean = false;
-  url: string;
+  url: string = '';
+  isEdited: string = '';
+  isDefaultImage: boolean = false;
+  fileToUpload: File = null;
+  files: Array<any> = new Array<any>();
 
   profileForm: FormGroup;
   countries: Country[] = countriesLbr;
@@ -33,13 +37,18 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // this.currentUser = JSON.parse(localStorage.getItem('user'));
+    
     this.subscription = this.accountService.user
       .subscribe(
         (user: User) => {
           this.currentUser = user;
         }
       );
+
+    if(this.currentUser.photoUserUrl == null){
+      this.currentUser.photoUserUrl = 'http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=300';
+      this.isDefaultImage = true;
+    } 
     
     this.profileForm = this.formBuilder.group({
       fullname: [this.currentUser.fullName, Validators.required],
@@ -58,6 +67,10 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   get f() { return this.profileForm.controls; }
 
   onSubmit(){
+    if(this.isEdited != ''){
+      return;
+    }
+
     if(!this.profileForm.dirty) {
       this.toastr.info("Nothing changed in your form!");
       return;
@@ -88,16 +101,55 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result as string;
-      }
+  onSelectFile(files: FileList) {
+    if (files.length === 0) {
+      return;
     }
+    this.fileToUpload = files[0];
+
+    var reader = new FileReader();
+
+    reader.readAsDataURL(this.fileToUpload); // read file as data url
+    reader.onload = (event) => { // called once readAsDataURL is completed
+      this.url = event.target.result as string;
+    }
+
+    if(this.isDefaultImage){
+      this.isEdited = 'uploaded';
+    }else{
+      this.isEdited = 'edited';
+    }
+  }
+
+  onUploadFile(){
+
+    const formData: FormData = new FormData();
+    formData.append('name', this.currentUser['fullName'] + "_avatar");
+    formData.append('avatar', this.fileToUpload);
+
+    if(this.isEdited == 'uploaded'){
+      this.accountService.uploadProfileImage(formData).subscribe(response => {
+        if(response)  {
+          this.currentUser['photoUserUrl'] = response.photoUserUrl;
+          this.currentUser['photoUserId'] = response.id;
+          console.log(this.currentUser)
+          this.toastr.success('Successfully!!');
+          this.isEdited = 'edited';
+          this.reload();
+        }
+      },error => {
+        this.toastr.error(error.error)
+      })
+    }else{
+      console.log("do replace image")
+    }
+    
+  }
+
+  reload() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['./'], { relativeTo: this.route });
   }
 
   public delete() {
