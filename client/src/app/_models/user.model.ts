@@ -12,6 +12,7 @@ export class User {
     public country?: string;
     public zip?: string;
     public photoUserUrl?: string;
+    public photoUserId?: string;
 
     constructor(fullName: string, email: string, token: string, gender: string, password: string){
         this.fullName = fullName;

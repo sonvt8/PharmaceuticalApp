@@ -131,6 +131,8 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
       this.accountService.uploadProfileImage(formData).subscribe(response => {
         if(response)  {
           this.currentUser['photoUserUrl'] = response.photoUserUrl;
+          this.currentUser['photoUserId'] = response.id;
+          console.log(this.currentUser)
           this.toastr.success('Successfully!!');
           this.isEdited = 'edited';
           this.reload();
