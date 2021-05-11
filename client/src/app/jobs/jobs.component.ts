@@ -45,4 +45,9 @@ export class JobsComponent implements OnInit {
     this.loadJob();
   }
 
+  resetFilters() {
+    this.jobParams = this.jobService.resetJobParams();
+    this.loadJob();
+  }
+
 }

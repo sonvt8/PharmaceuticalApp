@@ -13,7 +13,7 @@ import { User } from '../_models/user.model';
 })
 export class JobService {
   
-
+  jobParams : JobParams
   constructor(private http: HttpClient) { 
 
   }
@@ -37,6 +37,11 @@ export class JobService {
 
   deleteJob(val: Job) {
     return this.http.delete(`${this.baseUrl}/${val.id}`);
+  }
+
+  resetJobParams() {
+    this.jobParams = new JobParams();
+    return this.jobParams;
   }
 
   getJobPagination(jobParams: JobParams) {
