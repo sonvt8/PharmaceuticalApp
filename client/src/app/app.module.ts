@@ -44,6 +44,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { PhoneMaskDirective } from './_helpers/phone-mask.directive';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
+import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
 import { CateItemComponent } from './header/cate-item/cate-item.component';
 
 @NgModule({
@@ -78,6 +79,7 @@ import { CateItemComponent } from './header/cate-item/cate-item.component';
     ReviewDetailsComponent,
     ProductSearchComponent,
     CateItemComponent
+    JobsListComponent
   ],
   exports: [PhoneMaskDirective],
   imports: [
