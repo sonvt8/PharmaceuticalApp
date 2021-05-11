@@ -59,13 +59,32 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-        <tabset [justified]="true">
-            <tab heading="Basic Info">Justified content</tab>
-            <tab heading="Education">Short Labeled Justified content</tab>
-        </tabset>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success">Send Application</button>
-    </div>
+    <form>
+        <div class="modal-body">
+            <tabset [justified]="true">
+                <tab heading="Basic Info">
+                    <input type="text" placeholder="Full Name" class="form-control">
+                    <input type="text" placeholder="Email Address" class="form-control">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong>Upload your CV</strong>
+                        <small>Format: .doc, .docx, .pdf</small>
+                    </div>
+                    <label for="fileUpload" class="file-select mt-4">
+                        <div class="btn btn-success">
+                            <i class="fa fa-upload mr-2"></i>
+                            <span>Browse</span>
+                        </div>
+                        <div class="file-select-name">No file chosen..</div>
+                        <input type="file" id="fileUpload" accept=".doc, .docx, .pdf">
+                    </label>
+                </tab>
+                <tab heading="Education">
+                    <textarea class="form-control" placeholder="List your degrees here.."></textarea>
+                </tab>
+            </tabset>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ngbAutofocus class="btn btn-success">Send Application</button>
+        </div>
+    </form>
 </ng-template>

@@ -58,3 +58,44 @@ h4.modal-title {
 .modal-footer .btn {
     width: 100%;
 }
+
+.modal-body input[type="text"] {
+    margin-bottom: 2rem;
+    padding: 14px 18px;
+}
+
+.modal-body tabset tab[role="tabpanel"] {
+    margin: 2rem auto 0;
+}
+
+.file-select {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #dce4ec;
+    border-radius: 0.25rem;
+    height: 50px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.file-select div.btn {
+    position: relative;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+
+.file-select .file-select-name {
+    display: inline-block;
+    padding: 0 20px;
+    height: 100%;
+    flex-grow: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+input[type="file"] {
+    display: none;
+}
