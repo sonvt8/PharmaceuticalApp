@@ -3,7 +3,7 @@
     <div class="banner-caption">
         <div class="container">
             <h1>Open Positions</h1>
-            <h4>We offer 4 job opportunities.</h4>
+            <h4>We offer {{count}} job opportunities.</h4>
         </div>
     </div>
 </div>
@@ -11,53 +11,29 @@
 <main class="container">
     <div class="row no-gutters">
         <div class="col-lg-8">
-            <div class="list-group">
+            <div class="list-group" *ngFor="let job of jobs">
                 <a href="#" class="list-group-item list-group-item-action">
                     <div>
-                        <h4>Quality Assurance Specialist</h4>
+                        <h4>{{job.jobName}}</h4>
                         <span>
                             <i class="far fa-map"></i>
-                            Sydney, Australia
-                        </span>
-                    </div>
-                    <div><i class="fas fa-arrow-right"></i></div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div>
-                        <h4>Warehouse Technician</h4>
-                        <span>
-                            <i class="far fa-map"></i>
-                            Bangalore, India
-                        </span>
-                    </div>
-                    <div><i class="fas fa-arrow-right"></i></div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div>
-                        <h4>Assembly Engineer</h4>
-                        <span>
-                            <i class="far fa-map"></i>
-                            Los Angeles, San Francisco
-                        </span>
-                    </div>
-                    <div><i class="fas fa-arrow-right"></i></div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div>
-                        <h4>Technical Support Engineer</h4>
-                        <span>
-                            <i class="far fa-map"></i>
-                            Shenzen, China
+                            {{job.location}}
                         </span>
                     </div>
                     <div><i class="fas fa-arrow-right"></i></div>
                 </a>
             </div>
+            <div class="d-flex justify-content-center mt-3" *ngIf="pagination">
+                <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+                    [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+                    nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                </pagination>
+            </div>
         </div>
 
         <div class="col-lg-3 offset-lg-1">
             <form>
-                <input class="form-control" type="text" placeholder="Keyword">
+                <input class="form-control" type="text" placeholder="Keyword" #search>
                 <div class="form-group mt-3">
                     <label class="text-center w-100">Salary</label>
                     <div class="form-row">
@@ -69,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-success text-white w-100 mt-2 font-weight-bold">
+                <button (click)= "onSearch()" class="btn btn-success text-white w-100 mt-2 font-weight-bold">
                     <i class="fas fa-filter"></i>
                     Filter
                 </button>

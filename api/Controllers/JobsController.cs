@@ -60,8 +60,20 @@ namespace api.Controllers
 
         }
 
+        [HttpGet("pagination/available")]
+        public async Task<ActionResult<IEnumerable<Job>>> GetJobsAvailablePagination([FromQuery] JobParams jobParams)
+        {
+            var jobs = await _unitOfWork.JobRepository.GetJobsAvailablePagination(jobParams);
+
+            Response.AddPaginationHeader(jobs.CurrentPage, jobs.PageSize,
+                jobs.TotalCount, jobs.TotalPages);
+
+            return Ok(jobs);
+
+        }
+
         [HttpGet("{jobId}", Name = "GetJobById")]
-        public async Task<ActionResult<JobDto>> GetJobById(int jobId)
+        public async Task<ActionResult<Job>> GetJobById(int jobId)
         {
             if (!await _unitOfWork.JobRepository.JobExists(jobId))
                 return NotFound();

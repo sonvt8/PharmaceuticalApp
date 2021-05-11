@@ -30,6 +30,7 @@ import { CategoryService } from './_services/category.service';
 import { ForgotPasswordComponent } from './accounts/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './accounts/reset-password/reset-password.component';
 import { ProductService } from './_services/product.service';
+import { JobService } from './_services/job.service';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { SafePipe } from './_helpers/safepipe';
 import { ReviewsComponent } from './reviews/reviews.component';
@@ -100,7 +101,8 @@ import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CategoryService,
-    ProductService
+    ProductService,
+    JobService
   ],
   bootstrap: [AppComponent]
 })
