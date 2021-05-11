@@ -42,7 +42,8 @@ export class AccountService {
           "zip": user.zip,
           "country": user.country,
           "city": user.city,
-          "photoUserUrl": user.photoUserUrl
+          "photoUserUrl": user.photoUserUrl,
+          "photoUserId": user.photoUserId
         }));
         this.userSubject.next(user);
         return user;
@@ -109,7 +110,33 @@ export class AccountService {
           var existing = localStorage.getItem('user');
           existing = existing ? JSON.parse(existing) : {};
           existing['photoUserUrl'] = response.photoUserUrl;
+          existing['photoUserId'] = response.id;
           localStorage.setItem('user', JSON.stringify(existing));
+
+          this.user.subscribe(u => {
+            u.photoUserId = response.id;
+            u.photoUserUrl = response.photoUserUrl;
+          });
+        }
+        return response;
+      })
+    );
+  }
+
+  editProfileImage(form: FormData,idPhoto: number) {
+    return this.http.post(`${environment.apiUrl}/accounts/edit-photo/${idPhoto}`, form).pipe(
+      map((response: User) => {
+        if (response) {
+          var existing = localStorage.getItem('user');
+          existing = existing ? JSON.parse(existing) : {};
+          existing['photoUserUrl'] = response.photoUserUrl;
+          existing['photoUserId'] = response.id;
+          localStorage.setItem('user', JSON.stringify(existing));
+
+          this.user.subscribe(u => {
+            u.photoUserUrl = response.photoUserUrl;
+            u.photoUserId = parseInt(response.id) 
+          });
         }
         return response;
       })
