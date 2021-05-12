@@ -171,7 +171,7 @@ namespace api.Controllers
         }
 
         [HttpGet("pagination")]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetProductsPagination([FromQuery] PaginationParams paginationParams)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsersPagination([FromQuery] PaginationParams paginationParams)
         {
             var users = await _unitOfWork.UserRepository.GetUsersPagination(paginationParams);
 

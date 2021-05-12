@@ -15,6 +15,7 @@ import { ChangePassword } from '../_models/changePassword.model';
 export class AccountService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
+  baseUrl = environment.apiUrl + "/accounts";
 
   constructor(
     private router: Router,
@@ -26,6 +27,10 @@ export class AccountService {
 
   public get userValue(): User {
     return this.userSubject.value;
+  }
+
+  getUserFeedBack(){
+    return this.http.get(this.baseUrl);
   }
 
   login(user: User) {

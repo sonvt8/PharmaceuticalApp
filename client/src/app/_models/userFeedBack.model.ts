@@ -1,7 +1,8 @@
-import { FeedBack } from "./feedback";
+import { FeedBack } from "./feedBack.model";
 import { PhotoUser } from "./photoUser";
 
-export class User {
+
+export class UserFeedBack {
     id:number;
     fullName: string;
     userName: string;

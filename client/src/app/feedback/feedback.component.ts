@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { AccountService } from 'src/app/_services/account.service';
 import { FeedbackService } from '../_services/feedback.service';
 import { User } from 'src/app/_models/user.model';
-import { Feedback } from '../_models/feedback.model';
+import { FeedBack } from '../_models/feedBack.model';
 
 @Component({
   selector: 'app-feedback',
@@ -59,7 +59,7 @@ export class FeedbackComponent implements OnInit {
     }
     this.loading = true;
 
-    var feedback: Feedback = {
+    var feedback: FeedBack = {
       fullName : this.currentUser['fullName'],
       company : this.feedbackForm.controls['organization'].value,
       address : this.currentUser['streetAddress'],

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SwiperOptions } from 'swiper';
+import { UserFeedBack } from '../_models/userFeedBack.model';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +10,19 @@ import { SwiperOptions } from 'swiper';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  users: UserFeedBack[]
+  constructor(private accountService : AccountService) { }
 
   ngOnInit(): void {
+    this.showUserFeedBack();
   }
+
+  showUserFeedBack(){
+    this.accountService.getUserFeedBack().subscribe(res=>{
+      this.users = res as UserFeedBack[]
+    })
+  }
+
 
   config: SwiperOptions = {
     pagination: {
