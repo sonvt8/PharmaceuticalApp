@@ -15,6 +15,7 @@ namespace api.Interfaces
         Task<PagedList<FeedBackDto>> GetFeedBacksPagination(PaginationParams paginationParams);
         Task<IEnumerable<FeedBackDto>> GetFeedBacks();
         Task<IEnumerable<FeedBackDto>> GetFeedBacksOfUserAsync(int userId);
+        Task<IEnumerable<FeedBackDto>> GetFeedBackApproveAsync();
         Task<IEnumerable<FeedBackDto>> GetFeedBacksOfUserApproveAsync(int userId);
         Task<FeedBack> GetFeedBackByIdAsync(int feedBackId);
         Task<UserDto> GetUserOfAFeedBackAsync(int feedBackId);

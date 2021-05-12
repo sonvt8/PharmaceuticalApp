@@ -3,6 +3,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import ParticlesConfig from 'src/assets/json/particlesjs.json';
+import { Job } from '../_models/job.model';
+import { JobParams } from '../_models/jobParams.model';
+import { Pagination } from '../_models/pagination';
+import { JobService } from '../_services/job.service';
 declare var particlesJS: any;
 
 @Component({

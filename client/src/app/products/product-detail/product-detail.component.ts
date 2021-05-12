@@ -31,7 +31,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy  {
           if (id) {
             this.productService.getProductById(id).subscribe(product => {
               this.product = product;
-              this.descriptions = this.product.description.split("\n");
+              //this.descriptions = this.product.description.split("\n");
               this.properties.set("CapsuleSize", product.capsuleSize); 
               this.properties.set("Machine Dimension", product.machineDimension); 
               this.properties.set("Machine Size", product.machineSize); 

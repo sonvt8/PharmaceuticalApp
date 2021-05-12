@@ -37,6 +37,14 @@ namespace api.Data
             return await _context.FeedBacks.AnyAsync(f => f.Id == feedBackId);
         }
 
+        public async Task<IEnumerable<FeedBackDto>> GetFeedBackApproveAsync()
+        {
+            return await _context.FeedBacks
+                .Where(f=>f.IsApproved == true)
+                .ProjectTo<FeedBackDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
         public async Task<FeedBack> GetFeedBackByIdAsync(int feedBackId)
         {
             return await _context.FeedBacks.FindAsync(feedBackId);

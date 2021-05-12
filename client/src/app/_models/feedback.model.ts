@@ -1,4 +1,4 @@
-export class Feedback {
+export class FeedBack {
     public id? : string;
     public fullName: string;
     public company: string;

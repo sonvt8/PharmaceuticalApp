@@ -1,3 +1,4 @@
+import { FeedBack } from "./feedback";
 import { PhotoUser } from "./photoUser";
 
 export class User {
@@ -15,4 +16,5 @@ export class User {
     country:string;
     roles: string[];
     photoUsers: PhotoUser[];
+    feedBack: FeedBack[];
 }

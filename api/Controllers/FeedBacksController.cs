@@ -42,6 +42,14 @@ namespace api.Controllers
             return Ok(model);
         }
 
+        [HttpGet("no-request")]
+        public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetFeedBackApproveAsync()
+        {
+            var feedBacks = await _unitOfWork.FeedBackRepository.GetFeedBackApproveAsync();
+
+            return Ok(feedBacks);
+        }
+
         [HttpGet("pagination")]
         public async Task<ActionResult<IEnumerable<FeedBackDto>>> GetFeedBacksPagination([FromQuery] PaginationParams paginationParams)
         {

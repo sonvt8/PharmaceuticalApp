@@ -46,7 +46,7 @@
                 {{cate.categoryName}}
             </td>
             <td>
-                {{cate.categoryDescription}}
+                <div [innerHTML]="cate.categoryDescription | textTruncate:0:100"></div>
             </td>
             <td>
                 <button type="button" class="btn btn-outline-success mr-1" data-toggle="modal"

@@ -45,6 +45,7 @@ import { PhoneMaskDirective } from './_helpers/phone-mask.directive';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
 import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
+import { JobService } from './_services/job.service';
 import { CateItemComponent } from './header/cate-item/cate-item.component';
 import { QuoteComponent } from './home/quote/quote.component';
 
@@ -106,7 +107,8 @@ import { QuoteComponent } from './home/quote/quote.component';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CategoryService,
-    ProductService
+    ProductService,
+    JobService
   ],
   bootstrap: [AppComponent]
 })
