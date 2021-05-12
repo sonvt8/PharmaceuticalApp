@@ -16,29 +16,35 @@ import { ProductService } from '../_services/product.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed = true;
+  categories: Category[];
 
   currentUser: User;
   username: string;
   subscription: Subscription;
 
   constructor(
-    private accountService: AccountService, private router: Router
+    private accountService: AccountService, 
+    private router: Router,
+    private categoryService: CategoryService
   ) {
     this.subscription = this.accountService.user.subscribe(x => {
       this.currentUser = x;
-      
-      try {
-        this.username = x.fullName;
-      } catch {
-      }
+      this.username = x?.fullName;
     });
   }
 
   ngOnInit(): void {
+    this.loadCategories();
   }
 
   onSearch(search: string) {
     this.router.navigate(["/product-search", { term: search }]);
+  }
+
+  loadCategories(){
+    this.categoryService.getCategories().subscribe(ele => {
+      this.categories = ele;
+    })
   }
 
 

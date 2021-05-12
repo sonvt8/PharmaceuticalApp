@@ -130,9 +130,6 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     if(this.isEdited == 'uploaded'){
       this.accountService.uploadProfileImage(formData).subscribe(response => {
         if(response)  {
-          this.currentUser['photoUserUrl'] = response.photoUserUrl;
-          this.currentUser['photoUserId'] = response.id;
-          console.log(this.currentUser)
           this.toastr.success('Successfully!!');
           this.isEdited = 'edited';
           this.reload();
@@ -141,7 +138,14 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
         this.toastr.error(error.error)
       })
     }else{
-      console.log("do replace image")
+      this.accountService.editProfileImage(formData,this.currentUser['photoUserId']).subscribe(response => {
+        if(response)  {
+          this.toastr.success('Successfully!!');
+          this.isEdited = 'edited';
+        }
+      },error => {
+        this.toastr.error(error.error)
+      })
     }
     
   }

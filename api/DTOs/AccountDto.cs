@@ -18,5 +18,6 @@ namespace api.DTOs
         public string Country { get; set; } = "";
         public string Zip { get; set; } = "";
         public string PhotoUserUrl { get; set; } = "";
+        public int? PhotoUserId { get; set; }
     }
 }

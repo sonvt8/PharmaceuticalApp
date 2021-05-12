@@ -37,8 +37,8 @@ namespace api.Data
         public async Task<IEnumerable<UserDto>> GetUsersAsync()
         {
             return await _context.Users
-                .Include(u => u.PhotoUsers)
-                .Include(u => u.FeedBacks)
+                .Include(p => p.PhotoUsers)
+                .Include(p => p.FeedBacks)
                 .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }

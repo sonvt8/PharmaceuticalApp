@@ -91,16 +91,9 @@
 <div class="customer-feedback">
     <h2 class="text-center">CUSTOMER TESTIMONIALS</h2>
     <hr class="divider">
-    <swiper [config]="config" *ngFor="let user of users" >
-        <div class="swiper-wrapper">
-            <div class="swiper-slide" >
-                <img src="{{user.photoUserUrl}}"
-                    alt="img 1">
-                <div class="customer-quote">
-                    <em>"{{user.feedBack}}"
-                    </em>
-                </div>
-            </div>
+    <swiper [config]="config">
+        <div class="swiper-wrapper" >
+            <app-quote class="swiper-slide" *ngFor="let usersFeedbackEl of usersFeedbacks;" [usersFeedback]="usersFeedbackEl"></app-quote>
         </div>
 
         <!-- Add Pagination -->

@@ -8,6 +8,7 @@ import { User } from '../_models/user.model';
 import { environment } from 'src/environments/environment';
 import { resetPassword } from 'src/app/_models/resetPassword.model';
 import { ChangePassword } from '../_models/changePassword.model';
+import { UserFeedback } from '../_models/userFeedback.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,8 @@ export class AccountService {
           "zip": user.zip,
           "country": user.country,
           "city": user.city,
-          "photoUserUrl": user.photoUserUrl
+          "photoUserUrl": user.photoUserUrl,
+          "photoUserId": user.photoUserId
         }));
         this.userSubject.next(user);
         return user;
@@ -114,7 +116,33 @@ export class AccountService {
           var existing = localStorage.getItem('user');
           existing = existing ? JSON.parse(existing) : {};
           existing['photoUserUrl'] = response.photoUserUrl;
+          existing['photoUserId'] = response.id;
           localStorage.setItem('user', JSON.stringify(existing));
+
+          this.user.subscribe(u => {
+            u.photoUserId = response.id;
+            u.photoUserUrl = response.photoUserUrl;
+          });
+        }
+        return response;
+      })
+    );
+  }
+
+  editProfileImage(form: FormData,idPhoto: number) {
+    return this.http.post(`${environment.apiUrl}/accounts/edit-photo/${idPhoto}`, form).pipe(
+      map((response: User) => {
+        if (response) {
+          var existing = localStorage.getItem('user');
+          existing = existing ? JSON.parse(existing) : {};
+          existing['photoUserUrl'] = response.photoUserUrl;
+          existing['photoUserId'] = response.id;
+          localStorage.setItem('user', JSON.stringify(existing));
+
+          this.user.subscribe(u => {
+            u.photoUserUrl = response.photoUserUrl;
+            u.photoUserId = parseInt(response.id) 
+          });
         }
         return response;
       })
@@ -146,6 +174,28 @@ export class AccountService {
         localStorage.removeItem('user');
         this.userSubject.next(null);
         return response;
+      })
+    );
+  }
+
+  getUsers() {
+    return this.http.get(`${environment.apiUrl}/accounts`).pipe(
+      map((response: any) => {
+        var usersFeedbacks: UserFeedback[] = [];
+        response.forEach(user => {
+          var feedbacks = user.feedbacks
+          feedbacks.forEach(feedback => {
+            if (feedback.isApproved){
+              var ele: UserFeedback = {
+                fullName: user.fullName,
+                photoUrl: user.photoUserUrl,
+                comments: feedback.comments
+              }
+              usersFeedbacks.push(ele);
+            }
+          });
+        });
+        return usersFeedbacks;
       })
     );
   }

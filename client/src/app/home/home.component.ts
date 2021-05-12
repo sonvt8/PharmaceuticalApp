@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SwiperOptions } from 'swiper';
-import { UserFeedBack } from '../_models/userFeedBack.model';
+import { UserFeedback } from '../_models/userFeedback.model';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -9,21 +9,21 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  usersFeedbacks: UserFeedback[];
 
-  users: UserFeedBack[]
-  constructor(private accountService : AccountService) { }
+  constructor(
+    private accountService: AccountService
+  ) { }
 
   ngOnInit(): void {
-    this.showUserFeedBack();
+    this.loadFeedbacks();
   }
 
-  showUserFeedBack(){
-    this.accountService.getUserFeedBack().subscribe(res=>{
-      this.users = res as UserFeedBack[]
-    })
+  loadFeedbacks(){
+    this.accountService.getUsers().subscribe(res => {
+      this.usersFeedbacks = res
+    });
   }
-
-
   config: SwiperOptions = {
     pagination: {
       el: '.swiper-pagination',

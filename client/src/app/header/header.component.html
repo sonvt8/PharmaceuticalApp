@@ -14,17 +14,16 @@
             <li class="nav-item active">
                 <a class="nav-link" href="">Home</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Products
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Encapsulation Machines</a>
-                    <a class="dropdown-item" href="#">Table Press Machines</a>
-                    <a class="dropdown-item" href="#"></a>
-                </div>
-            </li>
+            <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item dropdown" ngbDropdown >
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" ngbDropdownToggle>Categories</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" ngbDropdownMenu  >
+                        <app-cate-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl"></app-cate-item>
+                    </div>
+                  </li>
+                </ul>
+            </div>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About</a>
             </li>
