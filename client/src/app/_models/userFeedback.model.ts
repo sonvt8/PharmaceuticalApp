@@ -1,5 +1,3 @@
-import { Feedback } from "./feedback.model";
-
 export class UserFeedback {
     public fullName: string;
     public photoUrl: string;
