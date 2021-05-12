@@ -374,6 +374,9 @@ namespace api.Migrations
                     b.Property<string>("JobName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FeedBack } from 'src/app/_models/feedback';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_service/account.service';
 import { FeedbackService } from 'src/app/_service/feedback.service';
 
 @Component({
@@ -14,10 +16,14 @@ export class AddEditFeedbackComponent implements OnInit {
   @Input()
   public myCallback: Function;
   ModalTitle: string
+  user: User
   
-  constructor(public feedBackService: FeedbackService, private toastr: ToastrService) { }
+  constructor(public feedBackService: FeedbackService, private toastr: ToastrService, private accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.accountService.getAccount(this.feedback.appUserId).subscribe(res=>{
+      this.user = res as User;
+    })
   }
   onApproved() {
     this.feedback.isApproved = true;

@@ -1,1 +1,90 @@
-<p>job-detail works!</p>
+<div class="row no-gutters">
+    <div class="col-lg-8">
+        <h4>Quality Assurance Specialist</h4>
+        <div #jobDesc>
+            <p>Under limited supervision, responsible for delivery of activities at client to ensure Product Quality
+                throughout the lifecycle of commercial and/or clinical products. This key role must ensure effective
+                interaction with other departments and locations regarding product quality risks, technology transfer,
+                commercial operations, process and analytical lifecycle management and product discontinuation. This
+                role will involve leading/partnering with major stakeholders such as Regulatory Affairs, Operations,
+                Clinical Supply, Quality Control and Stability regarding GMP document, data preparation and review. The
+                Global role enables efficient communication and decision making related to the quality of client
+                products.</p>
+            <h6>Responsibilities:</h6>
+            <ul>
+                <li>Provide Record Management support by performing the following activities:</li>
+                <li>Inventorying and boxing clinical batch records and other records for archival</li>
+                <li>Scanning documents, preparing documents, copy verification, and shipment preparation.</li>
+                <li>Uploading PDFs into the PharmSci Global Document Management System</li>
+                <li>Miscellaneous filling support as needed within Pharmaceutical Sciences Quality Assurance</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-3 offset-lg-1">
+        <h4>Overview</h4>
+        <div class="overview">
+            <ul>
+                <li>
+                    <i class="far fa-map icon"></i>
+                    <div class="overview-content">
+                        <strong>Location</strong>
+                        <p>Sydney, Australia</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="far fa-money-bill-alt icon"></i>
+                    <div class="overview-content">
+                        <strong>Salary</strong>
+                        <p>50.000$</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-user-tie icon"></i>
+                    <div class="overview-content">
+                        <strong>Slots</strong>
+                        <p>2</p>
+                    </div>
+                </li>
+            </ul>
+            <button [disabled]="!currentUser" class="btn btn-success w-100 font-weight-bold"
+                (click)="openVerticallyCentered(content)">Apply</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Apply For This Job</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form>
+        <div class="modal-body">
+            <tabset [justified]="true">
+                <tab heading="Basic Info">
+                    <input type="text" placeholder="Full Name" class="form-control">
+                    <input type="text" placeholder="Email Address" class="form-control">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong>Upload your CV</strong>
+                        <small>Format: .doc, .docx, .pdf</small>
+                    </div>
+                    <label for="fileUpload" class="file-select mt-4">
+                        <div class="btn btn-success">
+                            <i class="fa fa-upload mr-2"></i>
+                            <span>Browse</span>
+                        </div>
+                        <div class="file-select-name">No file chosen..</div>
+                        <input type="file" id="fileUpload" accept=".doc, .docx, .pdf">
+                    </label>
+                </tab>
+                <tab heading="Education">
+                    <textarea class="form-control" placeholder="List your degrees here.."></textarea>
+                </tab>
+            </tabset>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ngbAutofocus class="btn btn-success">Send Application</button>
+        </div>
+    </form>
+</ng-template>

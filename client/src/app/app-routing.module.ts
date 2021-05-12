@@ -18,6 +18,8 @@ import { ResumesComponent } from './profile/resumes/resumes.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
+import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
+import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,11 +41,17 @@ const routes: Routes = [
   },
   { path: 'contact', component: ContactUsComponent },
   { path: 'about-us', component: AboutUsComponent },
-  { path: 'feedback', runGuardsAndResolvers: 'always', canActivate: [AuthGuard], component: FeedbackComponent},
+  { path: 'feedback', runGuardsAndResolvers: 'always', canActivate: [AuthGuard], component: FeedbackComponent },
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'products/categories/:id', component: ProductsComponent },
-  { path: 'jobs', component: JobsComponent},
-  {path: 'product-search', component: ProductSearchComponent},
+  {
+    path: 'jobs', component: JobsComponent,
+    children: [
+      { path: '', component: JobsListComponent, data: { x: true } },
+      { path: ':id', component: JobDetailComponent, data: { x: false } }
+    ]
+  },
+  { path: 'product-search', component: ProductSearchComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ]

@@ -44,6 +44,10 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { PhoneMaskDirective } from './_helpers/phone-mask.directive';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
+import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
+import { JobService } from './_services/job.service';
+import { CateItemComponent } from './header/cate-item/cate-item.component';
+import { QuoteComponent } from './home/quote/quote.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +79,10 @@ import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
     JobDetailComponent,
     PhoneMaskDirective,
     ReviewDetailsComponent,
-    ProductSearchComponent
+    ProductSearchComponent,
+    CateItemComponent,
+    JobsListComponent,
+    QuoteComponent
   ],
   exports: [PhoneMaskDirective],
   imports: [
@@ -100,7 +107,8 @@ import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CategoryService,
-    ProductService
+    ProductService,
+    JobService
   ],
   bootstrap: [AppComponent]
 })

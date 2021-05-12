@@ -11,7 +11,7 @@ namespace api.Interfaces
         void DeleteUser(AppUser user);
         void UpdateUser(AppUser user);
         //Task<bool> SaveAllAsync();
-        Task<IEnumerable<AppUser>> GetUsersAsync();
+        Task<IEnumerable<UserDto>> GetUsersAsync();
         Task<AppUser> GetUserByIdAsync(int id);
         Task<PagedList<UserDto>> GetUsersPagination(PaginationParams paginationParams);
         Task<PagedList<UserDto>> GetUsersWithRolesPagination(PaginationParams paginationParams);

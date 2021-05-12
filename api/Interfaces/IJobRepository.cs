@@ -13,9 +13,10 @@ namespace api.Interfaces
         void DeleteJob(Job job);
 
         Task<PagedList<Job>> GetJobsPagination(PaginationParams paginationParams);
+        Task<PagedList<Job>> GetJobsAvailablePagination(JobParams jobParams);
         Task<IEnumerable<JobDto>> GetJobsDtoAsync();
         Task<IEnumerable<Job>> GetJobsAsync();
-        Task<JobDto> GetJobDtoByIdAsync(int jobId);
+        Task<Job> GetJobDtoByIdAsync(int jobId);
         Task<Job> GetJobByIdAsync(int jobId);
         Task<bool> JobExists(int jobId);
     }

@@ -71,6 +71,9 @@
                 Description
             </th>
             <th>
+                Location
+            </th>
+            <th>
                Salary
             </th>
             <th>
@@ -89,7 +92,13 @@
                 {{job.jobName}}
             </td>
             <td>
-                {{job.description}}
+                <div [innerHTML]="job.description | textTruncate:0:40"></div>
+            </td>
+            <td>
+                {{job.location}}
+            </td>
+            <td>
+                {{job.location}}
             </td>
             <td>
                 {{job.salary}}

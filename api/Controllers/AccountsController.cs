@@ -78,7 +78,8 @@ namespace api.Controllers
                 City = newUser.City,
                 Country = newUser.Country,
                 Zip = newUser.Zip,
-                PhotoUserUrl = newUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl
+                PhotoUserUrl = newUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
+                PhotoUserId = newUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.Id
             };
         }
 
@@ -113,7 +114,8 @@ namespace api.Controllers
                 City = user.City,
                 Country = user.Country,
                 Zip = user.Zip,
-                PhotoUserUrl = user.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl
+                PhotoUserUrl = user.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
+                PhotoUserId = user.PhotoUsers.FirstOrDefault(p => p.IsMain)?.Id
             };
         }
 
@@ -123,6 +125,7 @@ namespace api.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<ActionResult<AccountDto>> UpdateUser(UserUpdateDto userUpdateDto)
         {
             var currentUser = await _userManager.Users
@@ -145,7 +148,9 @@ namespace api.Controllers
                     State = currentUser.State,
                     City = currentUser.City,
                     Country = currentUser.Country,
-                    Zip = currentUser.Zip
+                    Zip = currentUser.Zip,
+                    PhotoUserUrl = currentUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
+                    PhotoUserId = currentUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.Id
                 };
             };
 
@@ -163,14 +168,14 @@ namespace api.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
             var users = await _unitOfWork.UserRepository.GetUsersAsync();
             return Ok(users);
         }
 
         [HttpGet("pagination")]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetProductsPagination([FromQuery] PaginationParams paginationParams)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsersPagination([FromQuery] PaginationParams paginationParams)
         {
             var users = await _unitOfWork.UserRepository.GetUsersPagination(paginationParams);
 
@@ -215,6 +220,67 @@ namespace api.Controllers
                 return CreatedAtRoute("GetUser", new { id = currentUser.Id }, _mapper.Map<PhotoUserDto>(photo));
             }
             return BadRequest("Problem addding photo");
+        }
+
+        [Authorize]
+        [HttpPost("edit-photo/{photoId}")]
+        public async Task<ActionResult<PhotoUserDto>> EditPhotoUser([FromForm] FileUploadDto uploadDto, int photoId)
+        {
+            //remove old photo
+            var user = await _userManager.Users
+                .Include(p => p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+
+            var photo = user.PhotoUsers.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null) return NotFound();
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            }
+
+            user.PhotoUsers.Remove(photo);
+            var resultDelete = await _userManager.UpdateAsync(user);
+
+            if (resultDelete.Succeeded)
+            {
+                //add new photo
+                var file = uploadDto.Avatar;
+                var afterAdding = await _photoService.AddPhotoAsync(file);
+                if (afterAdding.Error != null) return BadRequest(afterAdding.Error.Message);
+
+                var newPhoto = new PhotoUser
+                {
+                    PhotoUserUrl = afterAdding.SecureUrl.AbsoluteUri,
+                    PublicId = afterAdding.PublicId
+                };
+
+                if (user.PhotoUsers.Count == 0)
+                {
+                    newPhoto.IsMain = true;
+                }
+
+                user.PhotoUsers.Add(newPhoto);
+
+                var resultUser = await _userManager.UpdateAsync(user);
+
+                if (resultUser.Succeeded)
+                {
+                    return new PhotoUserDto
+                    {
+                        Id = newPhoto.Id,
+                        PhotoUserUrl = newPhoto.PhotoUserUrl,
+                        IsMain = newPhoto.IsMain
+                    };
+                }
+                return BadRequest("Problem editding photo");
+            }
+
+            return BadRequest("Failed to delete the photo");
+
+
         }
 
         [Authorize]
