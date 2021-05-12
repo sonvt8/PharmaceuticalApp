@@ -7,7 +7,7 @@ namespace api.Helpers
 {
     public class JobParams : PaginationParams
     {
-        public int MaxSalary { get; set; } = 50000;
+        public int MaxSalary { get; set; } = 100000;
         public int MinSalary { get; set; } = 100;
     }
 }

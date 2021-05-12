@@ -1,4 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import ParticlesConfig from 'src/assets/json/particlesjs.json';
 import { Job } from '../_models/job.model';
 import { JobParams } from '../_models/jobParams.model';
@@ -12,42 +15,22 @@ declare var particlesJS: any;
   styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent implements OnInit {
-  @ViewChild('search', { static: true }) searchTerm: ElementRef;
-  jobs: Job[] = []
-  jobParams: JobParams;
-  pagination: Pagination;
-  count=0;
+  x : boolean = true;
+  private sub: Subscription;
   
-  constructor(private jobService: JobService) {
-      this.jobParams = new JobParams();
-   }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.loadJob();
-  }
+    particlesJS('particles-js', ParticlesConfig, function () {
+      console.log('callback - particles.js config loaded');
+    });
 
-  loadJob(){
-    this.jobService.getJobPagination(this.jobParams).subscribe(res=>{
-      this.jobs = res.result;
-      this.pagination = res.pagination;
-      this.count = res.pagination.totalItems;
-    })
-  }
-
-  pageChanged(event: any) {
-    this.jobParams.pageNumber = event.page;
-    this.loadJob();
-  }
-
-  onSearch() {
-    this.jobParams.search = this.searchTerm.nativeElement.value;
-    this.jobParams.pageNumber = 1;
-    this.loadJob();
-  }
-
-  resetFilters() {
-    this.jobParams = this.jobService.resetJobParams();
-    this.loadJob();
+    this.sub = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    )
+    .subscribe(events => {
+      this.x = this.route.snapshot.firstChild.data.x;
+    });
   }
 
 }

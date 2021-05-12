@@ -1,0 +1,101 @@
+h4 {
+    font-weight: 400;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #26ae61;
+}
+
+#jobDesc ul {
+    list-style-type: disc;
+}
+
+#jobDesc ul li::marker {
+    color: #26ae61;
+}
+
+.col-lg-3 h4 {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.overview {
+    padding: 2rem 1.5rem;
+    border: 1px solid #26ae61;
+}
+
+.overview ul li {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.overview-content {
+    margin-left: 2rem;
+}
+
+.overview-content strong {
+    position: relative;
+    top: -5px;
+}
+
+.overview .icon {
+    font-size: 20px;
+    text-align: center;
+    width: 25px;
+}
+
+/* MODAL CSS */
+
+h4.modal-title {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.modal-footer {
+    display: block;
+}
+
+.modal-footer .btn {
+    width: 100%;
+}
+
+.modal-body input[type="text"] {
+    margin-bottom: 2rem;
+    padding: 14px 18px;
+}
+
+.modal-body tabset tab[role="tabpanel"] {
+    margin: 2rem auto 0;
+}
+
+.file-select {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #dce4ec;
+    border-radius: 0.25rem;
+    height: 50px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.file-select div.btn {
+    position: relative;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+
+.file-select .file-select-name {
+    display: inline-block;
+    padding: 0 20px;
+    height: 100%;
+    flex-grow: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+input[type="file"] {
+    display: none;
+}
