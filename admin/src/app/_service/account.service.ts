@@ -19,6 +19,10 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
+  getAccount(id:number){
+    return this.http.get(this.baseUrl + "/" + id);
+  }
+
   getAccountList() {
     return this.http.get(this.baseUrl);
   }

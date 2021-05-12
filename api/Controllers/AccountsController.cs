@@ -123,6 +123,7 @@ namespace api.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<ActionResult<AccountDto>> UpdateUser(UserUpdateDto userUpdateDto)
         {
             var currentUser = await _userManager.Users
@@ -162,8 +163,8 @@ namespace api.Controllers
             return _mapper.Map<UserDto>(user);
         }
 
-        [HttpGet()]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
             var users = await _unitOfWork.UserRepository.GetUsersAsync();
             return Ok(users);

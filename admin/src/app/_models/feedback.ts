@@ -8,6 +8,7 @@ export class FeedBack {
     email:string="";
     phone:string="";
     comments:string;
+    subject:string="";
     isApproved: boolean=true;
     appUserId: number=0;
 }
