@@ -45,6 +45,7 @@ import { PhoneMaskDirective } from './_helpers/phone-mask.directive';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
 import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
+import { JobService } from './_services/job.service';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CategoryService,
-    ProductService
+    ProductService,
+    JobService
   ],
   bootstrap: [AppComponent]
 })

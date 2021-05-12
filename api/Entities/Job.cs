@@ -14,6 +14,7 @@ namespace api.Entities
         public int Salary { get; set; }
         public int Quantity { get; set; }
         public bool IsAvailable { get; set; }
+        public string Location { get; set; }
 
         public string GetStatus()
         {

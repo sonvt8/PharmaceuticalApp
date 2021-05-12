@@ -37,17 +37,35 @@ namespace api.Data
             return await _context.Jobs.FindAsync(jobId);
         }
 
-        public async Task<JobDto> GetJobDtoByIdAsync(int jobId)
+        public async Task<Job> GetJobDtoByIdAsync(int jobId)
         {
             return await _context.Jobs
                 .Where(x => x.Id == jobId)
-                .ProjectTo<JobDto>(_mapper.ConfigurationProvider)
+                //.ProjectTo<JobDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Job>> GetJobsAsync()
         {
             return await _context.Jobs.ToListAsync();
+        }
+
+        public async Task<PagedList<Job>> GetJobsAvailablePagination(JobParams jobParams)
+        {
+            var query = _context.Jobs
+                .AsQueryable();
+
+            query = query.Where(u => u.Salary >= jobParams.MinSalary && u.Salary <= jobParams.MaxSalary);
+
+            query = query.Where(u => u.IsAvailable == true);
+
+            if (!string.IsNullOrEmpty(jobParams.Search))
+            {
+                query = query.Where(e => e.JobName.ToLower().Contains(jobParams.Search));
+            }
+
+            return await PagedList<Job>.CreateAsync(query.AsNoTracking(),
+                    jobParams.PageNumber, jobParams.PageSize);
         }
 
         public async Task<IEnumerable<JobDto>> GetJobsDtoAsync()
