@@ -33,6 +33,10 @@ namespace api.Data
             // Seed Users
             if (await userManager.Users.AnyAsync())
                 return;
+            var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
+            var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
+
+            if (users == null) return;
 
             var roles = new List<AppRole>
             {
@@ -44,6 +48,16 @@ namespace api.Data
             foreach (var role in roles)
             {
                 await roleManager.CreateAsync(role);
+            }
+
+            foreach (var user in users)
+            {
+                //using var hmac = new HMACSHA512();
+
+                user.UserName = user.UserName.ToLower();
+                user.Email = user.Email;
+                await userManager.CreateAsync(user, "password");
+                await userManager.AddToRoleAsync(user, "Member");
             }
 
             var admin = new AppUser
