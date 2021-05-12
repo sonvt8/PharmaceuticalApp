@@ -49,6 +49,7 @@ import { UsersModalComponent } from './modals/users-modal/users-modal.component'
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { UserPhotoModalComponent } from './modals/user-photo-modal/user-photo-modal.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { TextTruncatePipe } from './_pipes/text-truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     RolesModalComponent,
     UsersModalComponent,
     HasRoleDirective,
-    UserPhotoModalComponent
+    UserPhotoModalComponent,
+    TextTruncatePipe
   ],
   imports: [
     BrowserModule,

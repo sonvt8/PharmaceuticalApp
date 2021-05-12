@@ -41,9 +41,7 @@
 <div class="product-detail-body container">
     <tabset [justified]="true">
         <tab heading="Description">
-            <div *ngFor="let description of descriptions">
-                <p>{{description}}</p>
-            </div>
+            <div [innerHTML]="product?.description"></div>
         </tab>
         <tab heading="Data Sheet">
             <h3 class="mb-4">Product Specification</h3>
