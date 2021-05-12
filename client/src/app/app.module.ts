@@ -46,6 +46,7 @@ import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
 import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
 import { CateItemComponent } from './header/cate-item/cate-item.component';
+import { QuoteComponent } from './home/quote/quote.component';
 
 @NgModule({
   declarations: [
@@ -78,8 +79,9 @@ import { CateItemComponent } from './header/cate-item/cate-item.component';
     PhoneMaskDirective,
     ReviewDetailsComponent,
     ProductSearchComponent,
-    CateItemComponent
-    JobsListComponent
+    CateItemComponent,
+    JobsListComponent,
+    QuoteComponent
   ],
   exports: [PhoneMaskDirective],
   imports: [

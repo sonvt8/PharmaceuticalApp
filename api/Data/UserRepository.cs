@@ -34,11 +34,12 @@ namespace api.Data
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<AppUser>> GetUsersAsync()
+        public async Task<IEnumerable<UserDto>> GetUsersAsync()
         {
             return await _context.Users
                 .Include(p => p.PhotoUsers)
-                //.ProjectTo<UserDto>(_mapper.ConfigurationProvider)
+                .Include(p => p.FeedBacks)
+                .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 

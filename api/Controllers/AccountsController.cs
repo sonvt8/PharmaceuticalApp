@@ -167,7 +167,7 @@ namespace api.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
             var users = await _unitOfWork.UserRepository.GetUsersAsync();
             return Ok(users);

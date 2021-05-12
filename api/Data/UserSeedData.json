@@ -10,9 +10,9 @@
 		"Zip":"7512",
 		"Country":"Macedonia",
 		"EmailConfirmed": true,
-		"Photos": [
+		"PhotoUsers": [
 		  {
-			"Url": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f1.jpg",
+			"PhotoUserUrl": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f1.jpg",
 			"IsMain": true
 		  }
 		],
@@ -35,9 +35,9 @@
 		"Zip":"051059",
 		"Country":"Colombia",
 		"EmailConfirmed": true,
-		"Photos": [
+		"PhotoUsers": [
 		  {
-			"Url": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f2.jpg",
+			"PhotoUserUrl": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f2.jpg",
 			"IsMain": true
 		  }
 		],
@@ -60,9 +60,9 @@
 		"Zip":null,
 		"Country":"Indonesia",
 		"EmailConfirmed": true,
-		"Photos": [
+		"PhotoUsers": [
 		  {
-			"Url": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f3.jpg",
+			"PhotoUserUrl": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f3.jpg",
 			"IsMain": true
 		  }
 		],
@@ -85,9 +85,9 @@
 		"Zip":"50000",
 		"Country":"Thailand",
 		"EmailConfirmed": true,
-		"Photos": [
+		"PhotoUsers": [
 		  {
-			"Url": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f4.jpg",
+			"PhotoUserUrl": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f4.jpg",
 			"IsMain": true
 		  }
 		],
@@ -109,9 +109,9 @@
 		"Zip":null,
 		"Country":"Vietnam",
 		"EmailConfirmed": true,
-		"Photos": [
+		"PhotoUsers": [
 		  {
-			"Url": "https://randomuser.me/api/portraits/women/8.jpg",
+			"PhotoUserUrl": "https://randomuser.me/api/portraits/women/8.jpg",
 			"IsMain": true
 		  }
 		],

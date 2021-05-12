@@ -8,6 +8,7 @@ import { User } from '../_models/user.model';
 import { environment } from 'src/environments/environment';
 import { resetPassword } from 'src/app/_models/resetPassword.model';
 import { ChangePassword } from '../_models/changePassword.model';
+import { UserFeedback } from '../_models/userFeedback.model';
 
 @Injectable({
   providedIn: 'root'
@@ -168,6 +169,28 @@ export class AccountService {
         localStorage.removeItem('user');
         this.userSubject.next(null);
         return response;
+      })
+    );
+  }
+
+  getUsers() {
+    return this.http.get(`${environment.apiUrl}/accounts`).pipe(
+      map((response: any) => {
+        var usersFeedbacks: UserFeedback[] = [];
+        response.forEach(user => {
+          var feedbacks = user.feedbacks
+          feedbacks.forEach(feedback => {
+            if (feedback.isApproved){
+              var ele: UserFeedback = {
+                fullName: user.fullName,
+                photoUrl: user.photoUserUrl,
+                comments: feedback.comments
+              }
+              usersFeedbacks.push(ele);
+            }
+          });
+        });
+        return usersFeedbacks;
       })
     );
   }
