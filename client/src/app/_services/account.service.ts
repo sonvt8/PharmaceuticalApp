@@ -141,7 +141,7 @@ export class AccountService {
 
           this.user.subscribe(u => {
             u.photoUserUrl = response.photoUserUrl;
-            u.photoUserId = parseInt(response.id) 
+            u.photoUserId = Number(response.id);
           });
         }
         return response;
