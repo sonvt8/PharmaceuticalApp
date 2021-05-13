@@ -18,12 +18,6 @@
             [class.invalid]="location.invalid && location.touched" />
     </div>
     <div class="form-group">
-        <label>Location</label>
-        <input type="text" class="form-control form-control-lg" placeholder="Location" name="location"
-            #location="ngModel" [(ngModel)]="job.location" required
-            [class.invalid]="location.invalid && location.touched" />
-    </div>
-    <div class="form-group">
         <label>Salary</label>
         <input type="number" class="form-control form-control-lg" placeholder="Salary" name="salary" #salary="ngModel"
             [(ngModel)]="job.salary" required [class.invalid]="salary.invalid && salary.touched" />

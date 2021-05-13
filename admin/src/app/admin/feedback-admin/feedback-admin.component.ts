@@ -97,7 +97,7 @@ export class FeedbackAdminComponent implements OnInit {
     if (this.users == null || this.users.length === 0) { return ''; }
     for (const item of this.users) {
       if (item.id == value) {
-        return item.fullName;
+        return item.userName;
       }
     }
     return '';
