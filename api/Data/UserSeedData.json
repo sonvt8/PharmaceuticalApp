@@ -1,20 +1,21 @@
 [
 	{
-		"FullName":"Koenraad Capstick",
-		"UserName":"Capstick",
-		"Gender":"Male",
-		"Email":"kcapstick0@storify.com",
-		"StreetAddress":"984 Sheridan Court",
-		"State":null,
-		"City":"Beranci",
-		"Zip":"7512",
-		"Country":"Macedonia",
+		"FullName": "Koenraad Capstick",
+		"UserName": "Capstick",
+		"Gender": "Male",
+		"Email": "kcapstick0@storify.com",
+		"StreetAddress": "984 Sheridan Court",
+		"State": null,
+		"City": "Beranci",
+		"Zip": "7512",
+		"Country": "Macedonia",
 		"EmailConfirmed": true,
+		"IsApplied": true,
 		"PhotoUsers": [
-		  {
-			"PhotoUserUrl": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f1.jpg",
-			"IsMain": true
-		  }
+			{
+				"PhotoUserUrl": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f1.jpg",
+				"IsMain": true
+			}
 		],
 		"FeedBacks": [
 			{
@@ -24,25 +25,26 @@
 				"FullName": "Koenraad Capstick",
 				"Email": "kcapstick0@storify.com",
 				"AppUserId": 1
-			}	
+			}
 		]
 	},
 	{
-		"FullName":"Mab Petris",
-		"UserName":"Petris",
-		"Gender":"Male",
-		"Email":"mpetris1@mediafire.com",
-		"StreetAddress":"4844 Sycamore Way",
-		"State":null,
-		"City":"Bello",
-		"Zip":"051059",
-		"Country":"Colombia",
+		"FullName": "Mab Petris",
+		"UserName": "Petris",
+		"Gender": "Male",
+		"Email": "mpetris1@mediafire.com",
+		"StreetAddress": "4844 Sycamore Way",
+		"State": null,
+		"City": "Bello",
+		"Zip": "051059",
+		"Country": "Colombia",
 		"EmailConfirmed": true,
+		"IsApplied": true,
 		"PhotoUsers": [
-		  {
-			"PhotoUserUrl": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f2.jpg",
-			"IsMain": true
-		  }
+			{
+				"PhotoUserUrl": "https://raw.githubusercontent.com/Cybersoft-LeThanhLiem/Homestead_LeThanhLiem/master/img/f2.jpg",
+				"IsMain": true
+			}
 		],
 		"FeedBacks": [
 			{
@@ -52,7 +54,7 @@
 				"FullName": "Mab Petris",
 				"Email": "mpetris1@mediafire.com",
 				"AppUserId": 2
-			}	
+			}
 		]
 	},
 	{
