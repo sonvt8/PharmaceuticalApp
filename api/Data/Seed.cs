@@ -30,6 +30,23 @@ namespace api.Data
             }
             await _context.SaveChangesAsync();
 
+            // Seed Job
+            if (await _context.Jobs.AnyAsync())
+                return;
+
+            var jobData = await System.IO.File.ReadAllTextAsync("Data/JobSeedData.json");
+
+            var jobs = JsonSerializer.Deserialize<List<Job>>(jobData);
+
+            if (jobs == null)
+                return;
+
+            foreach (var job in jobs)
+            {
+                _context.Jobs.Add(job);
+            }
+            await _context.SaveChangesAsync();
+
             // Seed Users
             if (await userManager.Users.AnyAsync())
                 return;
