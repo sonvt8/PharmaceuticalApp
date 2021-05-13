@@ -9,7 +9,7 @@
   },
   {
     "JobName": "Assistant Manager",
-    "Description": "<p>We are looking for a responsible Assistant Manager to help organize and run our retail stores and fill in for the Store Manager when needed. Your job will be highly important in ensuring the sales team meets its goals of efficiency and customer satisfaction.</p><p>Assistant Manager responsibilities include hiring and training sales associates, monitoring inventory and ordering merchandise based on demand. You will also research competitive products and analyze consumer behavior to ensure our store meets and exceeds client expectations.</p><p>Our ideal candidate will have retail manager skills with a sharp business mindset. You should also be skilled at organizing and solving problems. Interpersonal and mediation skills will also be very useful, since you’ll often be acting as a liaison between managers, employees and customers.</p>",
+    "Description": "<p>We are looking for a responsible Assistant Manager to help organize and run our retail stores and fill in for the Store Manager when needed. Your job will be highly important in ensuring the sales team meets its goals of efficiency and customer satisfaction.</p><p>Assistant Manager responsibilities include hiring and training sales associates, monitoring inventory and ordering merchandise based on demand. You will also research competitive products and analyze consumer behavior to ensure our store meets and exceeds client expectations.</p><p>Our ideal candidate will have retail manager skills with a sharp business mindset. You should also be skilled at organizing and solving problems. Interpersonal and mediation skills will also be very useful, since you will often be acting as a liaison between managers, employees and customers.</p>",
     "Salary": 6000,
     "Quantity": 2,
     "Location": "California, American",
@@ -37,6 +37,30 @@
     "Salary": 5000,
     "Quantity": 1,
     "Location": "Beijing, China",
+    "IsAvailable": true
+  },
+  {
+    "JobName": "Technical Sales",
+    "Description": "<p>We are searching for a driven technical sales representative to join our dynamic team. The technical sales representative should have a clear understanding of the components of the products and the ability to demonstrate how they work. Your responsibilities will include establishing the needs of the customer and recommending and demonstrating products.</p><p>To be a successful technical sales representative, you should be able to develop an excellent rapport with your existing customers and source new clients. A top-notch technical sales representative should be knowledgeable about competing products and should have the ability to break down technical terminology to non-technical clients.</p>",
+    "Salary": 6500,
+    "Quantity": 2,
+    "Location": "Ha Noi, VietNam",
+    "IsAvailable": true
+  },
+  {
+    "JobName": "Funeral Attendant",
+    "Description": "<p>We are searching for a compassionate funeral attendant to assist with the progression of funeral services or wakes and help bereaved families during these ceremonies. The funeral attendant will assist with transporting the deceased to the funeral home and overseeing the gravesite and chapel.</p><p>To be successful in this position, you should be comfortable working around the deceased. Top applicants should have explicit knowledge of cultural funeral practices and should be able to coordinate intricate, laborious tasks with accuracy.</p>",
+    "Salary": 3600,
+    "Quantity": 3,
+    "Location": "New York, American",
+    "IsAvailable": true
+  },
+  {
+    "JobName": "Senior Systems Engineer",
+    "Description": "<p>We are seeking a talented senior systems engineer to join our team. In this role, you will be required to analyze computer networks, develop and implement repairs, modifications, and upgrades, and diagnose and resolve system errors or technical issues.</p><p>To be a successful senior systems engineer, you should possess advanced knowledge of hardware and software systems and exceptional analytical thinking abilities. A top-notch senior systems engineer should be able to effectively resolve technical issues and implement cost-effective solutions.</p>",
+    "Salary": 4400,
+    "Quantity": 2,
+    "Location": "Bangkok, Thailand",
     "IsAvailable": true
   }
 ]
