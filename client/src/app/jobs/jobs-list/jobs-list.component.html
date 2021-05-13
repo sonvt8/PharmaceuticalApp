@@ -2,7 +2,7 @@
 <div class="row no-gutters">
     <div class="col-lg-8">
         <div class="list-group" *ngFor="let job of jobs">
-            <a routerLink=":id" class="list-group-item list-group-item-action">
+            <a routerLink="/jobs/{{job.id}}" class="list-group-item list-group-item-action">
                 <div>
                     <h4>{{job.jobName}}</h4>
                     <span>

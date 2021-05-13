@@ -27,6 +27,10 @@ export class JobService {
         return this.http.get(this.baseUrl);
     }
 
+    getJobDetail(id : number) {
+        return this.http.get(this.baseUrl + '/' + id);
+    }
+
     postJob(val: Job) {
         return this.http.post(this.baseUrl, val);
     }

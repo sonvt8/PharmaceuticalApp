@@ -1,0 +1,42 @@
+[
+  {
+    "JobName": "Director",
+    "Description": "<p>We are looking for an experienced managing director to oversee business operations and provide strategic leadership. The managing director's responsibilities include developing and implementing strategic plans and company policies, maintaining an open dialogue with stakeholders, and driving organizational success.</p><p>To be successful as a managing director you should be able to manage and advance a business's strategic objectives. Ultimately, an outstanding Managing Director is an exceptional leader, drives a company's strategic visions, and is adept at crisis management.</p>",
+    "Salary": 10000,
+    "Quantity": 1,
+    "Location": "Ho Chi Minh, VietNam",
+    "IsAvailable": true
+  },
+  {
+    "JobName": "Assistant Manager",
+    "Description": "<p>We are looking for a responsible Assistant Manager to help organize and run our retail stores and fill in for the Store Manager when needed. Your job will be highly important in ensuring the sales team meets its goals of efficiency and customer satisfaction.</p><p>Assistant Manager responsibilities include hiring and training sales associates, monitoring inventory and ordering merchandise based on demand. You will also research competitive products and analyze consumer behavior to ensure our store meets and exceeds client expectations.</p><p>Our ideal candidate will have retail manager skills with a sharp business mindset. You should also be skilled at organizing and solving problems. Interpersonal and mediation skills will also be very useful, since you’ll often be acting as a liaison between managers, employees and customers.</p>",
+    "Salary": 6000,
+    "Quantity": 2,
+    "Location": "California, American",
+    "IsAvailable": true
+  },
+  {
+    "JobName": "Store Manager",
+    "Description": "<p>We are looking for a results driven retail Store Manager to be responsible for the overall store management. The successful candidate will be able to enhance customer satisfaction, meet sales and profitability goals and manage staff effectively. Candidates will have the most success if they have a background in financial planning, employee recruitment, or retail management. Store Manager responsibilities may include supervising assistant store managers.</p>",
+    "Salary": 4000,
+    "Quantity": 2,
+    "Location": "Paris, France",
+    "IsAvailable": true
+  },
+  {
+    "JobName": "Retail Manager",
+    "Description": "<p>We are looking for an experienced Retail Manager to oversee the daily operations of our store. You will be the one to ensure smooth running of operations to maximize sales and minimize costs.</p><p>The ideal candidate will have experience as a store manager and knowledge of diverse business subjects such as sales, marketing etc. An effective retail manager will also be able to motivate personnel to perform according to their maximum capacity.</p><p>The goal is to manage our store in ways that boost revenues and develop the business.</p>",
+    "Salary": 7500,
+    "Quantity": 3,
+    "Location": "Berlin, Germany",
+    "IsAvailable": true
+  },
+  {
+    "JobName": "Area Manager",
+    "Description": "<p>We are looking for an experienced Area Manager to organize and oversee the operations of a number of stores. You will assume responsibility for the overall success of the stores by setting targets, supervising store managers, and ensuring they are attained.</p><p>Effective area managers are skilled in managing diverse operations from a distance. They have a strategic mindset and are excellent leaders. Excellent abilities in financial and operations planning are also essential for the role.</p><p>The goal is to ensure our stores will meet and exceed expectations of business development and efficiency.</p>",
+    "Salary": 5000,
+    "Quantity": 1,
+    "Location": "Beijing, China",
+    "IsAvailable": true
+  }
+]
