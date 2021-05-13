@@ -1,8 +1,8 @@
 <div class="row no-gutters">
     <div class="col-lg-8">
-        <h4>{{job.jobName}}</h4>
+        <h4>{{job?.jobName}}</h4>
         <div #jobDesc>
-            <div [innerHTML]="job.description"></div>
+            <div [innerHTML]="job?.description"></div>
         </div>
     </div>
     <div class="col-lg-3 offset-lg-1">
@@ -13,21 +13,21 @@
                     <i class="far fa-map icon"></i>
                     <div class="overview-content">
                         <strong>Location</strong>
-                        <p>{{job.location}}</p>
+                        <p>{{job?.location}}</p>
                     </div>
                 </li>
                 <li>
                     <i class="far fa-money-bill-alt icon"></i>
                     <div class="overview-content">
                         <strong>Salary</strong>
-                        <p>{{job.salary}}$</p>
+                        <p>{{job?.salary}}$</p>
                     </div>
                 </li>
                 <li>
                     <i class="fas fa-user-tie icon"></i>
                     <div class="overview-content">
                         <strong>Slots</strong>
-                        <p>{{job.quantity}}</p>
+                        <p>{{job?.quantity}}</p>
                     </div>
                 </li>
             </ul>
@@ -60,8 +60,16 @@
                             <span>Browse</span>
                         </div>
                         <div class="file-select-name">No file chosen..</div>
-                        <input type="file" id="fileUpload" accept=".doc, .docx, .pdf">
+                        <input type="file" id="fileUpload" (change)="onSelectFile($event.target.files)" accept=".doc, .docx, .pdf">
                     </label>
+                    <div>
+                        <span class="upload" *ngIf="progress > 0">
+                          {{progress}}%
+                        </span>
+                        <span class="upload" *ngIf="message">
+                          {{message}}
+                        </span>
+                    </div>
                 </tab>
                 <tab heading="Education">
                     <textarea class="form-control" placeholder="List your degrees here.."></textarea>
