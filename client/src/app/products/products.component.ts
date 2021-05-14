@@ -37,13 +37,13 @@ export class ProductsComponent implements OnInit {
         this.loadProductList()
       }
     })
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.id = +params['id'];
-        }
-      );
-    this.loadProductList();
+    // this.route.params
+    //   .subscribe(
+    //     (params: Params) => {
+    //       this.id = +params['id'];
+    //     }
+    //   );
+    //this.loadProductList();
   }
 
   pageChanged(event: any) {
