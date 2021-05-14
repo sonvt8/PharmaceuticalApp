@@ -17,7 +17,7 @@
             <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item dropdown" ngbDropdown >
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" ngbDropdownToggle>Categories</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" ngbDropdownToggle>Categories</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" ngbDropdownMenu  >
                         <app-cate-item *ngFor="let categoryEl of categories; let i = index" [category]="categoryEl"></app-cate-item>
                     </div>
