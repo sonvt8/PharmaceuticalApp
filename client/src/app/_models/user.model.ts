@@ -11,6 +11,7 @@ export class User {
     public city?: string;
     public country?: string;
     public zip?: string;
+    public degree?: string;
     public photoUserUrl?: string;
     public photoUserId?: number;
 

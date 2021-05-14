@@ -1,8 +1,8 @@
 <div class="row no-gutters">
     <div class="col-lg-8">
-        <h4>{{job.jobName}}</h4>
+        <h4>{{job?.jobName}}</h4>
         <div #jobDesc>
-            <div [innerHTML]="job.description"></div>
+            <div [innerHTML]="job?.description"></div>
         </div>
     </div>
     <div class="col-lg-3 offset-lg-1">
@@ -13,21 +13,21 @@
                     <i class="far fa-map icon"></i>
                     <div class="overview-content">
                         <strong>Location</strong>
-                        <p>{{job.location}}</p>
+                        <p>{{job?.location}}</p>
                     </div>
                 </li>
                 <li>
                     <i class="far fa-money-bill-alt icon"></i>
                     <div class="overview-content">
                         <strong>Salary</strong>
-                        <p>{{job.salary}}$</p>
+                        <p>{{job?.salary}}$</p>
                     </div>
                 </li>
                 <li>
                     <i class="fas fa-user-tie icon"></i>
                     <div class="overview-content">
                         <strong>Slots</strong>
-                        <p>{{job.quantity}}</p>
+                        <p>{{job?.quantity}}</p>
                     </div>
                 </li>
             </ul>
@@ -44,12 +44,19 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <form>
+    <form [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
         <div class="modal-body">
             <tabset [justified]="true">
                 <tab heading="Basic Info">
-                    <input type="text" placeholder="Full Name" class="form-control">
-                    <input type="text" placeholder="Email Address" class="form-control">
+                    <input type="text" formControlName="fullname" placeholder="Full Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" disabled>
+                    <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                        <div *ngIf="f.fullname.errors.required">Fullname is required</div>
+                    </div>
+                    <input type="text" formControlName="email" placeholder="Email Address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" disabled>
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                    </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <strong>Upload your CV</strong>
                         <small>Format: .doc, .docx, .pdf</small>
@@ -60,16 +67,24 @@
                             <span>Browse</span>
                         </div>
                         <div class="file-select-name">No file chosen..</div>
-                        <input type="file" id="fileUpload" accept=".doc, .docx, .pdf">
+                        <input type="file" id="fileUpload" (change)="onSelectFile($event.target.files)" accept=".doc, .docx, .pdf">
                     </label>
+                    <div>
+                        <span class="upload" *ngIf="progress > 0">
+                          {{progress}}%
+                        </span>
+                        <span class="upload" *ngIf="message">
+                          {{message}}
+                        </span>
+                    </div>
                 </tab>
                 <tab heading="Education">
-                    <textarea class="form-control" placeholder="List your degrees here.."></textarea>
+                    <textarea class="form-control" formControlName="degree" placeholder="List your degrees here.." [ngClass]="{ 'is-invalid': submitted && f.degree.errors }"></textarea>
                 </tab>
             </tabset>
         </div>
         <div class="modal-footer">
-            <button type="button" ngbAutofocus class="btn btn-success">Send Application</button>
+            <button type="button" ngbAutofocus class="btn btn-success btn-submit" [disabled]="!resumeForm.dirty">Send Application</button>
         </div>
     </form>
 </ng-template>
