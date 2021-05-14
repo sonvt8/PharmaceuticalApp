@@ -8,6 +8,7 @@ import { AccountService } from 'src/app/_services/account.service';
 import countriesLbr from 'src/assets/json/countries.json';
 import { User } from 'src/app/_models/user.model';
 import { Country } from 'src/app/_models/country.model';
+import { UserUpdate } from 'src/app/_models/userUpdate.model';
 
 @Component({
   selector: 'app-profile-detail',
@@ -76,17 +77,19 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.currentUser['fullName'] = this.profileForm.controls['fullname'].value;
-    this.currentUser['email'] = this.profileForm.controls['email'].value;
-    this.currentUser['gender'] = this.profileForm.controls['gender'].value;
-    this.currentUser['streetAddress'] = this.profileForm.controls['address'].value;
-    this.currentUser['state'] = this.profileForm.controls['state'].value;
-    this.currentUser['city'] = this.profileForm.controls['city'].value;
-    this.currentUser['country'] = this.profileForm.controls['lstCountries'].value;
-    this.currentUser['phoneNumber'] = this.profileForm.controls['phone'].value;
-    this.currentUser['zip'] = this.profileForm.controls['zip'].value;
+    var userUpdated: UserUpdate = {
+      fullName: this.profileForm.controls['fullname'].value,
+      email: this.profileForm.controls['email'].value,
+      gender: this.profileForm.controls['gender'].value,
+      streetAddress: this.profileForm.controls['address'].value,
+      state: this.profileForm.controls['state'].value,
+      city: this.profileForm.controls['city'].value,
+      country: this.profileForm.controls['lstCountries'].value,
+      phoneNumber: this.profileForm.controls['phone'].value,
+      zip:this.profileForm.controls['zip'].value
+    };
 
-    this.accountService.update(this.currentUser).subscribe(response => {
+    this.accountService.update(userUpdated).subscribe(response => {
       if(response)  {
         this.toastr.success('Your profile has been updated successfully');
         this.router.navigate(['../back'], { relativeTo: this.route });

@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { resetPassword } from 'src/app/_models/resetPassword.model';
 import { ChangePassword } from '../_models/changePassword.model';
 import { UserFeedback } from '../_models/userFeedback.model';
+import { UserUpdate } from '../_models/userUpdate.model';
 
 @Injectable({
   providedIn: 'root'
@@ -86,9 +87,9 @@ export class AccountService {
     );
   }
 
-  update(user: User) {
+  update(user: UserUpdate) {
     return this.http.post(`${environment.apiUrl}/accounts`, user).pipe(
-      map((response: User) => {
+      map((response: any) => {
         if (response) {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
