@@ -78,6 +78,7 @@ namespace api.Controllers
                 City = newUser.City,
                 Country = newUser.Country,
                 Zip = newUser.Zip,
+                Degree = newUser.Degree,
                 PhotoUserUrl = newUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
                 PhotoUserId = newUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
             };
@@ -114,6 +115,7 @@ namespace api.Controllers
                 City = user.City,
                 Country = user.Country,
                 Zip = user.Zip,
+                Degree = user.Degree,
                 PhotoUserUrl = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
                 PhotoUserId = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
             };
@@ -149,6 +151,7 @@ namespace api.Controllers
                     City = currentUser.City,
                     Country = currentUser.Country,
                     Zip = currentUser.Zip,
+                    Degree = currentUser.Degree,
                     PhotoUserUrl = currentUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
                     PhotoUserId = currentUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
                 };

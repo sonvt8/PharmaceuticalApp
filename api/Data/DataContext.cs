@@ -23,6 +23,7 @@ namespace api.Data
         public DbSet<PhotoProduct> PhotoProducts { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
+        public DbSet<Download> Downloads { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -41,7 +42,6 @@ namespace api.Data
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
-
 
         }
 

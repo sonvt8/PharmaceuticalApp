@@ -105,6 +105,7 @@ export class AccountService {
             "photoUserUrl": response.photoUserUrl
           }));
         }
+        console.log(response)
         return response;
       })
     );

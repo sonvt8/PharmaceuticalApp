@@ -4,13 +4,14 @@ import { AccountService } from 'src/app/_services/account.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Job } from 'src/app/_models/job.model';
 import { JobService } from 'src/app/_services/job.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserUpdate } from 'src/app/_models/userUpdate.model';
 
 @Component({
   selector: 'app-job-detail',
@@ -21,6 +22,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   currentUser: User;
   job: Job;
   id: number;
+  count: number = 0;
   public progress: number;
   public message: string;
   loading: boolean = false;
@@ -40,7 +42,8 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     private candidateService: CandidateService,
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
-  ) { 
+    private router: Router
+  ) {
     this.accountService.user.subscribe(x => {
       this.currentUser = x;
     });
@@ -56,7 +59,8 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
     this.resumeForm = this.formBuilder.group({
       fullname: [this.currentUser.fullName, Validators.required],
-      email: [this.currentUser.email, [Validators.required, Validators.email]]
+      email: [this.currentUser.email, [Validators.required, Validators.email]],
+      degree: this.currentUser.degree
     });
   }
 
@@ -82,9 +86,10 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     formData.append('file', this.fileToUpload, this.fileToUpload.name);
     this.candidateService.uploadResume(formData).subscribe(event  => {
       if (event.type === HttpEventType.UploadProgress)
-      this.progress = Math.round(100 * event.loaded / event.total);
+        this.progress = Math.round(100 * event.loaded / event.total);
       else if (event.type === HttpEventType.Response) {
-        this.message = 'Upload success.';
+        ++this.count;
+        this.message = `Upload ${this.count} ${this.count > 1 ? 'files' : 'file'} successfully.`;
         this.onUploadFinished.emit(event.body);
       }
     },error => {
@@ -99,14 +104,27 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         return;
     }
     this.loading = true;
+    console.log(this.resumeForm.controls['degree'].value)
 
-    this.currentUser['fullName'] = this.resumeForm.controls['fullname'].value;
-    this.currentUser['email'] = this.resumeForm.controls['email'].value;
+    // this.currentUser['degree'] = this.resumeForm.controls['degree'].value;
 
-    // this.accountService.update(this.currentUser).subscribe(response => {
+    // var userUpdated: UserUpdate = {
+    //   fullName: this.currentUser.fullName,
+    //   email: this.currentUser.email,
+    //   gender: this.currentUser.gender,
+    //   streetAddress: this.currentUser.streetAddress,
+    //   state: this.currentUser.state,
+    //   city: this.currentUser.city,
+    //   country: this.currentUser.country,
+    //   phoneNumber: this.currentUser.phoneNumber,
+    //   zip:this.currentUser.zip,
+    //   degree:this.currentUser.degree
+    // };
+
+    // this.accountService.update(userUpdated).subscribe(response => {
     //   if(response)  {
-    //     this.toastr.success('Your profile has been updated successfully');
-    //     this.router.navigate(['../back'], { relativeTo: this.route });
+    //     this.toastr.success('Your resume has been uploaded successfully');
+    //     this.router.navigate(['../'], { relativeTo: this.route });
     //   }
     // },error => {
     //   this.toastr.error(error.error)

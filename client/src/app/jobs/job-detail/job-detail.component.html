@@ -44,7 +44,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <form>
+    <form [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
         <div class="modal-body">
             <tabset [justified]="true">
                 <tab heading="Basic Info">
@@ -52,7 +52,7 @@
                     <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
                         <div *ngIf="f.fullname.errors.required">Fullname is required</div>
                     </div>
-                    <input type="text" formControlName="email"placeholder="Email Address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" disabled>
+                    <input type="text" formControlName="email" placeholder="Email Address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" disabled>
                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                         <div *ngIf="f.email.errors.required">Email is required</div>
                         <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
@@ -79,12 +79,12 @@
                     </div>
                 </tab>
                 <tab heading="Education">
-                    <textarea class="form-control" placeholder="List your degrees here.."></textarea>
+                    <textarea class="form-control" formControlName="degree" placeholder="List your degrees here.." [ngClass]="{ 'is-invalid': submitted && f.degree.errors }"></textarea>
                 </tab>
             </tabset>
         </div>
         <div class="modal-footer">
-            <button type="button" ngbAutofocus class="btn btn-success">Send Application</button>
+            <button type="button" ngbAutofocus class="btn btn-success btn-submit" [disabled]="!resumeForm.dirty">Send Application</button>
         </div>
     </form>
 </ng-template>
