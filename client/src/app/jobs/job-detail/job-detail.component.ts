@@ -27,6 +27,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   public message: string;
   loading: boolean = false;
   submitted: boolean = false;
+  showModal: boolean;
 
   fileToUpload: File = null;
   subscriptionId: Subscription;
@@ -104,32 +105,31 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         return;
     }
     this.loading = true;
-    console.log(this.resumeForm.controls['degree'].value)
 
-    // this.currentUser['degree'] = this.resumeForm.controls['degree'].value;
+    this.currentUser['degree'] = this.resumeForm.controls['degree'].value;
 
-    // var userUpdated: UserUpdate = {
-    //   fullName: this.currentUser.fullName,
-    //   email: this.currentUser.email,
-    //   gender: this.currentUser.gender,
-    //   streetAddress: this.currentUser.streetAddress,
-    //   state: this.currentUser.state,
-    //   city: this.currentUser.city,
-    //   country: this.currentUser.country,
-    //   phoneNumber: this.currentUser.phoneNumber,
-    //   zip:this.currentUser.zip,
-    //   degree:this.currentUser.degree
-    // };
+    var userUpdated: UserUpdate = {
+      fullName: this.currentUser.fullName,
+      email: this.currentUser.email,
+      gender: this.currentUser.gender,
+      streetAddress: this.currentUser.streetAddress,
+      state: this.currentUser.state,
+      city: this.currentUser.city,
+      country: this.currentUser.country,
+      phoneNumber: this.currentUser.phoneNumber,
+      zip:this.currentUser.zip,
+      degree:this.currentUser.degree
+    };
 
-    // this.accountService.update(userUpdated).subscribe(response => {
-    //   if(response)  {
-    //     this.toastr.success('Your resume has been uploaded successfully');
-    //     this.router.navigate(['../'], { relativeTo: this.route });
-    //   }
-    // },error => {
-    //   this.toastr.error(error.error)
-    //   this.loading = false;
-    // })
+    this.accountService.update(userUpdated).subscribe(response => {
+      if(response)  {
+        this.toastr.success('Your resume has been uploaded successfully');
+        this.router.navigate(['../'], { relativeTo: this.route });
+      }
+    },error => {
+      this.toastr.error(error.error)
+      this.loading = false;
+    })
   }
 
   ngOnDestroy(){

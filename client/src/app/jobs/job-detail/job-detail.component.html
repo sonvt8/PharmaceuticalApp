@@ -33,6 +33,8 @@
             </ul>
             <button [disabled]="!currentUser" class="btn btn-success w-100 font-weight-bold"
                 (click)="openVerticallyCentered(content)">Apply</button>
+            <!-- <button [disabled]="!currentUser" class="btn btn-success w-100 font-weight-bold"
+            (click) = "show()">Apply</button> -->
         </div>
     </div>
 </div>
@@ -84,7 +86,62 @@
             </tabset>
         </div>
         <div class="modal-footer">
-            <button type="button" ngbAutofocus class="btn btn-success btn-submit" [disabled]="!resumeForm.dirty">Send Application</button>
+            <button type="submit" ngbAutofocus class="btn btn-success btn-submit" [disabled]="!resumeForm.dirty || f.degree.value == ''">Send Application</button>
         </div>
     </form>
 </ng-template>
+
+<!-- <div [style.display]="showModal ? 'block' : 'none'" class="modal" id="imagemodal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Register</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
+                    <tabset [justified]="true">
+                        <tab heading="Basic Info">
+                            <input type="text" formControlName="fullname" placeholder="Full Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" disabled>
+                            <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                                <div *ngIf="f.fullname.errors.required">Fullname is required</div>
+                            </div>
+                            <input type="text" formControlName="email" placeholder="Email Address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" disabled>
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                <div *ngIf="f.email.errors.required">Email is required</div>
+                                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong>Upload your CV</strong>
+                                <small>Format: .doc, .docx, .pdf</small>
+                            </div>
+                            <label for="fileUpload" class="file-select mt-4">
+                                <div class="btn btn-success">
+                                    <i class="fa fa-upload mr-2"></i>
+                                    <span>Browse</span>
+                                </div>
+                                <div class="file-select-name">No file chosen..</div>
+                                <input type="file" id="fileUpload" (change)="onSelectFile($event.target.files)" accept=".doc, .docx, .pdf">
+                            </label>
+                            <div>
+                                <span class="upload" *ngIf="progress > 0">
+                                  {{progress}}%
+                                </span>
+                                <span class="upload" *ngIf="message">
+                                  {{message}}
+                                </span>
+                            </div>
+                        </tab>
+                        <tab heading="Education">
+                            <textarea class="form-control" formControlName="degree" placeholder="List your degrees here.." [ngClass]="{ 'is-invalid': submitted && f.degree.errors }"></textarea>
+                        </tab>
+                    </tabset>
+                    <button type="submit" class="btn btn-success" >Send Application</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
