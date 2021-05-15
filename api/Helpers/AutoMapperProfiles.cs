@@ -38,6 +38,7 @@ namespace api.Helpers
                 .ForMember(des => des.PhotoProductUrl, opt => opt.MapFrom(src => src.PhotoProducts.FirstOrDefault(x => x.IsMain).PhotoProductUrl));
             CreateMap<ProductCreateDto, Product>();
             CreateMap<PhotoProduct, PhotoProductDto>();
+            CreateMap<Download, DownloadDto>();
         }
     }
 }

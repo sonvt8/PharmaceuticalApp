@@ -118,7 +118,7 @@ namespace api
                               .AllowAnyMethod()
                               .AllowCredentials()
                               .WithOrigins("https://localhost:4200", "https://localhost:4400", "http://localhost:4200"));
-            app.UseStaticFiles();
+ 
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
