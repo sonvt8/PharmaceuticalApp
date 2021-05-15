@@ -117,8 +117,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
       city: this.currentUser.city,
       country: this.currentUser.country,
       phoneNumber: this.currentUser.phoneNumber,
-      zip:this.currentUser.zip,
-      degree:this.currentUser.degree
+      zip:this.currentUser.zip
     };
 
     this.accountService.update(userUpdated).subscribe(response => {

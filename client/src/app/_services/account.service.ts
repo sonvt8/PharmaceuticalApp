@@ -40,6 +40,7 @@ export class AccountService {
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({
+          "token": user.token,
           "fullName": user.fullName,
           "email": user.email,
           "gender": user.gender,
@@ -58,7 +59,6 @@ export class AccountService {
   }
 
   logout() {
-    // remove user from local storage and set current user to null
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/login']);
@@ -70,6 +70,7 @@ export class AccountService {
         if (response) {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
+            "token": response.token,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,
@@ -89,10 +90,11 @@ export class AccountService {
 
   update(user: UserUpdate) {
     return this.http.post(`${environment.apiUrl}/accounts`, user).pipe(
-      map((response: any) => {
+      map((response: User) => {
         if (response) {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
+            "token": response.token,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,
@@ -105,7 +107,8 @@ export class AccountService {
             "photoUserUrl": response.photoUserUrl
           }));
         }
-        console.log(response)
+        console.log("User after update:")
+        console.log(this.userValue)
         return response;
       })
     );
@@ -126,6 +129,8 @@ export class AccountService {
             u.photoUserUrl = response.photoUserUrl;
           });
         }
+        console.log("User after upload avatar:")
+        console.log(this.userValue)
         return response;
       })
     );
@@ -146,6 +151,8 @@ export class AccountService {
             u.photoUserId = Number(response.id);
           });
         }
+        console.log("User after edit avatar:")
+        console.log(this.userValue)
         return response;
       })
     );

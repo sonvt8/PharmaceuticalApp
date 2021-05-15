@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace api.DTOs
         public string City { get; set; } = "";
         public string Country { get; set; } = "";
         public string Zip { get; set; } = "";
-        public string Degree { get; set; } = "";
+        public Job Job { get; set; }
         public string PhotoUserUrl { get; set; } = "";
         public int? PhotoUserId { get; set; }
     }

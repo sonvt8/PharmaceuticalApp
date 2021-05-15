@@ -8,7 +8,6 @@ export class UserUpdate {
     public city?: string;
     public country?: string;
     public zip?: string;
-    public degree?: string;
 
     constructor(fullName: string, email: string, gender: string, streetAddress: string, phoneNumber: string
         , state: string, city: string, country: string, zip: string){
