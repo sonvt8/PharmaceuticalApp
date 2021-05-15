@@ -131,6 +131,8 @@ namespace api.Controllers
         public async Task<ActionResult<AccountDto>> UpdateUser(UserUpdateDto userUpdateDto)
         {
             var currentUser = await _userManager.Users
+                .Include(p => p.PhotoUsers)
+                .Include(p => p.Job)
                 .SingleOrDefaultAsync(x => x.Email == userUpdateDto.Email.ToLower());
 
             _mapper.Map(userUpdateDto, currentUser);
