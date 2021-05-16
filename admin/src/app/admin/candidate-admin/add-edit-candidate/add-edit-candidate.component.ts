@@ -11,13 +11,18 @@ import { CandidateService } from 'src/app/_service/candidate.service';
 export class AddEditCandidateComponent implements OnInit {
 
   @Input() candidate: any;
+  fileNames : string[] = []
   @Input()
   public myCallback: Function;
   ModalTitle: string
   
   constructor(public candidateService: CandidateService, private toastr: ToastrService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    for(let i=0;i<this.candidate.downloads.length;i++){
+      this.fileNames.push(this.candidate.downloads[i].fileName);
+    }
+  }
 
   onApproved() {
     this.candidate.isApproved = true;

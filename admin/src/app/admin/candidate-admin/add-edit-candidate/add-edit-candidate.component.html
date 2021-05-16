@@ -1,49 +1,54 @@
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3 text-center">
         <img class="img-detail img-thumbnail" src="{{candidate.photoUserUrl || './assets/img/user.png'}}"
             alt="{{candidate.fullName}}">
     </div>
-    <div class="col-md-8">
+    <div class="col-md-6">
         <dl class="row">
 
-            <dt class="col-md-2">Id</dt>
-            <dd class="col-md-10">{{candidate.id}}</dd>
+            <dt class="col-md-3">Id</dt>
+            <dd class="col-md-9">{{candidate.id}}</dd>
 
-            <dt class="col-md-2">Full Name</dt>
-            <dd class="col-md-10">{{candidate.fullName}}</dd>
+            <dt class="col-md-3">Full Name</dt>
+            <dd class="col-md-9">{{candidate.fullName}}</dd>
 
-            <dt class="col-md-2">Email</dt>
-            <dd class="col-md-10">{{candidate.email}}</dd>
+            <dt class="col-md-3">Email</dt>
+            <dd class="col-md-9">{{candidate.email}}</dd>
 
-            <dt class="col-md-2">Age</dt>
-            <dd class="col-md-10">{{candidate.age}}</dd>
+            <dt class="col-md-3">Age</dt>
+            <dd class="col-md-9">{{candidate.age}}</dd>
 
-            <dt class="col-md-2">Gender</dt>
-            <dd class="col-md-10">{{candidate.gender}}</dd>
+            <dt class="col-md-3">Gender</dt>
+            <dd class="col-md-9">{{candidate.gender}}</dd>
 
-            <dt class="col-md-2">Address</dt>
-            <dd class="col-md-10">{{candidate.streetAddress}}</dd>
+            <dt class="col-md-3">Address</dt>
+            <dd class="col-md-9">{{candidate.streetAddress}}</dd>
 
-            <dt class="col-md-2">State</dt>
-            <dd class="col-md-10">{{candidate.state}}</dd>
+            <dt class="col-md-3">State</dt>
+            <dd class="col-md-9">{{candidate.state}}</dd>
 
-            <dt class="col-md-2">City</dt>
-            <dd class="col-md-10">{{candidate.city}}</dd>
+            <dt class="col-md-3">City</dt>
+            <dd class="col-md-9">{{candidate.city}}</dd>
 
-            <dt class="col-md-2">Country</dt>
-            <dd class="col-md-10">{{candidate.country}}</dd>
+            <dt class="col-md-3">Country</dt>
+            <dd class="col-md-9">{{candidate.country}}</dd>
 
-            <dt class="col-md-2">Degree</dt>
-            <dd class="col-md-10">{{candidate.degree}}</dd>
+            <dt class="col-md-3">Degree</dt>
+            <dd class="col-md-9">{{candidate.degree}}</dd>
 
-            <dt class="col-md-2">Experience</dt>
-            <dd class="col-md-10">{{candidate.experience}}</dd>
+            <dt class="col-md-3">Experience</dt>
+            <dd class="col-md-9">{{candidate.experience}}</dd>
 
-            <dt class="col-md-2">Status</dt>
-            <dd class="col-md-10"><span class="{{getColor(candidate.isApproved)}}">{{candidate.isApproved | isApproved}}</span></dd>
+            <dt class="col-md-3">Status</dt>
+            <dd class="col-md-9"><span class="{{getColor(candidate.isApproved)}}">{{candidate.isApproved | isApproved}}</span></dd>
         </dl>
     </div>
-
+    <div class="col-md-3">
+        <h6>Click below to download CV:</h6>
+        <a *ngFor="let item of fileNames" href="{{candidateService.FileUrl + '/' + item}}" download>
+            <p>{{item}}</p>
+        </a>
+    </div>
 </div>
 <hr>
 <div *ngIf="candidate.isApproved==null">
