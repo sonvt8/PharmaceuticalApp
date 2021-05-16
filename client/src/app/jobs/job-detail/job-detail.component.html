@@ -31,8 +31,8 @@
                     </div>
                 </li>
             </ul>
-            <button [disabled]="!currentUser" class="btn btn-success w-100 font-weight-bold"
-                (click)="openVerticallyCentered(content)">Apply</button>
+            <button [disabled]="currentUser.jobId" class="btn btn-success w-100 font-weight-bold"
+                (click)="openVerticallyCentered(content)">{{!currentUser.jobId ? 'Apply' : 'Applied'}}  </button>
         </div>
     </div>
 </div>

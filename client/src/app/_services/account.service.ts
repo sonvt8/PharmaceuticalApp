@@ -41,6 +41,7 @@ export class AccountService {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({
           "token": user.token,
+          "jobId": user.jobId,
           "fullName": user.fullName,
           "email": user.email,
           "gender": user.gender,
@@ -71,6 +72,7 @@ export class AccountService {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
             "token": response.token,
+            "jobId": response.jobId,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,
@@ -95,6 +97,7 @@ export class AccountService {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
             "token": response.token,
+            "jobId": response.jobId,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,

@@ -49,6 +49,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   ) {
     this.accountService.user.subscribe(x => {
       this.currentUser = x;
+      console.log(this.currentUser)
     });
   }
 
