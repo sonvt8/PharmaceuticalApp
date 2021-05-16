@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { resetPassword } from 'src/app/_models/resetPassword.model';
 import { ChangePassword } from '../_models/changePassword.model';
 import { UserFeedback } from '../_models/userFeedback.model';
+import { UserUpdate } from '../_models/userUpdate.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,8 @@ export class AccountService {
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({
+          "token": user.token,
+          "jobId": user.jobId,
           "fullName": user.fullName,
           "email": user.email,
           "gender": user.gender,
@@ -57,7 +60,6 @@ export class AccountService {
   }
 
   logout() {
-    // remove user from local storage and set current user to null
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/login']);
@@ -69,6 +71,8 @@ export class AccountService {
         if (response) {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
+            "token": response.token,
+            "jobId": response.jobId,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,
@@ -86,12 +90,14 @@ export class AccountService {
     );
   }
 
-  update(user: User) {
+  update(user: UserUpdate) {
     return this.http.post(`${environment.apiUrl}/accounts`, user).pipe(
       map((response: User) => {
         if (response) {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
+            "token": response.token,
+            "jobId": response.jobId,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,
@@ -141,7 +147,7 @@ export class AccountService {
 
           this.user.subscribe(u => {
             u.photoUserUrl = response.photoUserUrl;
-            u.photoUserId = parseInt(response.id) 
+            u.photoUserId = Number(response.id);
           });
         }
         return response;

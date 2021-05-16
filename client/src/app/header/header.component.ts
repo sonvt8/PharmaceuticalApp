@@ -8,6 +8,7 @@ import { AccountService } from '../_services/account.service';
 import { Subscription } from 'rxjs';
 import { CategoryService } from '../_services/category.service';
 import { ProductService } from '../_services/product.service';
+import { LoaderService } from '../_services/loader.service';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private accountService: AccountService, 
     private router: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    public loaderService: LoaderService
   ) {
     this.subscription = this.accountService.user.subscribe(x => {
       this.currentUser = x;

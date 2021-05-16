@@ -1,23 +1,8 @@
 <div class="row no-gutters">
     <div class="col-lg-8">
-        <h4>Quality Assurance Specialist</h4>
+        <h4>{{job?.jobName}}</h4>
         <div #jobDesc>
-            <p>Under limited supervision, responsible for delivery of activities at client to ensure Product Quality
-                throughout the lifecycle of commercial and/or clinical products. This key role must ensure effective
-                interaction with other departments and locations regarding product quality risks, technology transfer,
-                commercial operations, process and analytical lifecycle management and product discontinuation. This
-                role will involve leading/partnering with major stakeholders such as Regulatory Affairs, Operations,
-                Clinical Supply, Quality Control and Stability regarding GMP document, data preparation and review. The
-                Global role enables efficient communication and decision making related to the quality of client
-                products.</p>
-            <h6>Responsibilities:</h6>
-            <ul>
-                <li>Provide Record Management support by performing the following activities:</li>
-                <li>Inventorying and boxing clinical batch records and other records for archival</li>
-                <li>Scanning documents, preparing documents, copy verification, and shipment preparation.</li>
-                <li>Uploading PDFs into the PharmSci Global Document Management System</li>
-                <li>Miscellaneous filling support as needed within Pharmaceutical Sciences Quality Assurance</li>
-            </ul>
+            <div [innerHTML]="job?.description"></div>
         </div>
     </div>
     <div class="col-lg-3 offset-lg-1">
@@ -28,26 +13,26 @@
                     <i class="far fa-map icon"></i>
                     <div class="overview-content">
                         <strong>Location</strong>
-                        <p>Sydney, Australia</p>
+                        <p>{{job?.location}}</p>
                     </div>
                 </li>
                 <li>
                     <i class="far fa-money-bill-alt icon"></i>
                     <div class="overview-content">
                         <strong>Salary</strong>
-                        <p>50.000$</p>
+                        <p>{{job?.salary}}$</p>
                     </div>
                 </li>
                 <li>
                     <i class="fas fa-user-tie icon"></i>
                     <div class="overview-content">
                         <strong>Slots</strong>
-                        <p>2</p>
+                        <p>{{job?.quantity}}</p>
                     </div>
                 </li>
             </ul>
-            <button [disabled]="!currentUser" class="btn btn-success w-100 font-weight-bold"
-                (click)="openVerticallyCentered(content)">Apply</button>
+            <button [disabled]="currentUser.jobId" class="btn btn-success w-100 font-weight-bold"
+                (click)="openVerticallyCentered(content)">{{!currentUser.jobId ? 'Apply' : 'Applied'}}  </button>
         </div>
     </div>
 </div>
@@ -59,12 +44,19 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <form>
+    <form [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
         <div class="modal-body">
             <tabset [justified]="true">
                 <tab heading="Basic Info">
-                    <input type="text" placeholder="Full Name" class="form-control">
-                    <input type="text" placeholder="Email Address" class="form-control">
+                    <input type="text" formControlName="fullname" placeholder="Full Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" disabled>
+                    <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                        <div *ngIf="f.fullname.errors.required">Fullname is required</div>
+                    </div>
+                    <input type="text" formControlName="email" placeholder="Email Address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" disabled>
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                    </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <strong>Upload your CV</strong>
                         <small>Format: .doc, .docx, .pdf</small>
@@ -75,16 +67,24 @@
                             <span>Browse</span>
                         </div>
                         <div class="file-select-name">No file chosen..</div>
-                        <input type="file" id="fileUpload" accept=".doc, .docx, .pdf">
+                        <input type="file" id="fileUpload" (change)="onSelectFile($event.target.files)" accept=".doc, .docx, .pdf">
                     </label>
+                    <div>
+                        <span class="upload" *ngIf="progress > 0">
+                          {{progress}}%
+                        </span>
+                        <span class="upload" *ngIf="message">
+                          {{message}}
+                        </span>
+                    </div>
                 </tab>
                 <tab heading="Education">
-                    <textarea class="form-control" placeholder="List your degrees here.."></textarea>
+                    <textarea class="form-control" formControlName="degree" placeholder="List your degrees here.." [ngClass]="{ 'is-invalid': submitted && f.degree.errors }"></textarea>
                 </tab>
             </tabset>
         </div>
         <div class="modal-footer">
-            <button type="button" ngbAutofocus class="btn btn-success">Send Application</button>
+            <button type="submit" ngbAutofocus class="btn btn-success btn-submit" [disabled]="!resumeForm.dirty || f.degree.value == ''">Send Application</button>
         </div>
     </form>
 </ng-template>
