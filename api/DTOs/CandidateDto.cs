@@ -24,5 +24,6 @@ namespace api.DTOs
         public int? JobId { get; set; }
 
         public ICollection<PhotoUserDto> PhotoUsers { get; set; }
+        public ICollection<DownloadDto> Downloads { get; set; }
     }
 }

@@ -1,21 +1,5 @@
 <h3 class="text-info">General Information</h3>
-
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <h6>Photo</h6>
-    <div class="row photo-upload">
-        <div class="col-lg-4">
-            <label class="hoverable" for="fileInput">
-                <img [src]="url ? url : currentUser.photoUserUrl">
-                <div class="hover-text">Choose file</div>
-                <div class="background"></div>
-            </label>
-            <input id="fileInput" type="file" (change)="onSelectFile($event.target.files)" accept="image/*">
-        </div>
-        <div class="col-lg-8">
-            <button *ngIf="url" (click)="onUploadFile()" class="btn btn-success submit-img">{{ isEdited == 'uploaded' ? 'Upload' : 'Edit' }}</button>
-        </div>
-    </div>
-
     <div class="form-row">
         <div class="form-group col-md-9">
             <label for="fullname">Fullname</label>

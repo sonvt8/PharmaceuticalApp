@@ -67,8 +67,7 @@ export class RegisterComponent implements OnInit {
       fullName: this.registerForm.get('firstName').value + " " + this.registerForm.get('lastName').value,
       email: this.registerForm.get('email').value,
       gender:this.registerForm.get('gender').value,
-      password:this.registerForm.get('password').value,
-      token: ''
+      password:this.registerForm.get('password').value
     };
 
     this.accountService.register(user).subscribe(response => {

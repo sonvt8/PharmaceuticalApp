@@ -64,6 +64,7 @@ namespace api.Controllers
 
             var newUser = await _userManager.Users
                 .Include(p => p.PhotoUsers)
+                .Include(p => p.Job)
                 .SingleOrDefaultAsync(u => u.Email == user.Email.ToLower());
 
             return new AccountDto
@@ -78,8 +79,10 @@ namespace api.Controllers
                 City = newUser.City,
                 Country = newUser.Country,
                 Zip = newUser.Zip,
-                PhotoUserUrl = newUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
-                PhotoUserId = newUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.Id
+                Degree = newUser.Degree,
+                JobId = newUser.Job.Id,
+                PhotoUserUrl = newUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
+                PhotoUserId = newUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
             };
         }
 
@@ -88,6 +91,7 @@ namespace api.Controllers
         {
             var user = await _userManager.Users
                 .Include(p => p.PhotoUsers)
+                .Include(p => p.Job)
                 .SingleOrDefaultAsync(u => u.Email == loginDto.Email.ToLower());
             if (user == null) return BadRequest("Email is incorrect!");
 
@@ -114,8 +118,10 @@ namespace api.Controllers
                 City = user.City,
                 Country = user.Country,
                 Zip = user.Zip,
-                PhotoUserUrl = user.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
-                PhotoUserId = user.PhotoUsers.FirstOrDefault(p => p.IsMain)?.Id
+                Degree = user.Degree,
+                JobId = user.Job.Id,
+                PhotoUserUrl = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
+                PhotoUserId = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
             };
         }
 
@@ -129,6 +135,8 @@ namespace api.Controllers
         public async Task<ActionResult<AccountDto>> UpdateUser(UserUpdateDto userUpdateDto)
         {
             var currentUser = await _userManager.Users
+                .Include(p => p.PhotoUsers)
+                .Include(p => p.Job)
                 .SingleOrDefaultAsync(x => x.Email == userUpdateDto.Email.ToLower());
 
             _mapper.Map(userUpdateDto, currentUser);
@@ -140,8 +148,8 @@ namespace api.Controllers
                 return new AccountDto
                 {
                     FullName = currentUser.FullName,
-                    Gender = currentUser.Gender,
                     Token = await _tokenService.CreateToken(currentUser),
+                    Gender = currentUser.Gender,
                     Email = currentUser.Email,
                     StreetAddress = currentUser.StreetAddress,
                     PhoneNumber = currentUser.PhoneNumber,
@@ -149,11 +157,12 @@ namespace api.Controllers
                     City = currentUser.City,
                     Country = currentUser.Country,
                     Zip = currentUser.Zip,
-                    PhotoUserUrl = currentUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
-                    PhotoUserId = currentUser.PhotoUsers.FirstOrDefault(p => p.IsMain)?.Id
+                    Degree = currentUser.Degree,
+                    JobId = currentUser.Job.Id,
+                    PhotoUserUrl = currentUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
+                    PhotoUserId = currentUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
                 };
             };
-
             return BadRequest("Failed to update user");
         }
 
@@ -279,8 +288,6 @@ namespace api.Controllers
             }
 
             return BadRequest("Failed to delete the photo");
-
-
         }
 
         [Authorize]

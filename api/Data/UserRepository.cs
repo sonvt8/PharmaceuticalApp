@@ -39,6 +39,7 @@ namespace api.Data
             return await _context.Users
                 .Include(p => p.PhotoUsers)
                 .Include(p => p.FeedBacks)
+                .Include(p => p.Downloads)
                 .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -47,6 +48,7 @@ namespace api.Data
         {
             var query = _context.Users
                 .Include(p => p.PhotoUsers)
+                .Include(p => p.Downloads)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(paginationParams.Search))

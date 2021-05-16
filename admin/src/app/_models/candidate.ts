@@ -1,3 +1,4 @@
+import { Download } from "./download";
 import { PhotoUser } from "./photoUser";
 
 export class Candidate {
@@ -17,4 +18,5 @@ export class Candidate {
     jobId: number = 0;
     jobTitle: string = '';
     photoUsers: PhotoUser[];
+    download: Download[]
 }

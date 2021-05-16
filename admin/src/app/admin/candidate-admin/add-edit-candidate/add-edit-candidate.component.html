@@ -2,11 +2,6 @@
     <div class="col-md-3 text-center">
         <img class="img-detail img-thumbnail" src="{{candidate.photoUserUrl || './assets/img/user.png'}}"
             alt="{{candidate.fullName}}">
-            <hr>
-        <h6>Click on the image to download CV:</h6>
-            <a href="liên_kết_đến_file_cần_tải_xuống" download>
-                <img src="./assets/img/download.jpg" width="200">
-            </a>
     </div>
     <div class="col-md-6">
         <dl class="row">
@@ -45,11 +40,15 @@
             <dd class="col-md-9">{{candidate.experience}}</dd>
 
             <dt class="col-md-3">Status</dt>
-            <dd class="col-md-9"><span class="{{getColor(candidate.isApproved)}}">{{candidate.isApproved |
-                    isApproved}}</span></dd>
+            <dd class="col-md-9"><span class="{{getColor(candidate.isApproved)}}">{{candidate.isApproved | isApproved}}</span></dd>
         </dl>
     </div>
-
+    <div class="col-md-3">
+        <h6>Click below to download CV:</h6>
+        <a *ngFor="let item of fileNames" href="{{candidateService.FileUrl + '/' + item}}" download>
+            <p>{{item}}</p>
+        </a>
+    </div>
 </div>
 <hr>
 <div *ngIf="candidate.isApproved==null">

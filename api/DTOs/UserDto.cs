@@ -23,5 +23,6 @@ namespace api.DTOs
         public ICollection<string> Roles { get; set; }
         public ICollection<PhotoUserDto> PhotoUsers { get; set; }
         public ICollection<FeedBackDto> Feedbacks { get; set; }
+        
     }
 }
