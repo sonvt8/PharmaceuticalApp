@@ -64,6 +64,7 @@ namespace api.Controllers
 
             var newUser = await _userManager.Users
                 .Include(p => p.PhotoUsers)
+                .Include(p => p.Job)
                 .SingleOrDefaultAsync(u => u.Email == user.Email.ToLower());
 
             return new AccountDto
@@ -78,7 +79,8 @@ namespace api.Controllers
                 City = newUser.City,
                 Country = newUser.Country,
                 Zip = newUser.Zip,
-                Job = newUser.Job,
+                Degree = newUser.Degree,
+                JobId = newUser.Job.Id,
                 PhotoUserUrl = newUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
                 PhotoUserId = newUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
             };
@@ -89,6 +91,7 @@ namespace api.Controllers
         {
             var user = await _userManager.Users
                 .Include(p => p.PhotoUsers)
+                .Include(p => p.Job)
                 .SingleOrDefaultAsync(u => u.Email == loginDto.Email.ToLower());
             if (user == null) return BadRequest("Email is incorrect!");
 
@@ -115,7 +118,8 @@ namespace api.Controllers
                 City = user.City,
                 Country = user.Country,
                 Zip = user.Zip,
-                Job = user.Job,
+                Degree = user.Degree,
+                JobId = user.Job.Id,
                 PhotoUserUrl = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
                 PhotoUserId = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
             };
@@ -153,7 +157,8 @@ namespace api.Controllers
                     City = currentUser.City,
                     Country = currentUser.Country,
                     Zip = currentUser.Zip,
-                    Job = currentUser.Job,
+                    Degree = currentUser.Degree,
+                    JobId = currentUser.Job.Id,
                     PhotoUserUrl = currentUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
                     PhotoUserId = currentUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
                 };

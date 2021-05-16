@@ -107,8 +107,6 @@ export class AccountService {
             "photoUserUrl": response.photoUserUrl
           }));
         }
-        console.log("User after update:")
-        console.log(this.userValue)
         return response;
       })
     );
@@ -129,8 +127,6 @@ export class AccountService {
             u.photoUserUrl = response.photoUserUrl;
           });
         }
-        console.log("User after upload avatar:")
-        console.log(this.userValue)
         return response;
       })
     );
@@ -151,8 +147,6 @@ export class AccountService {
             u.photoUserId = Number(response.id);
           });
         }
-        console.log("User after edit avatar:")
-        console.log(this.userValue)
         return response;
       })
     );

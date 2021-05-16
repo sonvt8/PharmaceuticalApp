@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
-import { UserUpdate } from 'src/app/_models/userUpdate.model';
+import { Candidate } from 'src/app/_models/cadidate.model';
 
 @Component({
   selector: 'app-job-detail',
@@ -21,8 +21,10 @@ import { UserUpdate } from 'src/app/_models/userUpdate.model';
 export class JobDetailComponent implements OnInit, OnDestroy {
   currentUser: User;
   job: Job;
-  id: number;
+  jobId: number;
+  jobTitle: string;
   count: number = 0;
+
   public progress: number;
   public message: string;
   loading: boolean = false;
@@ -52,8 +54,9 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptionId = this.route.params.subscribe(param=>{
-      this.id = param['id'];
-      if(this.id){
+      this.jobId = param['id'];
+      this.jobTitle = param['title'];
+      if(this.jobId){
         this.loadJobDetail()
       }
     })
@@ -69,7 +72,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   get f() { return this.resumeForm.controls; }
 
   loadJobDetail(){
-    this.jobService.getJobDetail(this.id).subscribe(res=>{
+    this.jobService.getJobDetail(this.jobId).subscribe(res=>{
       this.job = res as Job;
     })
   }
@@ -108,23 +111,25 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
     this.currentUser['degree'] = this.resumeForm.controls['degree'].value;
 
-    var userUpdated: UserUpdate = {
+    var candidate: Candidate = {
       fullName: this.currentUser.fullName,
-      email: this.currentUser.email,
+      photoUserUrl: this.currentUser.photoUserUrl,
       gender: this.currentUser.gender,
       streetAddress: this.currentUser.streetAddress,
       state: this.currentUser.state,
       city: this.currentUser.city,
       country: this.currentUser.country,
-      phoneNumber: this.currentUser.phoneNumber,
-      zip:this.currentUser.zip
+      degree: this.currentUser.degree,
+      jobId:this.jobId,
+      jobTitle:this.jobTitle,
+      isApproved:null,
+      isApplied:true
     };
 
-    this.accountService.update(userUpdated).subscribe(response => {
-      if(response)  {
-        this.toastr.success('Your resume has been uploaded successfully');
-        this.router.navigate(['../'], { relativeTo: this.route });
-      }
+    this.candidateService.createCadidate(candidate).subscribe(response => {
+      this.toastr.success('Uploaded successfully. HR will send invitation interview if your resume is suitable');
+      this.modalService.dismissAll();
+      this.router.navigate(['../'], { relativeTo: this.route });
     },error => {
       this.toastr.error(error.error)
       this.loading = false;

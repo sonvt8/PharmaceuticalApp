@@ -48,7 +48,7 @@ const routes: Routes = [
     path: 'jobs', component: JobsComponent,
     children: [
       { path: '', component: JobsListComponent, data: { x: true } },
-      { path: ':id', component: JobDetailComponent, data: { x: false } }
+      { path: ':id/:title', component: JobDetailComponent, data: { x: false } }
     ]
   },
   { path: 'product-search', component: ProductSearchComponent },

@@ -18,7 +18,8 @@ namespace api.DTOs
         public string City { get; set; } = "";
         public string Country { get; set; } = "";
         public string Zip { get; set; } = "";
-        public Job Job { get; set; }
+        public string Degree { get; set; } = "";
+        public int? JobId { get; set; }
         public string PhotoUserUrl { get; set; } = "";
         public int? PhotoUserId { get; set; }
     }
