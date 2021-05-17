@@ -37,7 +37,7 @@ namespace api.Data
             return await _context.Jobs.FindAsync(jobId);
         }
 
-        public async Task<Job> GetJobDtoByIdAsync(int jobId)
+        public async Task<Job> GetJobDtoByIdAsync(int? jobId)
         {
             return await _context.Jobs
                 .Where(x => x.Id == jobId)
@@ -88,7 +88,7 @@ namespace api.Data
                     paginationParams.PageNumber, paginationParams.PageSize);
         }
 
-        public async Task<bool> JobExists(int jobId)
+        public async Task<bool> JobExists(int? jobId)
         {
             return await _context.Jobs.AnyAsync(j => j.Id == jobId);
         }

@@ -41,5 +41,6 @@ namespace api.Entities
         public ICollection<AppUserRole> UserRoles { get; set; }
         public ICollection<PhotoUser> PhotoUsers { get; set; }
         public ICollection<Download> Downloads { get; set; }
+        public ICollection<AppliedJobHistory> AppliedJobHistories { get; set; }
     }
 }

@@ -27,13 +27,15 @@ namespace api.Controllers
         private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMailService _mailService;
-        public CandidatesController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService, IMailService mailService)
+        private readonly ITokenService _tokenService;
+        public CandidatesController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService, IMailService mailService, ITokenService tokenService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
             _photoService = photoService;
             _mailService = mailService;
+            _tokenService = tokenService;
         }
 
         //[Authorize(Policy = "RequireAdminRole")]
@@ -88,7 +90,7 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPut()]
-        public async Task<ActionResult> CreateCandidate(CandidateCreateDto candidateCreateDto)
+        public async Task<ActionResult<AccountDto>> CreateCandidate(CandidateCreateDto candidateCreateDto)
         {
             var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == User.GetUserId());
             if (user == null) return NotFound();
@@ -97,7 +99,42 @@ namespace api.Controllers
 
             var result = await _userManager.UpdateAsync(user);
 
-            if (result.Succeeded) return NoContent();
+            //Job info
+            if (!await _unitOfWork.JobRepository.JobExists(candidateCreateDto.JobId))
+                return NotFound();
+
+            var appliedJob = await _unitOfWork.JobRepository.GetJobDtoByIdAsync(user.JobId);
+            var job = new JobDto
+            {
+                Id = appliedJob.Id,
+                JobName = appliedJob.JobName,
+                Description = appliedJob.Description,
+                Salary = appliedJob.Salary,
+                Quantity = appliedJob.Quantity,
+                Location = appliedJob.Location,
+                Status = appliedJob.GetStatus(),
+            };
+
+            if (result.Succeeded)
+            {
+                return new AccountDto
+                {
+                    FullName = user.FullName,
+                    Gender = user.Gender,
+                    Token = await _tokenService.CreateToken(user),
+                    Email = user.Email,
+                    StreetAddress = user.StreetAddress,
+                    PhoneNumber = user.PhoneNumber,
+                    State = user.State,
+                    City = user.City,
+                    Country = user.Country,
+                    Zip = user.Zip,
+                    Degree = user.Degree,
+                    Job = job,
+                    PhotoUserUrl = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
+                    PhotoUserId = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
+                };
+            }
 
             return BadRequest("Failed to update user");
         }
@@ -140,12 +177,15 @@ namespace api.Controllers
         }
 
         [HttpPost("uploadcv"), DisableRequestSizeLimit]
-        public async Task<IActionResult> Upload()
+        public async Task<IActionResult> Upload([FromForm] FilesUploadDto uploadDto)
         {
+            var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Email == uploadDto.Email);
+            if (user == null) return NotFound();
+
             try
             {
-                var formCollection = await Request.ReadFormAsync();
-                var file = formCollection.Files.First();
+                //var formCollection = await Request.ReadFormAsync();
+                var file = uploadDto.File;
                 var folderName = Path.Combine("Resources", "Resumes");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                 if (file.Length > 0)
@@ -157,6 +197,16 @@ namespace api.Controllers
                     {
                         file.CopyTo(stream);
                     }
+
+                    var fileToUploaded = new Download
+                    {
+                        FileName = fileName,
+                        AppUserId = user.Id
+                    };
+
+                    _unitOfWork.FileRepository.AddFiles(fileToUploaded);
+                    await _unitOfWork.Complete();
+
                     return Ok(new { dbPath });
                 }
                 else
@@ -168,6 +218,37 @@ namespace api.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex}");
             }
+        }
+
+        // Career Profile
+        [HttpGet("career_profile")]
+        public async Task<ActionResult<IEnumerable<CareerProfileDto>>> GetCareerProfiles()
+        {
+            var careerProfiles = await _unitOfWork.HistoryRepository.GetHistories();
+
+            return Ok(careerProfiles);
+        }
+
+        [HttpPost("career_profile")]
+        public async Task<ActionResult> AddCareerProfile(AppliedJobHistory careerProfile)
+        {
+
+            _unitOfWork.HistoryRepository.AddHistory(careerProfile);
+
+            await _unitOfWork.Complete();
+
+            return Ok();
+        }
+
+        [HttpPut("career_profile")]
+        public async Task<ActionResult> UpdateCareerProfile(AppliedJobHistory careerProfile)
+        {
+
+            _unitOfWork.HistoryRepository.AddHistory(careerProfile);
+
+            await _unitOfWork.Complete();
+
+            return Ok();
         }
     }
 }

@@ -16,7 +16,7 @@ export class User {
     public degree?: string;
     public photoUserUrl?: string;
     public photoUserId?: number;
-    public jobId?: number;
+    public job: Job;
 
     constructor(fullName: string, email: string, token: string, gender: string, password: string){
         this.fullName = fullName;
