@@ -176,50 +176,6 @@ namespace api.Controllers
             return BadRequest("Failed to delete user");
         }
 
-        //[HttpPost("uploadcv"), DisableRequestSizeLimit]
-        //public async Task<IActionResult> Upload(CandidateUploadFilesDto candidateEmail)
-        //{
-        //    //var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Email == candidateEmail.Email);
-        //    //if (user == null) return NotFound();
-
-        //    try
-        //    {
-        //        var formCollection = await Request.ReadFormAsync();
-        //        var file = formCollection.Files.First();
-        //        var folderName = Path.Combine("Resources", "Resumes");
-        //        var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-        //        if (file.Length > 0)
-        //        {
-        //            var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-        //            var fullPath = Path.Combine(pathToSave, fileName);
-        //            var dbPath = Path.Combine(folderName, fileName);
-        //            using (var stream = new FileStream(fullPath, FileMode.Create))
-        //            {
-        //                file.CopyTo(stream);
-        //            }
-
-        //            //var fileToUploaded = new Download
-        //            //{
-        //            //    FileName = fileName,
-        //            //    AppUserId = user.Id
-        //            //};
-
-        //            //_unitOfWork.FileRepository.AddFiles(fileToUploaded);
-        //            //await _unitOfWork.Complete();
-
-        //            return Ok(new { dbPath });
-        //        }
-        //        else
-        //        {
-        //            return BadRequest();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Internal server error: {ex}");
-        //    }
-        //}
-
         [HttpPost("uploadcv"), DisableRequestSizeLimit]
         public async Task<IActionResult> Upload([FromForm] FilesUploadDto uploadDto)
         {
@@ -262,6 +218,37 @@ namespace api.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex}");
             }
+        }
+
+        // Career Profile
+        [HttpGet("career_profile")]
+        public async Task<ActionResult<IEnumerable<CareerProfileDto>>> GetCareerProfiles()
+        {
+            var careerProfiles = await _unitOfWork.HistoryRepository.GetHistories();
+
+            return Ok(careerProfiles);
+        }
+
+        [HttpPost("career_profile")]
+        public async Task<ActionResult> AddCareerProfile(AppliedJobHistory careerProfile)
+        {
+
+            _unitOfWork.HistoryRepository.AddHistory(careerProfile);
+
+            await _unitOfWork.Complete();
+
+            return Ok();
+        }
+
+        [HttpPut("career_profile")]
+        public async Task<ActionResult> UpdateCareerProfile(AppliedJobHistory careerProfile)
+        {
+
+            _unitOfWork.HistoryRepository.AddHistory(careerProfile);
+
+            await _unitOfWork.Complete();
+
+            return Ok();
         }
     }
 }

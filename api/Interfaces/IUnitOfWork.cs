@@ -16,6 +16,7 @@ namespace api.Interfaces
         ICategoryRepository CategoryRepository { get; }
         ICandidateRepository CandidateRepository { get; }
         IFileRepository FileRepository { get; }
+        IHistoryRepository HistoryRepository { get; }
         Task<bool> Complete();
     }
 }

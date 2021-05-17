@@ -47,6 +47,7 @@ export class AccountService {
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({
+          "id": user.id,
           "token": user.token,
           "jobId": user.job.id,
           "fullName": user.fullName,
@@ -105,6 +106,7 @@ export class AccountService {
         if (response) {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
+            "id": response.id,
             "token": response.token,
             "jobId": response.job.id,
             "fullName": response.fullName,

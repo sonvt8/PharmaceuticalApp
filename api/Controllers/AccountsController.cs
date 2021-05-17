@@ -122,6 +122,7 @@ namespace api.Controllers
 
             return new AccountDto
             {
+                Id = user.Id,
                 FullName = user.FullName,
                 Gender = user.Gender,
                 Token = await _tokenService.CreateToken(user),
@@ -176,6 +177,7 @@ namespace api.Controllers
             {
                 return new AccountDto
                 {
+                    Id = currentUser.Id,
                     FullName = currentUser.FullName,
                     Token = await _tokenService.CreateToken(currentUser),
                     Gender = currentUser.Gender,

@@ -32,6 +32,7 @@ namespace api.Data
         public ICategoryRepository CategoryRepository => new CategoryRepository(_context, _mapper);
 
         public ICandidateRepository CandidateRepository => new CandidateRepository(_context, _mapper);
+        public IHistoryRepository HistoryRepository => new HistoryRepository(_context, _mapper);
 
         public IFileRepository FileRepository => new FileRepository(_context);
 

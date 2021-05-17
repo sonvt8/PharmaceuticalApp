@@ -71,7 +71,6 @@ export class RegisterComponent implements OnInit {
     };
 
     this.accountService.register(user).subscribe(response => {
-      console.log(response)
       this.toastr.success('You have registered successfully');
       this.router.navigate(['../login'], { relativeTo: this.route });
     },error => {
