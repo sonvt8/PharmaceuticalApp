@@ -226,7 +226,7 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser([FromForm] FileUploadDto uploadDto)
+        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser([FromForm] PhotoUploadDto uploadDto)
         {
             var file = uploadDto.Avatar;
 
@@ -262,7 +262,7 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPost("edit-photo/{photoId}")]
-        public async Task<ActionResult<PhotoUserDto>> EditPhotoUser([FromForm] FileUploadDto uploadDto, int photoId)
+        public async Task<ActionResult<PhotoUserDto>> EditPhotoUser([FromForm] PhotoUploadDto uploadDto, int photoId)
         {
             //remove old photo
             var user = await _userManager.Users

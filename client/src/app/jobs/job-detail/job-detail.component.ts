@@ -87,7 +87,9 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     }
     this.fileToUpload = files[0];
     const formData = new FormData();
-    formData.append('file', this.fileToUpload, this.fileToUpload.name);
+    formData.append('file', this.fileToUpload, this.fileToUpload.name); 
+    formData.append('email', this.currentUser['email']);
+
     this.candidateService.uploadResume(formData).subscribe(event  => {
       if (event.type === HttpEventType.UploadProgress)
         this.progress = Math.round(100 * event.loaded / event.total);

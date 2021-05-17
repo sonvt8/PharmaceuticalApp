@@ -15,17 +15,19 @@
         <tr>
             <th scope="col">Title</th>
             <th scope="col">Salary</th>
-            <th scope="col">Status</th>
+            <th scope="col">Job Status</th>
+            <!-- <th scope="col">Review Status</th> -->
         </tr>
     </thead>
     <tbody>
         <tr *ngIf="currentUser.job.jobName ; else infoText">
             <th scope="row">{{currentUser.job.jobName}}</th>
             <td>{{currentUser.job.salary}}$</td>
-            <td>
+            <td>{{currentUser.job.status}}$</td>
+            <!-- <td>
                 <button class="btn btn-outline-success"><i class="fas fa-cloud-download-alt"></i></button>
                 <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-            </td>
+            </td> -->
         </tr>
         <ng-template #infoText>
             <!-- <tr>You have not applied job</tr> -->

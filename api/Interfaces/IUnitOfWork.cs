@@ -15,6 +15,7 @@ namespace api.Interfaces
         IFeedBackRepository FeedBackRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         ICandidateRepository CandidateRepository { get; }
+        IFileRepository FileRepository { get; }
         Task<bool> Complete();
     }
 }

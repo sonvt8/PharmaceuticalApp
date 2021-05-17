@@ -33,6 +33,8 @@ namespace api.Data
 
         public ICandidateRepository CandidateRepository => new CandidateRepository(_context, _mapper);
 
+        public IFileRepository FileRepository => new FileRepository(_context);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
