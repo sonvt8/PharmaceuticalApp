@@ -23,6 +23,12 @@
             [class.invalid]="country.invalid && country.touched" />
     </div>
     <div class="form-group">
+        <label>Subject</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Subject" name="subject"
+            #subject="ngModel" [(ngModel)]="contact.subject" required
+            [class.invalid]="subject.invalid && subject.touched" />
+    </div>
+    <div class="form-group">
         <label>Description</label>
         <textarea type="text" class="form-control form-control-lg" placeholder="Description" name="description"
             #description="ngModel" [(ngModel)]="contact.description" required
