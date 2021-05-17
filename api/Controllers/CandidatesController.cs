@@ -27,13 +27,15 @@ namespace api.Controllers
         private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMailService _mailService;
-        public CandidatesController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService, IMailService mailService)
+        private readonly ITokenService _tokenService;
+        public CandidatesController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService, IMailService mailService, ITokenService tokenService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
             _photoService = photoService;
             _mailService = mailService;
+            _tokenService = tokenService;
         }
 
         //[Authorize(Policy = "RequireAdminRole")]
@@ -88,7 +90,7 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPut()]
-        public async Task<ActionResult> CreateCandidate(CandidateCreateDto candidateCreateDto)
+        public async Task<ActionResult<AccountDto>> CreateCandidate(CandidateCreateDto candidateCreateDto)
         {
             var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == User.GetUserId());
             if (user == null) return NotFound();
@@ -97,7 +99,42 @@ namespace api.Controllers
 
             var result = await _userManager.UpdateAsync(user);
 
-            if (result.Succeeded) return NoContent();
+            //Job info
+            if (!await _unitOfWork.JobRepository.JobExists(candidateCreateDto.JobId))
+                return NotFound();
+
+            var appliedJob = await _unitOfWork.JobRepository.GetJobDtoByIdAsync(user.JobId);
+            var job = new JobDto
+            {
+                Id = appliedJob.Id,
+                JobName = appliedJob.JobName,
+                Description = appliedJob.Description,
+                Salary = appliedJob.Salary,
+                Quantity = appliedJob.Quantity,
+                Location = appliedJob.Location,
+                Status = appliedJob.GetStatus(),
+            };
+
+            if (result.Succeeded)
+            {
+                return new AccountDto
+                {
+                    FullName = user.FullName,
+                    Gender = user.Gender,
+                    Token = await _tokenService.CreateToken(user),
+                    Email = user.Email,
+                    StreetAddress = user.StreetAddress,
+                    PhoneNumber = user.PhoneNumber,
+                    State = user.State,
+                    City = user.City,
+                    Country = user.Country,
+                    Zip = user.Zip,
+                    Degree = user.Degree,
+                    Job = job,
+                    PhotoUserUrl = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
+                    PhotoUserId = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
+                };
+            }
 
             return BadRequest("Failed to update user");
         }

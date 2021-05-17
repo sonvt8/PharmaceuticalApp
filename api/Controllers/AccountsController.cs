@@ -92,6 +92,8 @@ namespace api.Controllers
                 .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(u => u.Email == loginDto.Email.ToLower());
 
+            if (user == null) return BadRequest("Email is incorrect!");
+
             if (user.JobId > 0)
             {
                 if (!await _unitOfWork.JobRepository.JobExists(user.JobId))
@@ -103,9 +105,9 @@ namespace api.Controllers
                 job.Description = appliedJob.Description;
                 job.Salary = appliedJob.Salary;
                 job.Quantity = appliedJob.Quantity;
+                job.Location = appliedJob.Location;
+                job.Status = appliedJob.GetStatus();
             }
-
-            if (user == null) return BadRequest("Email is incorrect!");
 
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, loginDto.Password, false);
@@ -162,6 +164,8 @@ namespace api.Controllers
                 job.Description = appliedJob.Description;
                 job.Salary = appliedJob.Salary;
                 job.Quantity = appliedJob.Quantity;
+                job.Location = appliedJob.Location;
+                job.Status = appliedJob.GetStatus();
             }
             
             _mapper.Map(userUpdateDto, currentUser);

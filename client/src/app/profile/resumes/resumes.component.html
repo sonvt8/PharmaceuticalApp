@@ -1,4 +1,4 @@
-<h3>CV Manager</h3>
+<h3>Career Manager</h3>
 <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="Upload your CV">
     <div class="input-group-append">
@@ -14,34 +14,22 @@
     <thead class="thead-dark">
         <tr>
             <th scope="col">Title</th>
-            <th scope="col">Date posted</th>
-            <th scope="col">Actions</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Status</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">Chemical Engineering Associate</th>
-            <td>18/05/2020</td>
+        <tr *ngIf="currentUser.job.jobName ; else infoText">
+            <th scope="row">{{currentUser.job.jobName}}</th>
+            <td>{{currentUser.job.salary}}$</td>
             <td>
                 <button class="btn btn-outline-success"><i class="fas fa-cloud-download-alt"></i></button>
                 <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
             </td>
         </tr>
-        <tr>
-            <th scope="row">Quality Controller</th>
-            <td>10/02/2018</td>
-            <td>
-                <button class="btn btn-outline-success"><i class="fas fa-cloud-download-alt"></i></button>
-                <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Supply Chain Manager</th>
-            <td>21/08/2019</td>
-            <td>
-                <button class="btn btn-outline-success"><i class="fas fa-cloud-download-alt"></i></button>
-                <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-            </td>
-        </tr>
+        <ng-template #infoText>
+            <!-- <tr>You have not applied job</tr> -->
+            <h2>You have not applied job</h2>
+        </ng-template>
     </tbody>
 </table>

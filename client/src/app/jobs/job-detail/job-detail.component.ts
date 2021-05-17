@@ -49,7 +49,6 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   ) {
     this.accountService.user.subscribe(x => {
       this.currentUser = x;
-      console.log(this.currentUser)
     });
   }
 
@@ -128,13 +127,23 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     };
 
     this.candidateService.createCadidate(candidate).subscribe(response => {
-      this.toastr.success('Uploaded successfully. HR will send invitation interview if your resume is suitable');
-      this.modalService.dismissAll();
-      this.router.navigate(['../'], { relativeTo: this.route });
+      if(response){
+        this.toastr.success('Uploaded successfully. HR will send invitation interview if your resume is suitable');
+        this.modalService.dismissAll();
+        // this.reload();
+        this.router.navigate(['../'], { relativeTo: this.route });
+      }
+
     },error => {
       this.toastr.error(error.error)
       this.loading = false;
     })
+  }
+
+  reload() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['./'], { relativeTo: this.route });
   }
 
   ngOnDestroy(){

@@ -13,5 +13,6 @@ namespace api.DTOs
         public int Salary { get; set; }
         public int Quantity { get; set; }
         public string Status { get; set; }
+        public string Location { get; set; }
     }
 }
