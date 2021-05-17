@@ -25,7 +25,7 @@ namespace api.Entities
         public bool IsApplied { get; set; } = false;
 
         public Job Job { get; set; }
-        public int? JobId { get; set; }
+        public int JobId { get; set; }
 
         public int GetAge()
         {

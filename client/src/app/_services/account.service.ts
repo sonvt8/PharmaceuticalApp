@@ -10,6 +10,8 @@ import { resetPassword } from 'src/app/_models/resetPassword.model';
 import { ChangePassword } from '../_models/changePassword.model';
 import { UserFeedback } from '../_models/userFeedback.model';
 import { UserUpdate } from '../_models/userUpdate.model';
+import { UserLogin } from '../_models/userLogin.model';
+import { UserRegister } from '../_models/userRegister.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +37,13 @@ export class AccountService {
     return this.http.get(this.baseUrl);
   }
 
-  login(user: User) {
+  login(user: UserLogin) {
     return this.http.post<User>(`${environment.apiUrl}/accounts/login`, user)
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({
           "token": user.token,
-          "jobId": user.jobId,
+          "jobId": user.job.id,
           "fullName": user.fullName,
           "email": user.email,
           "gender": user.gender,
@@ -65,14 +67,14 @@ export class AccountService {
     this.router.navigate(['/login']);
   }
 
-  register(user: User) {
+  register(user: UserRegister) {
     return this.http.post(`${environment.apiUrl}/accounts/register`, user).pipe(
       map((response: User) => {
         if (response) {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
             "token": response.token,
-            "jobId": response.jobId,
+            "jobId": response.job.id,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,
@@ -97,7 +99,7 @@ export class AccountService {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
             "token": response.token,
-            "jobId": response.jobId,
+            "jobId": response.job.id,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,

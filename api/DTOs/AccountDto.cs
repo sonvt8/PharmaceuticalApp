@@ -20,6 +20,7 @@ namespace api.DTOs
         public string Zip { get; set; } = "";
         public string Degree { get; set; } = "";
         public int? JobId { get; set; }
+        public JobDto Job { get; set; } = null;
         public string PhotoUserUrl { get; set; } = "";
         public int? PhotoUserId { get; set; }
     }
