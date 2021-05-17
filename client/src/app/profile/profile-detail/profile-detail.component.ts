@@ -158,8 +158,4 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['./'], { relativeTo: this.route });
   }
-
-  public delete() {
-    this.url = null;
-  }
 }

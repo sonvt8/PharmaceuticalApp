@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AccountService } from '../_services/account.service';
 import { User } from 'src/app/_models/user.model';
+import { UserLogin } from '../_models/userLogin.model';
 
 @Component({
   selector: 'app-account',
@@ -50,18 +51,16 @@ export class AccountComponent implements OnInit {
 
     this.loading = true;
 
-    var loginUser: User = {
+    var loginUser: UserLogin = {
       email: this.loginForm.get('email').value,
-      password:this.loginForm.get('password').value,
-      gender: '',
-      fullName: '',
-      token: ''
+      password:this.loginForm.get('password').value
     };
 
     this.accountService.login(loginUser)
       .pipe(first())
       .subscribe(
         data => {
+          console.log(data)
           this.router.navigate([this.returnUrl]);
         },
         error => {

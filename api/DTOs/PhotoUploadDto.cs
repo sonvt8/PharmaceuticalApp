@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace api.DTOs
 {
-    public class FileUploadDto
+    public class PhotoUploadDto
     {
         public string Name { get; set; }
         public IFormFile Avatar { get; set; }

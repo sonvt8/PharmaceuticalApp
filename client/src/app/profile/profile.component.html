@@ -2,8 +2,14 @@
     <div class="row no-gutters">
         <div class="col-lg-3 profile-side">
             <div class="text-center">
-                <img src="https://randomuser.me/api/portraits/men/97.jpg">
-                <h3>{{username}}</h3>
+                <!-- <img src="https://randomuser.me/api/portraits/men/97.jpg"> -->
+                <label class="hoverable" for="fileInput">
+                    <img [src]="url ? url : currentUser.photoUserUrl">
+                    <div class="hover-text">Choose file</div>
+                    <div class="background"></div>
+                </label>
+                <input id="fileInput" type="file" (change)="onSelectFile($event.target.files)" accept="image/*">
+                <h3>{{this.currentUser.fullName}}</h3>
             </div>
             <div class="list-group">
                 <a *ngFor="let item of items; let i = index" 

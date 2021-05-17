@@ -16,8 +16,8 @@ namespace api.Interfaces
         Task<PagedList<Job>> GetJobsAvailablePagination(JobParams jobParams);
         Task<IEnumerable<JobDto>> GetJobsDtoAsync();
         Task<IEnumerable<Job>> GetJobsAsync();
-        Task<Job> GetJobDtoByIdAsync(int jobId);
+        Task<Job> GetJobDtoByIdAsync(int? jobId);
         Task<Job> GetJobByIdAsync(int jobId);
-        Task<bool> JobExists(int jobId);
+        Task<bool> JobExists(int? jobId);
     }
 }

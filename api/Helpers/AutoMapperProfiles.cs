@@ -39,6 +39,7 @@ namespace api.Helpers
             CreateMap<ProductCreateDto, Product>();
             CreateMap<PhotoProduct, PhotoProductDto>();
             CreateMap<Download, DownloadDto>();
+            CreateMap<AppliedJobHistory, CareerProfileDto>();
         }
     }
 }

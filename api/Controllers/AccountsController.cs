@@ -87,10 +87,27 @@ namespace api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<AccountDto>> Login(LoginDto loginDto)
         {
+            var job = new JobDto();
             var user = await _userManager.Users
                 .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(u => u.Email == loginDto.Email.ToLower());
+
             if (user == null) return BadRequest("Email is incorrect!");
+
+            if (user.JobId > 0)
+            {
+                if (!await _unitOfWork.JobRepository.JobExists(user.JobId))
+                    return NotFound();
+
+                var appliedJob = await _unitOfWork.JobRepository.GetJobDtoByIdAsync(user.JobId);
+                job.Id = appliedJob.Id;
+                job.JobName = appliedJob.JobName;
+                job.Description = appliedJob.Description;
+                job.Salary = appliedJob.Salary;
+                job.Quantity = appliedJob.Quantity;
+                job.Location = appliedJob.Location;
+                job.Status = appliedJob.GetStatus();
+            }
 
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, loginDto.Password, false);
@@ -105,6 +122,7 @@ namespace api.Controllers
 
             return new AccountDto
             {
+                Id = user.Id,
                 FullName = user.FullName,
                 Gender = user.Gender,
                 Token = await _tokenService.CreateToken(user),
@@ -116,6 +134,7 @@ namespace api.Controllers
                 Country = user.Country,
                 Zip = user.Zip,
                 Degree = user.Degree,
+                Job = job,
                 PhotoUserUrl = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
                 PhotoUserId = user.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
             };
@@ -130,9 +149,26 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult<AccountDto>> UpdateUser(UserUpdateDto userUpdateDto)
         {
+            var job = new JobDto();
             var currentUser = await _userManager.Users
+                .Include(p => p.PhotoUsers)
                 .SingleOrDefaultAsync(x => x.Email == userUpdateDto.Email.ToLower());
 
+            if (currentUser.JobId > 0)
+            {
+                if (!await _unitOfWork.JobRepository.JobExists(currentUser.JobId))
+                    return NotFound();
+
+                var appliedJob = await _unitOfWork.JobRepository.GetJobDtoByIdAsync(currentUser.JobId);
+                job.Id = appliedJob.Id;
+                job.JobName = appliedJob.JobName;
+                job.Description = appliedJob.Description;
+                job.Salary = appliedJob.Salary;
+                job.Quantity = appliedJob.Quantity;
+                job.Location = appliedJob.Location;
+                job.Status = appliedJob.GetStatus();
+            }
+            
             _mapper.Map(userUpdateDto, currentUser);
 
             var result = await _userManager.UpdateAsync(currentUser);
@@ -141,9 +177,10 @@ namespace api.Controllers
             {
                 return new AccountDto
                 {
+                    Id = currentUser.Id,
                     FullName = currentUser.FullName,
-                    Gender = currentUser.Gender,
                     Token = await _tokenService.CreateToken(currentUser),
+                    Gender = currentUser.Gender,
                     Email = currentUser.Email,
                     StreetAddress = currentUser.StreetAddress,
                     PhoneNumber = currentUser.PhoneNumber,
@@ -152,11 +189,11 @@ namespace api.Controllers
                     Country = currentUser.Country,
                     Zip = currentUser.Zip,
                     Degree = currentUser.Degree,
+                    Job = job,
                     PhotoUserUrl = currentUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.PhotoUserUrl,
                     PhotoUserId = currentUser.PhotoUsers?.FirstOrDefault(p => p.IsMain)?.Id
                 };
             };
-
             return BadRequest("Failed to update user");
         }
 
@@ -191,7 +228,7 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser([FromForm] FileUploadDto uploadDto)
+        public async Task<ActionResult<PhotoUserDto>> AddPhotoUser([FromForm] PhotoUploadDto uploadDto)
         {
             var file = uploadDto.Avatar;
 
@@ -227,7 +264,7 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPost("edit-photo/{photoId}")]
-        public async Task<ActionResult<PhotoUserDto>> EditPhotoUser([FromForm] FileUploadDto uploadDto, int photoId)
+        public async Task<ActionResult<PhotoUserDto>> EditPhotoUser([FromForm] PhotoUploadDto uploadDto, int photoId)
         {
             //remove old photo
             var user = await _userManager.Users

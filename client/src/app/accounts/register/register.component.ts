@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 
 import { MustMatch } from '../../_helpers/must-match.validator';
-import { User } from 'src/app/_models/user.model';
+import { UserRegister } from 'src/app/_models/userRegister.model';
 
 @Component({
   selector: 'app-register',
@@ -63,12 +63,11 @@ export class RegisterComponent implements OnInit {
     }
     this.loading = true;
 
-    var user: User = {
+    var user: UserRegister = {
       fullName: this.registerForm.get('firstName').value + " " + this.registerForm.get('lastName').value,
       email: this.registerForm.get('email').value,
       gender:this.registerForm.get('gender').value,
-      password:this.registerForm.get('password').value,
-      token: ''
+      password:this.registerForm.get('password').value
     };
 
     this.accountService.register(user).subscribe(response => {

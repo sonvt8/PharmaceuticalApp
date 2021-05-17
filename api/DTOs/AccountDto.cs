@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace api.DTOs
 {
     public class AccountDto
     {
+        public int? Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Token { get; set; }
@@ -18,6 +20,8 @@ namespace api.DTOs
         public string Country { get; set; } = "";
         public string Zip { get; set; } = "";
         public string Degree { get; set; } = "";
+        public int? JobId { get; set; }
+        public JobDto Job { get; set; } = null;
         public string PhotoUserUrl { get; set; } = "";
         public int? PhotoUserId { get; set; }
     }

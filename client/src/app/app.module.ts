@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressBarModule } from '@angular/material/progress-bar'; 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -48,6 +50,7 @@ import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
 import { JobService } from './_services/job.service';
 import { CateItemComponent } from './header/cate-item/cate-item.component';
 import { QuoteComponent } from './home/quote/quote.component';
+import { InterceptorService } from './_helpers/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -98,13 +101,19 @@ import { QuoteComponent } from './home/quote/quote.component';
     FormsModule,
     ReactiveFormsModule,
     PaginationModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     ToastrModule.forRoot({
       progressBar: true,
       positionClass: 'toast-bottom-right'
     })
   ],
+  schemas: [ 
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CategoryService,
     ProductService,
