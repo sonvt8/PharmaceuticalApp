@@ -8,10 +8,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Subject } from "rxjs"
+import { takeUntil } from 'rxjs/operators';
 
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
 import { Candidate } from 'src/app/_models/cadidate.model';
+import { CareerProfile } from 'src/app/_models/careerProfile.model';
+
 
 @Component({
   selector: 'app-job-detail',
@@ -34,6 +38,9 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   fileToUpload: File = null;
   subscriptionId: Subscription;
   resumeForm: FormGroup;
+  profile: CareerProfile
+
+  componentDestroyed$: Subject<boolean> = new Subject()
 
   @Output() public onUploadFinished = new EventEmitter();
 
@@ -131,18 +138,21 @@ export class JobDetailComponent implements OnInit, OnDestroy {
       isApplied: true
     };
 
-    this.candidateService.createCadidate(candidate).subscribe(response => {
-      if (response) {
+    this.candidateService.createCadidate(candidate).pipe(takeUntil(this.componentDestroyed$)).subscribe(user => {
+      this.profile = {
+        jobName: user.job.jobName,
+        salary: user.job.salary,
+        location: user.job.location,
+        appUserId: parseInt(user.id),
+        isApproved: user.IsApproved
+      };
+      this.candidateService.createCareerProfile(this.profile).pipe(takeUntil(this.componentDestroyed$)).subscribe(user => {
         this.toastr.success('Uploaded successfully. HR will send invitation interview if your resume is suitable');
         this.modalService.dismissAll();
         // this.reload();
         this.router.navigate(['../'], { relativeTo: this.route });
-      }
-
-    }, error => {
-      this.toastr.error(error.error)
-      this.loading = false;
-    })
+      });
+    });
   }
 
   reload() {
@@ -153,6 +163,8 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptionId.unsubscribe();
+    this.componentDestroyed$.next(true)
+    this.componentDestroyed$.complete()
   }
 
 }

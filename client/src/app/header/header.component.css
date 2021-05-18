@@ -19,6 +19,10 @@ nav.navbar input[type="search"]::placeholder {
     font-style: italic;
 }
 
+a.dropdown-toggle {
+    cursor: pointer;
+}
+
 img.sign-out {
     width: 20px;
 }
@@ -30,4 +34,4 @@ img.sign-out {
     background: black;
     opacity: 0.8;
     z-index: 99;
-  }
+}

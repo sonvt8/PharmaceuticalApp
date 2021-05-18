@@ -37,13 +37,6 @@ export class ProductsComponent implements OnInit {
         this.loadProductList()
       }
     })
-    // this.route.params
-    //   .subscribe(
-    //     (params: Params) => {
-    //       this.id = +params['id'];
-    //     }
-    //   );
-    //this.loadProductList();
   }
 
   pageChanged(event: any) {
@@ -56,14 +49,6 @@ export class ProductsComponent implements OnInit {
     this.pageNumber = 1;
     this.loadProductList();
   }
-
-  // loadProducts(){
-  //   this.productService.getProductsByCategoryId(this.id).subscribe(products => {
-  //     this.categoryName = products[0].categoryName;
-  //     this.products = products;
-  //     this.count = products.length;
-  //   })
-  // }
 
   loadProductList() {
     this.productService.resetList(this.id, this.pageNumber, this.pageSize, this.search).subscribe(res => {

@@ -26,11 +26,12 @@ namespace api.Data
             _context.AppliedJobHistories.Add(history);
         }
 
-        public async Task<IEnumerable<CareerProfileDto>> GetHistories()
+        public async Task<IEnumerable<CareerProfileDto>> GetHistoriesById(int id)
         {
             return await _context.AppliedJobHistories
-               .ProjectTo<CareerProfileDto>(_mapper.ConfigurationProvider)
-               .ToListAsync();
+                .Where(x => x.AppUserId == id)
+                .ProjectTo<CareerProfileDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         public void UpdateHistory(AppliedJobHistory history)

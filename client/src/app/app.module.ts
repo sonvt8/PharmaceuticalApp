@@ -51,6 +51,7 @@ import { JobService } from './_services/job.service';
 import { CateItemComponent } from './header/cate-item/cate-item.component';
 import { QuoteComponent } from './home/quote/quote.component';
 import { InterceptorService } from './_helpers/loading.interceptor';
+import { IsApprovedPipe } from './_pipes/is-approved.pipe';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { InterceptorService } from './_helpers/loading.interceptor';
     ProductSearchComponent,
     CateItemComponent,
     JobsListComponent,
+    IsApprovedPipe,
     QuoteComponent
   ],
   exports: [PhoneMaskDirective],
