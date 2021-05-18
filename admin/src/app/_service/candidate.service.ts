@@ -12,7 +12,7 @@ export class CandidateService {
   constructor(private http: HttpClient) { }
   baseUrl = environment.apiUrl + "/candidates";
   paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
-  FileUrl = 'http://localhost:22566/Resources'
+  FileUrl = 'http://localhost:22566/Resources/Resumes'
 
   getCandidate(){
     return this.http.get(this.baseUrl);
