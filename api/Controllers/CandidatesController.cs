@@ -154,6 +154,11 @@ namespace api.Controllers
 
             if (result.Succeeded)
             {
+                if(candidateCreateDto.IsApproved == false)
+                {
+                    await _mailService.SendRejectCandidatelAsync(user.FullName, candidateCreateDto.JobTitle, user.Email);
+                    return NoContent();
+                }
                 //Send Confirmation Email
                 await _mailService.SendApproveCandidatelAsync(user.FullName, candidateCreateDto.JobTitle, user.Email);
                 return NoContent();

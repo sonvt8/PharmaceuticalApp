@@ -30,7 +30,6 @@ export class ResumesComponent implements OnInit, OnDestroy {
 
   loadCareerProfile(){
     this.candidateService.getCareerProfile(parseInt(this.currentUser.id)).subscribe(res => {
-      console.log(res);
       this.careerProfiles = res as CareerProfile[];
     });
   }
