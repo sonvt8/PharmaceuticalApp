@@ -92,7 +92,10 @@ namespace api.Controllers
         [HttpPut()]
         public async Task<ActionResult<AccountDto>> CreateCandidate(CandidateCreateDto candidateCreateDto)
         {
-            var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+            var user = await _userManager.Users
+                .Include(p=>p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+
             if (user == null) return NotFound();
 
             _mapper.Map(candidateCreateDto, user);
