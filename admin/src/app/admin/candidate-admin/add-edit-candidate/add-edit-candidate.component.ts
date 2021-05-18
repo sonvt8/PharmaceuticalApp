@@ -37,6 +37,9 @@ export class AddEditCandidateComponent implements OnInit {
   onApproved() {
     this.candidate.isApproved = true;
     this.job.quantity -= 1;
+    if(this.job.quantity==0){
+      this.job.isAvailable = false;
+    }
     this.jobService.putJob(this.job).subscribe(
       res => {
         this.myCallback();
