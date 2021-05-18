@@ -23,6 +23,7 @@ export class CandidateAdminComponent implements OnInit {
   candidates: Candidate[] = []
   candidate: Candidate
   jobs: Job[] = []
+  job: Job;
   request: RequestTotal
   ModalTitle: string
   ActivateAddEditCandidateComp = false;
@@ -48,7 +49,7 @@ export class CandidateAdminComponent implements OnInit {
         this.jobs = response as Job[];
         this.candidates.forEach(c => {
           if(c.jobId != null){
-            c.jobTitle = this.findCachedItemById(c.jobId);
+            c.jobName = this.findCachedItemById(c.jobId);
           }
         });
       })
@@ -73,8 +74,8 @@ export class CandidateAdminComponent implements OnInit {
     this.showCandidateList();
   }
 
-  editClick(item: any) {
-    this.candidate = item;
+  editClick(candidate: any) {
+    this.candidate = candidate;
     this.ModalTitle = "Approval Candidate";
     this.ActivateAddEditCandidateComp = true;
   }
