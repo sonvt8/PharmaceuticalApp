@@ -1,47 +1,26 @@
-<h3>CV Manager</h3>
-<div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Upload your CV">
-    <div class="input-group-append">
-        <button class="btn btn-outline-dark" type="button">
-            <i class="fas fa-file-upload"></i>
-            Upload
-        </button>
-    </div>
-</div>
-<small class="text-black-50">Suitable files are .doc, .docx, .pdf</small>
-
+<h3>Career Profile</h3>
 <table class="table mt-5">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Title</th>
-            <th scope="col">Date posted</th>
-            <th scope="col">Actions</th>
+            <th scope="col">Location</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Result</th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <th scope="row">Chemical Engineering Associate</th>
-            <td>18/05/2020</td>
+    <tbody *ngIf="careerProfiles?.length > 0 ; else infoText" >
+        <tr *ngFor="let careerProfile of careerProfiles">
+            <td>{{careerProfile.jobName}}</td>
+            <td>{{careerProfile.location}}</td>
+            <td>{{careerProfile.salary}}$</td>
             <td>
-                <button class="btn btn-outline-success"><i class="fas fa-cloud-download-alt"></i></button>
-                <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Quality Controller</th>
-            <td>10/02/2018</td>
-            <td>
-                <button class="btn btn-outline-success"><i class="fas fa-cloud-download-alt"></i></button>
-                <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Supply Chain Manager</th>
-            <td>21/08/2019</td>
-            <td>
-                <button class="btn btn-outline-success"><i class="fas fa-cloud-download-alt"></i></button>
-                <button class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                <span class="{{getColor(careerProfile.isApproved)}}">{{careerProfile.isApproved | isApproved}}</span>
             </td>
         </tr>
     </tbody>
+    <ng-template #infoText>
+        <tbody>
+            <tr><h2>You have not applied job yet</h2></tr>
+        </tbody>
+    </ng-template>
 </table>

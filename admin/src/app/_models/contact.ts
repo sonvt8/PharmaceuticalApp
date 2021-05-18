@@ -4,5 +4,6 @@ export class Contact {
     email:string='';
     phone:string='';
     country:string='';
+    subject:string='';
     description: string = '';
 }

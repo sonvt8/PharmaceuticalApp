@@ -8,10 +8,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Subject } from "rxjs"
+import { takeUntil } from 'rxjs/operators';
 
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
 import { Candidate } from 'src/app/_models/cadidate.model';
+import { CareerProfile } from 'src/app/_models/careerProfile.model';
+
 
 @Component({
   selector: 'app-job-detail',
@@ -34,11 +38,14 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   fileToUpload: File = null;
   subscriptionId: Subscription;
   resumeForm: FormGroup;
+  profile: CareerProfile
+
+  componentDestroyed$: Subject<boolean> = new Subject()
 
   @Output() public onUploadFinished = new EventEmitter();
 
   constructor(
-    private accountService : AccountService,
+    private accountService: AccountService,
     private jobService: JobService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
@@ -48,32 +55,34 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.accountService.user.subscribe(x => {
-      this.currentUser = x;
-      console.log(this.currentUser)
+      if (x)
+        this.currentUser = x;
     });
   }
 
   ngOnInit(): void {
-    this.subscriptionId = this.route.params.subscribe(param=>{
+    this.subscriptionId = this.route.params.subscribe(param => {
       this.jobId = param['id'];
       this.jobTitle = param['title'];
-      if(this.jobId){
+      if (this.jobId) {
         this.loadJobDetail()
       }
     })
+    if (this.currentUser) {
+      this.resumeForm = this.formBuilder.group({
+        fullname: [this.currentUser.fullName, Validators.required],
+        email: [this.currentUser.email, [Validators.required, Validators.email]],
+        degree: this.currentUser.degree
+      });
+    }
 
-    this.resumeForm = this.formBuilder.group({
-      fullname: [this.currentUser.fullName, Validators.required],
-      email: [this.currentUser.email, [Validators.required, Validators.email]],
-      degree: this.currentUser.degree
-    });
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.resumeForm.controls; }
 
-  loadJobDetail(){
-    this.jobService.getJobDetail(this.jobId).subscribe(res=>{
+  loadJobDetail() {
+    this.jobService.getJobDetail(this.jobId).subscribe(res => {
       this.job = res as Job;
     })
   }
@@ -89,7 +98,9 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     this.fileToUpload = files[0];
     const formData = new FormData();
     formData.append('file', this.fileToUpload, this.fileToUpload.name);
-    this.candidateService.uploadResume(formData).subscribe(event  => {
+    formData.append('email', this.currentUser['email']);
+
+    this.candidateService.uploadResume(formData).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress)
         this.progress = Math.round(100 * event.loaded / event.total);
       else if (event.type === HttpEventType.Response) {
@@ -97,16 +108,16 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.message = `Upload ${this.count} ${this.count > 1 ? 'files' : 'file'} successfully.`;
         this.onUploadFinished.emit(event.body);
       }
-    },error => {
+    }, error => {
       this.toastr.error(error.error)
     })
   }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
     // stop here if form is invalid
     if (this.resumeForm.invalid) {
-        return;
+      return;
     }
     this.loading = true;
 
@@ -121,24 +132,39 @@ export class JobDetailComponent implements OnInit, OnDestroy {
       city: this.currentUser.city,
       country: this.currentUser.country,
       degree: this.currentUser.degree,
-      jobId:this.jobId,
-      jobTitle:this.jobTitle,
-      isApproved:null,
-      isApplied:true
+      jobId: this.jobId,
+      jobTitle: this.jobTitle,
+      isApproved: null,
+      isApplied: true
     };
 
-    this.candidateService.createCadidate(candidate).subscribe(response => {
-      this.toastr.success('Uploaded successfully. HR will send invitation interview if your resume is suitable');
-      this.modalService.dismissAll();
-      this.router.navigate(['../'], { relativeTo: this.route });
-    },error => {
-      this.toastr.error(error.error)
-      this.loading = false;
-    })
+    this.candidateService.createCadidate(candidate).pipe(takeUntil(this.componentDestroyed$)).subscribe(user => {
+      this.profile = {
+        jobName: user.job.jobName,
+        salary: user.job.salary,
+        location: user.job.location,
+        appUserId: parseInt(user.id),
+        isApproved: user.IsApproved
+      };
+      this.candidateService.createCareerProfile(this.profile).pipe(takeUntil(this.componentDestroyed$)).subscribe(user => {
+        this.toastr.success('Uploaded successfully. HR will send invitation interview if your resume is suitable');
+        this.modalService.dismissAll();
+        // this.reload();
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
+    });
   }
 
-  ngOnDestroy(){
+  reload() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['./'], { relativeTo: this.route });
+  }
+
+  ngOnDestroy() {
     this.subscriptionId.unsubscribe();
+    this.componentDestroyed$.next(true)
+    this.componentDestroyed$.complete()
   }
 
 }

@@ -257,6 +257,35 @@ namespace api.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("api.Entities.AppliedJobHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JobName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("AppliedJobHistories");
+                });
+
             modelBuilder.Entity("api.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -621,6 +650,17 @@ namespace api.Migrations
                     b.Navigation("Job");
                 });
 
+            modelBuilder.Entity("api.Entities.AppliedJobHistory", b =>
+                {
+                    b.HasOne("api.Entities.AppUser", "AppUser")
+                        .WithMany("AppliedJobHistories")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("api.Entities.Download", b =>
                 {
                     b.HasOne("api.Entities.AppUser", "AppUser")
@@ -694,6 +734,8 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.AppUser", b =>
                 {
+                    b.Navigation("AppliedJobHistories");
+
                     b.Navigation("Downloads");
 
                     b.Navigation("FeedBacks");

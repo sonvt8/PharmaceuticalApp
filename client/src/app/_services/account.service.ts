@@ -10,6 +10,9 @@ import { resetPassword } from 'src/app/_models/resetPassword.model';
 import { ChangePassword } from '../_models/changePassword.model';
 import { UserFeedback } from '../_models/userFeedback.model';
 import { UserUpdate } from '../_models/userUpdate.model';
+import { UserLogin } from '../_models/userLogin.model';
+import { UserRegister } from '../_models/userRegister.model';
+import { ResetPasswordComponent } from '../accounts/reset-password/reset-password.component';
 
 @Injectable({
   providedIn: 'root'
@@ -31,17 +34,22 @@ export class AccountService {
     return this.userSubject.value;
   }
 
+  public setCurrentUser(user: User) {
+    this.userSubject.next(user);
+  }
+
   getUserFeedBack(){
     return this.http.get(this.baseUrl);
   }
 
-  login(user: User) {
+  login(user: UserLogin) {
     return this.http.post<User>(`${environment.apiUrl}/accounts/login`, user)
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({
+          "id": user.id,
           "token": user.token,
-          "jobId": user.jobId,
+          "jobId": user.job.id,
           "fullName": user.fullName,
           "email": user.email,
           "gender": user.gender,
@@ -51,6 +59,7 @@ export class AccountService {
           "zip": user.zip,
           "country": user.country,
           "city": user.city,
+          "job": user.job,
           "photoUserUrl": user.photoUserUrl,
           "photoUserId": user.photoUserId
         }));
@@ -65,26 +74,27 @@ export class AccountService {
     this.router.navigate(['/login']);
   }
 
-  register(user: User) {
+  register(user: UserRegister) {
     return this.http.post(`${environment.apiUrl}/accounts/register`, user).pipe(
-      map((response: User) => {
-        if (response) {
-          this.userSubject.next(response);
-          localStorage.setItem('user', JSON.stringify({
-            "token": response.token,
-            "jobId": response.jobId,
-            "fullName": response.fullName,
-            "email": response.email,
-            "gender": response.gender,
-            "phoneNumber": response.phoneNumber,
-            "streetAddress": response.streetAddress,
-            "state": response.state,
-            "zip": response.zip,
-            "country": response.country,
-            "city": response.city,
-            "photoUserUrl": response.photoUserUrl
-          }));
-        }
+      map((response: any) => {
+        // if (response) {
+        //   this.userSubject.next(response);
+        //   localStorage.setItem('user', JSON.stringify({
+        //     "token": response.token,
+        //     "jobId": response.jobId,
+        //     "fullName": response.fullName,
+        //     "email": response.email,
+        //     "gender": response.gender,
+        //     "phoneNumber": response.phoneNumber,
+        //     "streetAddress": response.streetAddress,
+        //     "state": response.state,
+        //     "zip": response.zip,
+        //     "job": response.job,
+        //     "country": response.country,
+        //     "city": response.city,
+        //     "photoUserUrl": response.photoUserUrl
+        //   }));
+        // }
         return response;
       })
     );
@@ -96,8 +106,9 @@ export class AccountService {
         if (response) {
           this.userSubject.next(response);
           localStorage.setItem('user', JSON.stringify({
+            "id": response.id,
             "token": response.token,
-            "jobId": response.jobId,
+            "jobId": response.job.id,
             "fullName": response.fullName,
             "email": response.email,
             "gender": response.gender,
@@ -105,6 +116,7 @@ export class AccountService {
             "streetAddress": response.streetAddress,
             "state": response.state,
             "zip": response.zip,
+            "job": response.job,
             "country": response.country,
             "city": response.city,
             "photoUserUrl": response.photoUserUrl
