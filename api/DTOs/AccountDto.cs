@@ -24,5 +24,6 @@ namespace api.DTOs
         public JobDto Job { get; set; } = null;
         public string PhotoUserUrl { get; set; } = "";
         public int? PhotoUserId { get; set; }
+        public bool? IsApproved { get; set; } = null;
     }
 }

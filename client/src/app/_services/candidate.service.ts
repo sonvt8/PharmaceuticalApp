@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Candidate } from '../_models/cadidate.model';
 import { User } from '../_models/user.model';
 import { AccountService } from './account.service';
+import { CareerProfile } from '../_models/careerProfile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class CandidateService {
     .pipe(map(user => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
       localStorage.setItem('user', JSON.stringify({
+        "IsApproved": user.IsApproved,
         "token": user.token,
         "jobId": user.job.id,
         "fullName": user.fullName,
@@ -41,5 +43,13 @@ export class CandidateService {
       this.accountService.setCurrentUser(user);
       return user;
     }));
+  }
+
+  createCareerProfile(profile: CareerProfile) {
+    return this.http.post(`${environment.apiUrl}/candidates/career_profile`, profile)
+  }
+
+  getCareerProfile(userId: number){
+    return this.http.get(`${environment.apiUrl}/candidates/career_profile/${userId}`)
   }
 }
