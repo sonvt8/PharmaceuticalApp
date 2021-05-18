@@ -8,7 +8,7 @@
             <th scope="col">Result</th>
         </tr>
     </thead>
-    <tbody *ngIf="currentUser.job.jobName ; else infoText" >
+    <tbody *ngIf="careerProfiles?.length > 0 ; else infoText" >
         <tr *ngFor="let careerProfile of careerProfiles">
             <td>{{careerProfile.jobName}}</td>
             <td>{{careerProfile.location}}</td>
