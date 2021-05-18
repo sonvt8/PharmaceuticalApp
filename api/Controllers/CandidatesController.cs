@@ -245,11 +245,11 @@ namespace api.Controllers
         public async Task<ActionResult> UpdateCareerProfile(AppliedJobHistory careerProfile)
         {
 
-            _unitOfWork.HistoryRepository.AddHistory(careerProfile);
+            _unitOfWork.HistoryRepository.UpdateHistory(careerProfile);
 
-            await _unitOfWork.Complete();
+            if (await _unitOfWork.Complete()) return NoContent();
 
-            return Ok();
+            return BadRequest("Failed to Update Career Profile");
         }
     }
 }

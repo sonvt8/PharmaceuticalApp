@@ -34,7 +34,7 @@
             <button *ngIf="currentUser" [disabled]="currentUser.job.jobName" class="btn btn-success w-100 font-weight-bold"
                 (click)="openVerticallyCentered(content)">{{!currentUser?.job.jobName ? 'Apply' : 'Applied'}} 
             </button>
-            <button *ngIf="!currentUser" [disabled]="!currentUser" class="btn btn-success w-100 font-weight-bold">
+            <button *ngIf="!currentUser" [disabled]="currentUser" class="btn btn-success w-100 font-weight-bold">
                 Login to Apply
             </button>
         </div>

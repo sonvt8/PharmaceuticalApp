@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Candidate } from 'src/app/_models/candidate';
+import { CareerProfile } from 'src/app/_models/carreerProfile';
 import { Job } from 'src/app/_models/job';
 import { CandidateService } from 'src/app/_service/candidate.service';
 import { JobService } from 'src/app/_service/job.service';
@@ -14,6 +15,8 @@ export class AddEditCandidateComponent implements OnInit {
 
   @Input() candidate: any;
   job: Job;
+  carreerProfiles : CareerProfile[] = []
+  carreerProfile: CareerProfile
   fileNames : string[] = []
   @Input()
   public myCallback: Function;
@@ -26,6 +29,7 @@ export class AddEditCandidateComponent implements OnInit {
       this.fileNames.push(this.candidate.downloads[i].fileName);
     }
     this.getJobById();
+    this.getCareerProfile();
   }
 
   getJobById(){
@@ -34,9 +38,29 @@ export class AddEditCandidateComponent implements OnInit {
     })
   }
 
+  getCareerProfile(){
+    this.candidateService.getCareerProfile(this.candidate.id).subscribe(res=>{
+      this.carreerProfiles = res as CareerProfile[];
+      if(this.carreerProfiles.length>0){
+        let n = this.carreerProfiles.length
+        for(let i=0;i<n;i++){
+          this.carreerProfile = this.carreerProfiles[n-1];
+        }
+      }
+    })
+  }
+
   onApproved() {
     this.candidate.isApproved = true;
     this.job.quantity -= 1;
+    this.carreerProfile.isApproved = true;
+    this.candidateService.putCareerProfile(this.carreerProfile).subscribe(
+      res => {
+        this.myCallback();
+        this.toastr.success('Update Carreer Profile successfully');
+      },
+      err => { console.log(err); }
+    )
     if(this.job.quantity==0){
       this.job.isAvailable = false;
     }
@@ -59,6 +83,14 @@ export class AddEditCandidateComponent implements OnInit {
   onRejected() {
     this.candidate.isApproved = false;
     this.candidate.jobId = null;
+    this.carreerProfile.isApproved = false;
+    this.candidateService.putCareerProfile(this.carreerProfile).subscribe(
+      res => {
+        this.myCallback();
+        this.toastr.success('Update Carreer Profile successfully');
+      },
+      err => { console.log(err); }
+    )
     this.candidateService.putCandidate(this.candidate).subscribe(
       res => {
         this.myCallback();
