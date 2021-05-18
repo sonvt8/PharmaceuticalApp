@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { PaginatedResult } from '../_models/pagination';
 import { Candidate } from '../_models/candidate';
 import { map} from 'rxjs/operators';
+import { CareerProfile } from '../_models/carreerProfile';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CandidateService {
   constructor(private http: HttpClient) { }
   baseUrl = environment.apiUrl + "/candidates";
   paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
-  FileUrl = 'http://localhost:22566/Resources'
+  FileUrl = 'http://localhost:22566/Resources/Resumes'
 
   getCandidate(){
     return this.http.get(this.baseUrl);
@@ -51,5 +52,13 @@ export class CandidateService {
         return this.paginatedResult;
       })
     );
+  }
+
+  getCareerProfile(userId: number){
+    return this.http.get(`${environment.apiUrl}/candidates/career_profile/${userId}`)
+  }
+
+  putCareerProfile(val: CareerProfile){
+    return this.http.put(`${this.baseUrl}/career_profile`,val);
   }
 }

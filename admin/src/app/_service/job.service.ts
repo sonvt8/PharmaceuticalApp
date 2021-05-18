@@ -18,6 +18,10 @@ export class JobService {
     return this.http.get(this.baseUrl + '/no-request');
   }
 
+  getJobById(id:number){
+    return this.http.get(this.baseUrl + '/' + id);
+  }
+
   getJob(){
     return this.http.get(this.baseUrl);
   }

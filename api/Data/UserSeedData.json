@@ -10,7 +10,6 @@
 		"Zip": "7512",
 		"Country": "Macedonia",
 		"EmailConfirmed": true,
-		"IsApplied": true,
 		"PhotoUsers": [
 			{
 				"PhotoUserUrl": "https://res.cloudinary.com/diukt27t8/image/upload/v1621337757/f1_yl1ajz.jpg",
@@ -39,7 +38,6 @@
 		"Zip": "051059",
 		"Country": "Colombia",
 		"EmailConfirmed": true,
-		"IsApplied": true,
 		"PhotoUsers": [
 			{
 				"PhotoUserUrl": "https://res.cloudinary.com/diukt27t8/image/upload/v1621337808/f2_syzlbf.jpg",

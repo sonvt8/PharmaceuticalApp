@@ -92,7 +92,10 @@ namespace api.Controllers
         [HttpPut()]
         public async Task<ActionResult<AccountDto>> CreateCandidate(CandidateCreateDto candidateCreateDto)
         {
-            var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+            var user = await _userManager.Users
+                .Include(p=>p.PhotoUsers)
+                .SingleOrDefaultAsync(u => u.Id == User.GetUserId());
+
             if (user == null) return NotFound();
 
             _mapper.Map(candidateCreateDto, user);
@@ -151,6 +154,11 @@ namespace api.Controllers
 
             if (result.Succeeded)
             {
+                if(candidateCreateDto.IsApproved == false)
+                {
+                    await _mailService.SendRejectCandidatelAsync(user.FullName, candidateCreateDto.JobTitle, user.Email);
+                    return NoContent();
+                }
                 //Send Confirmation Email
                 await _mailService.SendApproveCandidatelAsync(user.FullName, candidateCreateDto.JobTitle, user.Email);
                 return NoContent();
@@ -245,11 +253,11 @@ namespace api.Controllers
         public async Task<ActionResult> UpdateCareerProfile(AppliedJobHistory careerProfile)
         {
 
-            _unitOfWork.HistoryRepository.AddHistory(careerProfile);
+            _unitOfWork.HistoryRepository.UpdateHistory(careerProfile);
 
-            await _unitOfWork.Complete();
+            if (await _unitOfWork.Complete()) return NoContent();
 
-            return Ok();
+            return BadRequest("Failed to Update Career Profile");
         }
     }
 }
