@@ -11,6 +11,6 @@ namespace api.Interfaces
     {
         void AddHistory(AppliedJobHistory history);
         void UpdateHistory(AppliedJobHistory history);
-        Task<IEnumerable<CareerProfileDto>> GetHistories();
+        Task<IEnumerable<CareerProfileDto>> GetHistoriesById(int id);
     }
 }

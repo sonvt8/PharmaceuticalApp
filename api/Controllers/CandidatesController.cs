@@ -119,6 +119,7 @@ namespace api.Controllers
             {
                 return new AccountDto
                 {
+                    Id = user.Id,
                     FullName = user.FullName,
                     Gender = user.Gender,
                     Token = await _tokenService.CreateToken(user),
@@ -221,12 +222,12 @@ namespace api.Controllers
         }
 
         // Career Profile
-        [HttpGet("career_profile")]
-        public async Task<ActionResult<IEnumerable<CareerProfileDto>>> GetCareerProfiles()
+        [HttpGet("career_profile/{userId}")]
+        public async Task<IEnumerable<CareerProfileDto>> GetCareerProfileById(int userId)
         {
-            var careerProfiles = await _unitOfWork.HistoryRepository.GetHistories();
+            var careerProfiles = await _unitOfWork.HistoryRepository.GetHistoriesById(userId);
 
-            return Ok(careerProfiles);
+            return careerProfiles;
         }
 
         [HttpPost("career_profile")]
