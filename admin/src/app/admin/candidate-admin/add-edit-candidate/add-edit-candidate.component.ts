@@ -15,36 +15,36 @@ export class AddEditCandidateComponent implements OnInit {
 
   @Input() candidate: any;
   job: Job;
-  carreerProfiles : CareerProfile[] = []
+  carreerProfiles: CareerProfile[] = []
   carreerProfile: CareerProfile
-  fileNames : string[] = []
+  fileNames: string[] = []
   @Input()
   public myCallback: Function;
   ModalTitle: string
-  
+
   constructor(public candidateService: CandidateService, private jobService: JobService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    for(let i=0;i<this.candidate.downloads.length;i++){
+    for (let i = 0; i < this.candidate.downloads.length; i++) {
       this.fileNames.push(this.candidate.downloads[i].fileName);
     }
     this.getJobById();
     this.getCareerProfile();
   }
 
-  getJobById(){
-    this.jobService.getJobById(this.candidate.jobId).subscribe(res=>{
+  getJobById() {
+    this.jobService.getJobById(this.candidate.jobId).subscribe(res => {
       this.job = res as Job;
     })
   }
 
-  getCareerProfile(){
-    this.candidateService.getCareerProfile(this.candidate.id).subscribe(res=>{
+  getCareerProfile() {
+    this.candidateService.getCareerProfile(this.candidate.id).subscribe(res => {
       this.carreerProfiles = res as CareerProfile[];
-      if(this.carreerProfiles.length>0){
+      if (this.carreerProfiles.length > 0) {
         let n = this.carreerProfiles.length
-        for(let i=0;i<n;i++){
-          this.carreerProfile = this.carreerProfiles[n-1];
+        for (let i = 0; i < n; i++) {
+          this.carreerProfile = this.carreerProfiles[n - 1];
         }
       }
     })
@@ -61,7 +61,7 @@ export class AddEditCandidateComponent implements OnInit {
       },
       err => { console.log(err); }
     )
-    if(this.job.quantity==0){
+    if (this.job.quantity == 0) {
       this.job.isAvailable = false;
     }
     this.jobService.putJob(this.job).subscribe(
@@ -98,12 +98,19 @@ export class AddEditCandidateComponent implements OnInit {
       },
       err => { console.log(err); }
     )
+    this.candidateService.deleteFileDownload(this.candidate.id).subscribe(
+      res => {
+        this.myCallback();
+        this.toastr.success('Delete CV of Candidate successfully');
+      },
+      err => { console.log(err); }
+    )
   }
 
-  getColor(val:any){
-    if(val==null) return 'badge badge-warning'
-    else if(val==true) return 'badge badge-success'
+  getColor(val: any) {
+    if (val == null) return 'badge badge-warning'
+    else if (val == true) return 'badge badge-success'
     else return 'badge badge-danger'
-}
+  }
 
 }
