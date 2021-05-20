@@ -76,6 +76,30 @@ namespace api.Controllers
             return candidate;
         }
 
+        [HttpDelete("file-download/{id}")]
+        public async Task<ActionResult> DeleteFile(int id)
+        {
+            var fileDownloads = await _unitOfWork.FileRepository.GetFilesOfACandidateAsync(id);
+            if (fileDownloads == null) return NotFound();
+
+            foreach (var file in fileDownloads)
+            {
+                _unitOfWork.FileRepository.DeleteFiles(file);
+
+            }
+            if (await _unitOfWork.Complete()) return NoContent();
+
+            return BadRequest("Failed to delete File Download");
+        }
+
+        [HttpGet("file-download/{id}")]
+        public async Task<ActionResult<IEnumerable<Download>>> GetFileDownloadsByACandidate(int id)
+        {
+            var fileDownloads = await _unitOfWork.FileRepository.GetFilesOfACandidateAsync(id);
+            return Ok(fileDownloads);
+        }
+
+
         [Authorize(Policy = "RequireAdminRole")]
         [HttpGet("jobs/{jobId}")]
         public async Task<ActionResult<IEnumerable<CandidateDto>>> GetCandidatesByJob(int jobId)

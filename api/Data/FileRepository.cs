@@ -27,5 +27,12 @@ namespace api.Data
         {
             _context.Downloads.Remove(fileToDeleted);
         }
+
+        public async Task<IEnumerable<Download>> GetFilesOfACandidateAsync(int id)
+        {
+            return await _context.Downloads
+                .Where(d => d.AppUserId == id)
+                .ToListAsync();
+        }
     }
 }

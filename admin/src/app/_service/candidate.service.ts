@@ -5,6 +5,7 @@ import { PaginatedResult } from '../_models/pagination';
 import { Candidate } from '../_models/candidate';
 import { map} from 'rxjs/operators';
 import { CareerProfile } from '../_models/carreerProfile';
+import { Download } from '../_models/download';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,10 @@ export class CandidateService {
 
   deleteCandidate(val: Candidate){
     return this.http.delete(`${this.baseUrl}/${val.id}`);
+  }
+
+  deleteFileDownload(id: number){
+    return this.http.delete(`${this.baseUrl}/file-download/${id}`);
   }
 
   resetList(page?: number, itemPerPage?: number, search?: string){
