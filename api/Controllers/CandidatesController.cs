@@ -188,6 +188,12 @@ namespace api.Controllers
         [HttpPost("uploadcv"), DisableRequestSizeLimit]
         public async Task<IActionResult> Upload([FromForm] FilesUploadDto uploadDto)
         {
+            var check = Directory.Exists(@"Resources/Resumes");
+            if (!Directory.Exists(@"Resources/Resumes")) 
+            {
+                Directory.CreateDirectory(@"Resources/Resumes");
+            }
+
             var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Email == uploadDto.Email);
             if (user == null) return NotFound();
 
