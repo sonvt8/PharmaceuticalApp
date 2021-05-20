@@ -6,3 +6,4 @@ obj
 Logs
 appsettings.Development.json
 **/appsettings.Development.json
+**/Resources

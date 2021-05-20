@@ -34,12 +34,10 @@ import { ResetPasswordComponent } from './accounts/reset-password/reset-password
 import { ProductService } from './_services/product.service';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { SafePipe } from './_helpers/safepipe';
-import { ReviewsComponent } from './reviews/reviews.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { ResumesComponent } from './profile/resumes/resumes.component';
-import { ReviewDetailsComponent } from './reviews/review-details/review-details.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { FeedbackComponent } from './feedback/feedback.component';
@@ -52,6 +50,8 @@ import { CateItemComponent } from './header/cate-item/cate-item.component';
 import { QuoteComponent } from './home/quote/quote.component';
 import { InterceptorService } from './_helpers/loading.interceptor';
 import { IsApprovedPipe } from './_pipes/is-approved.pipe';
+import { ReviewDetailsComponent } from './products/product-detail/reviews/review-details/review-details.component';
+import { ReviewsComponent } from './products/product-detail/reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +72,6 @@ import { IsApprovedPipe } from './_pipes/is-approved.pipe';
     AlertsComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    ReviewsComponent,
     ProfileComponent,
     ProfileDetailComponent,
     ChangePasswordComponent,
@@ -87,7 +86,8 @@ import { IsApprovedPipe } from './_pipes/is-approved.pipe';
     CateItemComponent,
     JobsListComponent,
     IsApprovedPipe,
-    QuoteComponent
+    QuoteComponent,
+    ReviewsComponent
   ],
   exports: [PhoneMaskDirective],
   imports: [

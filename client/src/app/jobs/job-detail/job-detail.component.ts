@@ -69,7 +69,6 @@ export class JobDetailComponent implements OnInit, OnDestroy {
       }
     })
     if (this.currentUser) {
-      //console.log(this.currentUser)
       this.resumeForm = this.formBuilder.group({
         fullname: [this.currentUser.fullName, Validators.required],
         email: [this.currentUser.email, [Validators.required, Validators.email]],
