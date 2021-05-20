@@ -117,12 +117,21 @@ namespace api
             app.UseCors(x => x.AllowAnyHeader()
                               .AllowAnyMethod()
                               .AllowCredentials()
-                              .WithOrigins("https://localhost:4200", "https://localhost:4400", "http://localhost:4200"));
- 
+                              .WithOrigins("https://localhost:4200", "https://localhost:4400", "http://localhost:4200", "http://localhost:4400"));
+
+            if (Directory.Exists("Resources/Resumes"))
+            {
+                app.UseStaticFiles(new StaticFileOptions()
+                {
+
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources/Resumes")),
+                    RequestPath = new PathString("/Resources/Resumes")
+                });
+            }
             //app.UseStaticFiles(new StaticFileOptions()
             //{
 
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources/Resumes")),
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources/Resumes")),
             //    RequestPath = new PathString("/Resources/Resumes")
             //});
 
@@ -132,7 +141,7 @@ namespace api
 
             app.UseDefaultFiles();
 
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
