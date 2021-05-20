@@ -119,11 +119,12 @@ namespace api
                               .AllowCredentials()
                               .WithOrigins("https://localhost:4200", "https://localhost:4400", "http://localhost:4200"));
  
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources/Resumes")),
-                RequestPath = new PathString("/Resources/Resumes")
-            });
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources/Resumes")),
+            //    RequestPath = new PathString("/Resources/Resumes")
+            //});
 
             app.UseAuthentication();
 
@@ -131,7 +132,7 @@ namespace api
 
             app.UseDefaultFiles();
 
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
