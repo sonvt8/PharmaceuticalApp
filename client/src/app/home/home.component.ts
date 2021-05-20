@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
       delay: 3000,
       disableOnInteraction: false
     },
-    loop: true,
     effect: 'coverflow',
     coverflowEffect: {
       slideShadows: true,

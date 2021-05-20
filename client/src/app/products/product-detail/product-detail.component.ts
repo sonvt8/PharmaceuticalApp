@@ -64,7 +64,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy  {
       delay: 3000,
       disableOnInteraction: false
     },
-    loop: true,
     speed: 800,
     effect: 'cube',
     grabCursor: true,
