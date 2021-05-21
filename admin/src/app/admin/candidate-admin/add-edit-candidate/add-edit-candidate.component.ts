@@ -28,7 +28,10 @@ export class AddEditCandidateComponent implements OnInit {
     for (let i = 0; i < this.candidate.downloads.length; i++) {
       this.fileNames.push(this.candidate.downloads[i].fileName);
     }
-    this.getJobById();
+    if(this.candidate.jobId){
+      this.getJobById();
+    }
+    
     this.getCareerProfile();
   }
 
