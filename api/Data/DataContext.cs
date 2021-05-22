@@ -21,6 +21,7 @@ namespace api.Data
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<PhotoUser> PhotoUsers { get; set; }
         public DbSet<PhotoProduct> PhotoProducts { get; set; }
+        public DbSet<PhotoCategory> PhotoCategories { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Download> Downloads { get; set; }

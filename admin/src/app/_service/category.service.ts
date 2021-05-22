@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
@@ -26,5 +26,17 @@ export class CategoryService {
 
   resetList(){
     return this.http.get(this.baseUrl);
+  }
+
+  setMainPhoto(photoId: number, id: number) {
+    return this.http.put(this.baseUrl + '/set-main-photo/' + photoId + '?' + 'id=' + id,{});
+  }
+
+  deletePhoto(photoId: number, id: number) {
+    let params = new HttpParams();
+    if(id!==null){
+      params = params.append('id', id.toString())
+    }
+    return this.http.delete(this.baseUrl + '/delete-photo/' + photoId, {params});
   }
 }

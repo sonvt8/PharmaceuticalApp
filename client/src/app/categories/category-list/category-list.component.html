@@ -1,6 +1,6 @@
 <div class="row category" *ngIf="cateIndex % 2 === 0">
     <div class="col-lg-6 px-0">
-        <img src="../assets/img/tablet-presses.jpg" alt="">
+        <img src="{{category.photoCategoryUrl || './assets/img/noimage.jpeg'}}" alt="">
     </div>
     <div class="col-lg-6 category__content">
         <h5>{{category.categoryName}}</h5>
@@ -21,6 +21,6 @@
             {{category.categoryName}}</button>
     </div>
     <div class="col-lg-6 px-0">
-        <img src="../assets/img/tablet-presses.jpg" alt="">
+        <img src="{{category.photoCategoryUrl || './assets/img/noimage.jpeg'}}" alt="">
     </div>
 </div>

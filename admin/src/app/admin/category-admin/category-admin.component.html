@@ -26,13 +26,17 @@
 <table datatable id="tblData" [dtOptions]="dtOptions" [dtTrigger] = "dtTrigger" class="row-border hover">
     <colgroup>
         <col width="10%">
-        <col width="80%">
+        <col width="10%">
+        <col width="70%">
         <col width="10%">
     </colgroup>
     <thead>
         <tr>
             <th>
                 Name
+            </th>
+            <th>
+                Image
             </th>
             <th>
                 Description
@@ -44,6 +48,9 @@
         <tr *ngFor="let cate of categories">
             <td>
                 {{cate.categoryName}}
+            </td>
+            <td>
+                <img class="img-table" src="{{cate.photoCategoryUrl || './assets/img/noimage.jpeg'}}" alt="{{cate.categoryName}}">
             </td>
             <td>
                 <div [innerHTML]="cate.categoryDescription | textTruncate:0:100"></div>
