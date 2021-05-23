@@ -437,6 +437,32 @@ namespace api.Migrations
                     b.ToTable("Jobs");
                 });
 
+            modelBuilder.Entity("api.Entities.PhotoCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhotoCategoryUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("PhotoCategories");
+                });
+
             modelBuilder.Entity("api.Entities.PhotoProduct", b =>
                 {
                     b.Property<int>("Id")
@@ -683,6 +709,17 @@ namespace api.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("api.Entities.PhotoCategory", b =>
+                {
+                    b.HasOne("api.Entities.Category", "Category")
+                        .WithMany("PhotoCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("api.Entities.PhotoProduct", b =>
                 {
                     b.HasOne("api.Entities.Product", "Product")
@@ -747,6 +784,8 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Category", b =>
                 {
+                    b.Navigation("PhotoCategories");
+
                     b.Navigation("Products");
                 });
 

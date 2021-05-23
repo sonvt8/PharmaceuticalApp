@@ -178,9 +178,9 @@ namespace api.Controllers
         }
 
         [HttpPut("set-main-photo/{photoId}")]
-        public async Task<ActionResult> SetMainPhoto(int photoId, [FromQuery] int userId)
+        public async Task<ActionResult> SetMainPhoto(int photoId, [FromQuery] int id)
         {
-            var user = await _unitOfWork.UserRepository.GetUserByIdAsync(userId);
+            var user = await _unitOfWork.UserRepository.GetUserByIdAsync(id);
 
             var photo = user.PhotoUsers.FirstOrDefault(x => x.Id == photoId);
 
@@ -196,9 +196,9 @@ namespace api.Controllers
         }
 
         [HttpDelete("delete-photo/{photoId}")]
-        public async Task<ActionResult> DeletePhoto(int photoId, [FromQuery] int userId)
+        public async Task<ActionResult> DeletePhoto(int photoId, [FromQuery] int id)
         {
-            var user = await _unitOfWork.UserRepository.GetUserByIdAsync(userId);
+            var user = await _unitOfWork.UserRepository.GetUserByIdAsync(id);
 
             var photo = user.PhotoUsers.FirstOrDefault(x => x.Id == photoId);
 

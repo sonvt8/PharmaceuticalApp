@@ -13,7 +13,8 @@ namespace api.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryDto>()
+                .ForMember(des => des.PhotoCategoryUrl, opt => opt.MapFrom(src => src.PhotoCategories.FirstOrDefault(x => x.IsMain).PhotoCategoryUrl));
             CreateMap<CategoryDto, Category>();
             CreateMap<Review, ReviewDto>();
                 //.ForMember(des => des.ProductName, opt => opt.MapFrom(src => src.Product.ProductName));
@@ -40,6 +41,7 @@ namespace api.Helpers
             CreateMap<PhotoProduct, PhotoProductDto>();
             CreateMap<Download, DownloadDto>();
             CreateMap<AppliedJobHistory, CareerProfileDto>();
+            CreateMap<PhotoCategory, PhotoCategoryDto>();               
         }
     }
 }

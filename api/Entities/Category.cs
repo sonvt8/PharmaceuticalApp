@@ -8,5 +8,6 @@ namespace api.Entities
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
         public ICollection<Product> Products { get; set; }
+        public ICollection<PhotoCategory> PhotoCategories { get; set; }
     }
 }

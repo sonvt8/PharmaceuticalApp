@@ -40,6 +40,7 @@ namespace api.Data
         public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
         {
             return await _context.Categories
+                .Include(p=>p.PhotoCategories)
                 .ProjectTo<CategoryDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -47,6 +48,7 @@ namespace api.Data
         public async Task<CategoryDto> GetCategoryDtoByIdAsync(int categoryId)
         {
             return await _context.Categories
+                .Include(p => p.PhotoCategories)
                 .Where(x => x.Id == categoryId)
                 .ProjectTo<CategoryDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
@@ -54,7 +56,10 @@ namespace api.Data
 
         public async Task<Category> GetCategoryByIdAsync(int categoryId)
         {
-            return await _context.Categories.FindAsync(categoryId);
+            return await _context.Categories
+                .Include(p => p.PhotoCategories)
+                .Where(c => c.Id == categoryId)
+                .FirstOrDefaultAsync();
         }
 
         public void UpdateCategory(Category category)

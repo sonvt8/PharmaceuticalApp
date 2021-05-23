@@ -2,6 +2,16 @@
 	{
 		"CategoryName": "Tablets Presses",
 		"CategoryDescription": "<p>LFA Tablet Press supplies, tablet, pill and pellet presses form R&D Hand Held models right up to full production capacity Rotary Tablet Presses.</p><p>Some of our most popular models include the Desk Top Presses which are fantastic for research departments and small batch production.LFA Tablet Presses also supplies a small range of excipients that can be used in the tablet presses.</p><p> This includes Firmapress our all in one tableting excipient that works with almost every API.</p>",
+		"PhotoCategories": [
+			{
+				"PhotoCategoryUrl": "https://res.cloudinary.com/diukt27t8/image/upload/v1621435802/Pharmaceutical/lfa-tdp-5-updated-version-side_lo1m7c.webp",
+				"IsMain": true
+			},
+			{
+				"PhotoCategoryUrl": "https://res.cloudinary.com/diukt27t8/image/upload/v1621435857/Pharmaceutical/lfa-tdp-5-rear-view_n3rnnm.webp",
+				"IsMain": false
+			}
+		],
 		"Products": [
 			{
 				"ProductName": "TDP 5 Desktop Tablet Press",
@@ -333,6 +343,16 @@
 	{
 		"CategoryName": "Capsule Fillers",
 		"CategoryDescription": "<p>LFA Capsule Fillers supplies, capsule fillers from small production runs and research and development models, that can do 100 capsules at a time, through to fully automatic capsule fullers for full-scale production.Launched in 2018 it is the latest addition to the LFA family.</p><p>Despite this being the case our engineers are fully trained on the machines and able to offer the same support and training that the would with the mixers and tablet presses.LFA Capsule Fillers also offers a complete range of capsules for you to use in your machine.</p><p>From 000 to 5 we stock all of the regular sizes and are able to offer them in a range of colours and materials. We are practically excited about the organic capsule that allows you as a producer to easily produce a fully organic product.</p>",
+		"PhotoCategories": [
+			{
+				"PhotoCategoryUrl": "https://res.cloudinary.com/diukt27t8/image/upload/v1621437437/Pharmaceutical/rtp-118-rotary-tablet-press-right-facing_eheaj2.webp",
+				"IsMain": true
+			},
+			{
+				"PhotoCategoryUrl": "https://res.cloudinary.com/diukt27t8/image/upload/v1621437488/Pharmaceutical/rtp-118-rotary-tablet-press-left-facing_ircjpa.webp",
+				"IsMain": false
+			}
+		],
 		"Products": [
 			{
 				"ProductName": "Automatic High Speed Capsule Filling Machine",
@@ -476,6 +496,16 @@
 	{
 		"CategoryName": "Mixing Machinery",
 		"CategoryDescription": "<p>LFA Mixers is a fully comprehensive one stop shop for all of your powder mixing needs. With a range of designs that includes V Mixers, Bin Mixers and Ribbon blenders whatever powder mixing challenges you’re facing we are sure to be able to help.</p><p>Originally included in the LFA Tablet Presses range we decided to separate out LFA Mixers in 2017 as our customer’s requirements became more diverse. Whether you’re mixing, capsule or tablet mixes, protein powders or industrial chemicals we believe that we can supply you with a mixer that can take on the challenge.</p><p>With over 10 years mixing powders we understand that every mix is different. We are happy to work with you to find the right grade steal, add in agitation bars and validate different mixing methods, essentially customising every mixer for your specific needs.</p>",
+		"PhotoCategories": [
+			{
+				"PhotoCategoryUrl": "https://res.cloudinary.com/diukt27t8/image/upload/v1621439447/Pharmaceutical/lsm-mixer-front-view_ddu0jw.webp",
+				"IsMain": true
+			},
+			{
+				"PhotoCategoryUrl": "https://res.cloudinary.com/diukt27t8/image/upload/v1621439596/Pharmaceutical/lsm-mixer-side-view_auobz1.webp",
+				"IsMain": false
+			}
+		],
 		"Products": [
 			{
 				"ProductName": "IBC Lab Mixer",
