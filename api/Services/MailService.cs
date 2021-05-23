@@ -127,7 +127,7 @@ namespace api.Services
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
             email.To.Add(MailboxAddress.Parse(emailCandidate));
-            email.Subject = "Schedule an interview";
+            email.Subject = "Rejection Email";
             var builder = new BodyBuilder();
             builder.HtmlBody = MailText;
             email.Body = builder.ToMessageBody();
